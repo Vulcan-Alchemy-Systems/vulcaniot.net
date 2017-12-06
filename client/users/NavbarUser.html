@@ -1,0 +1,69 @@
+<template name="NavbarUser">
+  {{#if currentUser}}
+  <!-- User Account: style can be found in dropdown.less -->
+  <li class="dropdown user user-menu">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      <img src="{{profileImage}}" class="user-image" alt="User Image">
+      <span class="hidden-xs">{{fullName}}</span>
+    </a>
+    <ul class="dropdown-menu">
+      <!-- User image -->
+      <li class="user-header">
+        <img src="/images/user2-160x160.jpg" class="img-circle" alt="User Image">
+
+        <p>
+          {{fullName}} - {{profilePosition}}
+          <small>{{profileCreatedAt}}</small>
+        </p>
+      </li>
+      <!-- Menu Body -->
+      <li class="user-body">
+        <div class="row">
+          <div class="col-xs-4 text-center">
+            <a href="#">Followers</a>
+          </div>
+          <div class="col-xs-4 text-center">
+            <a href="#">Sales</a>
+          </div>
+          <div class="col-xs-4 text-center">
+            <a href="#">Friends</a>
+          </div>
+        </div>
+        <!-- /.row -->
+      </li>
+      <!-- Menu Footer-->
+      <li class="user-footer">
+        <div class="pull-left">
+          <a href="/profile" class="btn btn-default btn-flat">Profile</a>
+        </div>
+        <div class="pull-right">
+          <a href="/sign-out" class="btn btn-default btn-flat">Sign out</a>
+        </div>
+      </li>
+    </ul>
+  </li>
+  {{else}}
+  <li class="dropdown user user-menu">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      <img src="/images/user2-160x160.jpg" class="user-image" alt="User Image">
+      <span class="hidden-xs">Guest</span>
+    </a>
+    <ul class="dropdown-menu">
+      <li class="user-header">
+        <img src="/images/user2-160x160.jpg" class="img-circle" alt="User Image">
+        <p>Guest</p>
+      </li>
+      <li class="user-footer">
+        <div class="pull-left">
+          <a href="/sign-in" class="btn btn-default btn-flat">Sign In</a>
+        </div>
+        {{#if registerEnabled}}
+        <div class="pull-right">
+          <a href="/sign-up" class="btn btn-default btn-flat">Register</a>
+        </div>
+        {{/if}}
+      </li>
+    </ul>
+  </li>
+  {{/if}}
+</template>

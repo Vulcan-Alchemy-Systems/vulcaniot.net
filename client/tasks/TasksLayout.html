@@ -1,0 +1,16 @@
+<template name="TasksLayout">
+  <body class="hold-transition skin-blue sidebar-mini fixed">
+    <div class="wrapper">
+      <header class="main-header">
+        {{> Logo}}
+        {{> Navbar}}
+      </header>
+      <div class="content-wrapper">
+        {{> Sidebar}}
+        {{> Template.dynamic template=main}}
+      </div> <!-- /.content-wrapper -->
+      {{> Footer}}
+      {{> ControlSidebar}}
+    </div> <!-- ./wrapper -->
+  </body>
+</template>

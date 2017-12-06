@@ -1,0 +1,98 @@
+<template name="UserList">
+  {{> ContentHeader title="Users" subTitle=""}}
+  <section class="content">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">New User</h3>
+          </div>
+          <div class="box-body">
+            {{> UserCreate}}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">Users</h3>
+            <div class="box-tools pull-right">
+              <div class="has-feedback">
+                <input type="text" class="form-control input-sm" placeholder="Search Users">
+                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+              </div>
+            </div>
+          </div>
+          <div class="box-body no-padding">
+            <div class="">
+              <table class="table table-hover table-striped">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>E-Mail</th>
+                    <th>Created</th>
+                    <th>Status</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                {{#each userList}}
+                  <tr>
+                    <td>{{#if isUserActive profile.status}}
+                        <i class="fa fa-circle text-success" aria-hidden="true"></i>
+                        {{else}}
+                        <i class="fa fa-circle text-danger" aria-hidden="true"></i>
+                        {{/if}}
+                    </td>
+                    <td><a href="#" title="View {{profile.name}}" class="user-view">{{profile.name}}</a></td>
+                    <td>{{userPrimaryEmail emails}}</td>
+                    <td>{{dateFormat profile.createdAt}}</td>
+                    <td>{{profile.status}}</td>
+                    <td>
+                      <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="fa fa-cogs"></i> <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li>{{#if isUserActive profile.status}}
+                                <a href="#" title="suspend user" class="user-suspend" >Suspend</a>
+                              {{else}}
+                                <a href="#" title="un-suspend user" class="user-un-suspend">Un-Suspend</a>
+                              {{/if}}
+                          </li>
+                          <li><a href="/admin/users/{{_id}}/edit" title="Edit User">Edit</a></li>
+                          <li><a href="/admin/users/{{_id}}/message" title="Message User">Message</a></li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                {{else}}
+                  <tr>
+                    <td colspan="4">
+                      <div class="alert alert-info">
+                        <p><i class="fa fa-info-circle"></i> No Users</p>
+                      </div>
+                    </td>
+                  </tr>
+                {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="box-footer no-padding">
+            <div class="mailbox-controls">
+              <div class="pull-right">
+                1-50/200
+                <div class="btn-group">
+                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
+                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>

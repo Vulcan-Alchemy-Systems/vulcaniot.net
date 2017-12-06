@@ -1,0 +1,44 @@
+<template name="Task">
+  <div class="box">
+    <div class="box-header with-border">
+      <h3 class="box-title">Details</h3>
+      <div class="box-tools pull-right">
+        <a href="#" title="Delete this task" class="btn btn-danger btn-xs task-remove"><i class="fa fa-trash"></i></a>
+        <a href="#" title="Edit this task" class="btn btn-warning btn-xs task-edit"><i class="fa fa-pencil"></i></a>
+      </div>
+    </div>
+    <div class="box-body">
+      {{#each task}}
+      {{#if $.Session.get 'editTask'}}
+      {{> quickForm collection="Tasks" id="updateTaskForm" type="update" class="update-task-form" doc=this}}
+      {{else}}
+      <div class="row">
+        <div class="col-xs-12">
+          <p><b>Title:</b> {{title}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <p>{{description}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <p><b>Created:</b> {{dateFormat createdAt}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <p><b>Due:</b> {{dateFormat due}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <p><b>Completed:</b> {{completedFormat completed}}</p>
+        </div>
+      </div>
+      {{/if}}
+      {{/each}}
+    </div>
+  </div>
+</template>

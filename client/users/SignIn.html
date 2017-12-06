@@ -1,0 +1,62 @@
+<template name="SignIn">
+  <div class="login-box">
+    <div class="login-logo">
+      <a href="/">{{siteName}}</a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+      <section id="alert"></section>
+      <p class="login-box-msg">Sign in to start your session</p>
+
+      <form action="" method="post">
+        <div class="form-group has-feedback">
+          <input type="email" id="email" name="email" class="form-control" placeholder="Email">
+          <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback">
+          <input type="password" id="password" name="password" class="form-control" placeholder="Password">
+          <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-8">
+            {{#if rememberMeEnabled}}
+            <div class="checkbox icheck">
+              <label>
+                <input type="checkbox"> Remember Me
+              </label>
+            </div>
+            {{/if}}
+          </div>
+
+
+          <div class="col-xs-4">
+            <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+          </div>
+        </div>
+      </form>
+
+      <div class="social-auth-links text-center">
+        {{#if signInFacebookEnabled}}
+        <a href="#" class="btn btn-block btn-social btn-facebook btn-flat">
+            <i class="fa fa-facebook"></i> Sign in using Facebook
+        </a>
+        {{/if}}
+
+        {{#if signInGoogleEnabled}}
+        <a href="#" class="btn btn-block btn-social btn-google btn-flat">
+          <i class="fa fa-google-plus"></i> Sign in using Google+
+        </a>
+        {{/if}}
+      </div>
+
+      {{#if passwordResetEnabled}}
+      <a href="/forgot-password">I forgot my password</a><br>
+      {{/if}}
+
+      {{#if registerEnabled}}
+      <a href="/sign-up" class="text-center">Register a new membership</a>
+      {{/if}}
+    </div>
+  </div>
+</template>

@@ -1,0 +1,67 @@
+<template name="Tasks">
+  {{> ContentHeader title="Tasks" subTitle="Your Tasks"}}
+  <section class="content">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="box">
+          <div class="box-header with-border">
+            <h3 class="box-title">Tasks</h3>
+            <div class="box-tools pull-right">
+              {{#if $.Session.get 'newTask'}}
+              <a href="#" title="Create new task" class="btn btn-xs btn-danger cancel-new-task"><i class="fa fa-times"></i> Cancel</a>
+              {{else}}
+              <a href="#" title="Create new task" class="btn btn-xs btn-success new-task"><i class="fa fa-plus"></i> New</a>
+              {{/if}}
+            </div>
+          </div>
+          <div class="box-body">
+            {{#if $.Session.get 'newTask'}}
+            {{> NewTask}}
+            {{else}}
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th style="width: 10px"><i class="fa fa-check text-success"></i></th>
+                  <th>Task</th>
+                  <th>Created</th>
+                  <th>Due</th>
+                </tr>
+              </thead>
+              <tbody>
+              {{#each taskList}}
+                <tr>
+                  <td><input type="checkbox" name="completed" id="completed" class="task-completed" {{isTaskCompleted}}/></td>
+                  <td><a href="#" title="View Task Details" class="task-detail">{{title}}</a></td>
+                  <td>{{dateFormat createdAt}}</td>
+                  <td>{{dateFormat due}}</td>
+                </tr>
+              {{else}}
+                <tr>
+                  <td colspan="4">No Tasks</td>
+                </tr>
+              {{/each}}
+              </tbody>
+            </table>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        {{#if $.Session.get 'viewTask'}}
+          {{> Task}}
+        {{else}}
+        <div class="box">
+          <div class="box-header with-border">
+            <h3 class="box-title">Details</h3>
+          </div>
+          <div class="box-body">
+            <div class="alert alert-info">
+              <p><i class="fa fa-info-circle"></i> Select a task from the list.</p>
+            </div>
+          </div>
+        </div>
+        {{/if}}
+      </div>
+    </div>
+  </section>
+</template>

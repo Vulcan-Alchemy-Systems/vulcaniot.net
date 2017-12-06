@@ -1,0 +1,16 @@
+<template name="MainLayout">
+  <body class="fixed skin-blue sidebar-mini">
+    <div class="wrapper">
+      <header class="main-header">
+        {{> Logo}}
+        {{> Navbar}}
+      </header>
+      <div class="content-wrapper">
+        {{> Sidebar}}    
+        {{> Template.dynamic template=main}}
+      </div>
+      {{> Footer}}
+      {{> ControlSidebar}}
+    </div>
+  </body>
+</template>

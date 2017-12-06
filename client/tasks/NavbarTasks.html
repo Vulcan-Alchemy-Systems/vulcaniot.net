@@ -1,0 +1,32 @@
+<template name="NavbarTasks">
+  {{#if currentUser}}
+  <!-- Tasks: style can be found in dropdown.less -->
+  <li class="dropdown tasks-menu">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      <i class="fa fa-flag-o"></i>
+      <span class="label label-danger">{{taskCount}}</span>
+    </a>
+    <ul class="dropdown-menu">
+      <li class="header">You have {{taskCount}} tasks</li>
+      <li>
+        {{#if Template.subscriptionsReady}}
+        <ul class="menu">
+          {{#each taskList}}
+          <li><!-- Task item -->
+            <a href="#">
+              <h3>{{title}}</h3>
+            </a>
+          </li>
+          {{/each}}
+        </ul>
+        {{else}}
+          <p>Loading..</p>
+        {{/if}}
+      </li>
+      <li class="footer">
+        <a href="/profile/tasks">View all tasks</a>
+      </li>
+    </ul>
+  </li>
+  {{/if}}
+</template>

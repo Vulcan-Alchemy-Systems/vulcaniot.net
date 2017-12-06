@@ -1,0 +1,78 @@
+<template name="Sidebar">
+  <aside class="main-sidebar">
+    <section class="sidebar">
+      {{#if userEnabled}}
+      {{#if currentUser}}
+      <div class="user-panel">
+        <div class="pull-left image">
+          <img src="{{profileImage}}" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+          <p>{{fullName}}</p>
+          {{#if displayUserStatusEnabled}}
+          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          {{/if}}
+        </div>
+      </div>
+      {{/if}}
+      {{/if}}
+
+      {{#if searchEnabled}}
+      <form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="Search...">
+          <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+                  <i class="fa fa-search"></i>
+                </button>
+              </span>
+        </div>
+      </form>
+      {{/if}}
+
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+
+      <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">MAIN NAVIGATION</li>
+        <li class="treeview menu-open">
+          <a href="/">
+            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+          </a>
+
+        </li>
+
+        {{#if currentUser}}
+        <li class="treeview">
+            <a href="#"><i class="fa fa-user"></i> My Profile
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="/profile" title="My Profile"><i class="fa fa-circle-o"></i> Home</a></li>
+              <li><a href="/profile/tasks" title="My Tasks"><i class="fa fa-circle-o"></i> Tasks</a></li>
+              <li><a href="/profile/notices" title="My Notices"><i class="fa fa-circle-o"></i> Notices</a></li>
+              <li><a href="/profile/messages" title="My Messages"><i class="fa fa-circle-o"></i> Messages</a></li>
+            </ul>
+        </li>
+
+        {{/if}}
+
+        {{#if currentUser}}
+        <!-- Admin -->
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-cogs" aria-hidden="true"></i>
+            <span>Admin</span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/admin/users" title="Users"><i class="fa fa-circle-o"></i> Users</a></li>
+            <li><a href="/admin/roles" title="Users"><i class="fa fa-circle-o"></i> Rols</a></li>
+          </ul>
+        </li>
+        {{/if}}
+      </ul>
+    </section>
+  </aside>
+  <br />
+</template>

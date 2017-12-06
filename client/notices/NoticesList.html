@@ -1,0 +1,89 @@
+<template name="NoticesList">
+  {{> ContentHeader title="Notices" subTitle=""}}
+  <section class="content">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="info-box">
+          <span class="info-box-icon bg-aqua"><i class="fa fa-bell-o" aria-hidden="true"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text"><a href="/notices" title="View Noticees">Notices</a></span>
+            <span class="info-box-number">{{noticesCount}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">Notices</h3>
+
+            <div class="box-tools pull-right">
+              <div class="has-feedback">
+                <input type="text" class="form-control input-sm" placeholder="Search Notices">
+                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+              </div>
+            </div>
+            <!-- /.box-tools -->
+          </div>
+          <div class="box-body no-padding">
+            <div class="mailbox-controls">
+              <!-- Check all button -->
+              <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
+              </button>
+              <div class="btn-group">
+                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
+              </div>
+              <div class="pull-right">
+                1-50/200
+                <div class="btn-group">
+                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
+                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
+                </div>
+                <!-- /.btn-group -->
+              </div>
+              <!-- /.pull-right -->
+            </div>
+            <div class="table-responsive mailbox-messages">
+              <table class="table table-hover table-striped">
+                <tbody>
+                  {{#each noticesList}}
+                  <tr>
+                    <td><input type="checkbox"></td>
+                    <td class="mailbox-star"><a href="#" class="toggle-star"><i class="fa {{isStar star}}"></i></a></td>
+                    <td class="mailbox-name "><a href="/notices/{{_id}}"><span style="{{isRead read}}">{{topic}}</span></a></td>
+                    <td class="mailbox-subject"><span style="{{isRead read}}">{{message}}</span></td>
+                    <td class="mailbox-attachment"></td>
+                    <td class="mailbox-date"><span style="{{isRead read}}">{{dateFormat created}}</span></td>
+                  </tr>
+                  {{else}}
+                  <tr>
+                    <td colspan="6">No Notices</td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="box-footer no-padding">
+            <div class="mailbox-controls">
+              <!-- Check all button -->
+              <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
+              </button>
+              <div class="btn-group">
+                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
+              </div>
+              <div class="pull-right">
+                1-50/200
+                <div class="btn-group">
+                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
+                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
+                </div>
+                <!-- /.btn-group -->
+              </div>
+              <!-- /.pull-right -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>

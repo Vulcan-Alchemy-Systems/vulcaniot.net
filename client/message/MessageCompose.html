@@ -1,0 +1,62 @@
+<template name="MessageCompose">
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Compose New Message</h3>
+    </div>
+    <div class="box-body">
+      {{#autoForm collection="Messages" id="insertMessageForm" type="insert" class="new-message-form"}}
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group {{#if afFieldIsInvalid name='toName'}}has-error{{/if}}">
+            <label class="control-label">{{afFieldLabelText name='toName'}}</label>
+            {{> afFieldInput name='toName'}}
+            {{#if afFieldIsInvalid name='toName'}}
+            <span class="help-block">{{{afFieldMessage name='toName'}}}</span>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group {{#if afFieldIsInvalid name='subject'}}has-error{{/if}}">
+            <label class="control-label">{{afFieldLabelText name='subject'}}</label>
+            {{> afFieldInput name='subject'}}
+            {{#if afFieldIsInvalid name='subject'}}
+            <span class="help-block">{{{afFieldMessage name='subject'}}}</span>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group {{#if afFieldIsInvalid name='body'}}has-error{{/if}}">
+            <label class="control-label">{{afFieldLabelText name='body'}}</label>
+            {{> afFieldInput name='body'}}
+            {{#if afFieldIsInvalid name='body'}}
+            <span class="help-block">{{{afFieldMessage name='body'}}}</span>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+      {{> afFieldInput name='toId'}}
+      {{> afFieldInput name='fromName'}}
+      {{> afFieldInput name='fromId'}}
+      {{> afFieldInput name='createdDate'}}
+      {{> afFieldInput name='readFlag'}}
+      {{> afFieldInput name='readDate'}}
+      {{> afFieldInput name='starFlag'}}
+      {{> afFieldInput name='deleteFlag'}}
+      {{> afFieldInput name='deleteDate'}}
+      {{/autoForm}}
+    </div>
+    <div class="box-footer">
+      <div class="pull-right">
+        <button type="button" class="btn btn-default compose-message-draft"><i class="fa fa-pencil"></i> Draft</button>
+        <button type="submit" class="btn btn-primary compose-message-send"><i class="fa fa-envelope-o"></i> Send</button>
+      </div>
+      <button type="reset" class="btn btn-default compose-message-cancel"><i class="fa fa-times"></i> Discard</button>
+    </div>
+  </div>
+</template>
