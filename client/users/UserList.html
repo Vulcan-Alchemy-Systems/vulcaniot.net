@@ -1,5 +1,5 @@
 <template name="UserList">
-  {{> ContentHeader title="Users" subTitle=""}}
+  {{> ContentHeader title="Admin" subTitle="Users"}}
   <section class="content">
     <div class="row">
       <div class="col-md-3">
@@ -8,6 +8,7 @@
             <h3 class="box-title">New User</h3>
           </div>
           <div class="box-body">
+            <section id="alert"></section>
             {{> UserCreate}}
           </div>
         </div>

@@ -12,8 +12,7 @@ Template.UserList.rendered = function(){
 Template.UserList.helpers({
   // gets all users
   userList: function() {
-    var users = Meteor.users.find();
-
+    var users = Meteor.users.find().fetch();
     if ( users ) {
       return users;
     }
@@ -45,6 +44,7 @@ Template.UserList.events({
   'click .user-un-suspend': function() {
     Meteor.call("usersToggleStatus", this._id, 'Active');
   },
+  // create user
   'click .user-create-btn': function() {
     // Trim Helper
     var trimInput = function(val) {
@@ -64,26 +64,22 @@ Template.UserList.events({
        if (pwd === pwd2) {
          return pwd.length >= 6 ? true : false;
        } else {
-         return swal({
-            title: "Passwords don’t match",
-            text: "Please try again",
-            showConfirmButton: true,
-            type: "error"
-         });
+         $('#alert').html('<div class="alert alert-danger"><p>Password fails</p></div>');
        }
      }
 
      // if password is valid
      if (isValidPassword(password, passwordAgain)) {
        Accounts.createUser({
-           email: email,
-           name: name,
-           status: status,
-           role: role,
-           password: password
+          email: email,
+          name: name,
+          status: status,
+          role: role,
+          password: password
       }, function(error) {
          if (error) {
-            console.log("Error: " + error.reason);
+           $('#alert').html('<div class="alert alert-danger"><p>' + error.reason + '</p></div>');
+           console.log(error.reason); // Output error if registration fails
          } else {
            // reset the form
 
@@ -98,7 +94,7 @@ Template.UserList.events({
 // router
 FlowRouter.route('/admin/users', {
   name: 'users',
-  parent: 'dashboard',
+  parent: 'admin',
   title: 'Users',
   action: function() {
     BlazeLayout.render('MainLayout', {main: 'UserList'});

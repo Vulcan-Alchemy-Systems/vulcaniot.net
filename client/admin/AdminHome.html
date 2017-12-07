@@ -1,0 +1,29 @@
+<template name="AdminHome">
+  {{> ContentHeader title="Admin" subTitle="Home"}}
+  <section class="content">
+    <div class="row">
+      <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-yellow"><i class="fa fa-group"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text"><a href="/admin/users" title="View Users">Users</a></span>
+            <span class="info-box-number">{{userCount}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6 col-xs-12">
+
+      </div>
+
+      <!-- fix for small devices only -->
+      <div class="clearfix visible-sm-block"></div>
+
+      <div class="col-md-3 col-sm-6 col-xs-12">
+
+      </div>
+      <div class="col-md-3 col-sm-6 col-xs-12">
+
+      </div>
+    </div>
+  </section>
+</template>

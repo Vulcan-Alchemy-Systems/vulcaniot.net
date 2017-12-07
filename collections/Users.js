@@ -22,4 +22,7 @@ Meteor.methods({
   usersToggleStatus: function(id, status){
     Meteor.users.update({_id: id}, {$set: {"profile.status": status}});
   },
+  userCount: function() {
+    return Meteor.users.find({}).count();
+  }
 });

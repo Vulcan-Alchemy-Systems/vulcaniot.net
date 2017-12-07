@@ -1,5 +1,6 @@
 import {FlowRouter} from 'meteor/kadira:flow-router';
 
+// events
 Template.SignUp.events({
   // form submited
   'submit form': function(event){
@@ -31,6 +32,7 @@ Template.SignUp.events({
     }
 });
 
+// helpers
 Template.SignUp.helpers({
   siteName: function() {
     return Meteor.settings.public.siteName;
