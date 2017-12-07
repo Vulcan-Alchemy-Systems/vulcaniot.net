@@ -1,0 +1,6 @@
+env: flex
+runtime: custom
+env_variables:
+  ROOT_URL: https://websites-188119.appspot-preview.com
+  MONGO_URL: mongodb://iotnet:11akers32@35.227.149.62:27017/iotnet
+  DISABLE_WEBSOCKETS: "1"
