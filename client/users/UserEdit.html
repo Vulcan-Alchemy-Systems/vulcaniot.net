@@ -1,0 +1,58 @@
+<template name="UserEdit">
+  {{> ContentHeader title=getUser.profile.name subTitle="Edit"}}
+    <section class="content">
+    {{#if isInRole 'admin'}}
+
+    {{else}}
+    <section id="alert"></section>
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-6">
+        <div class="form-group has-feedback">
+          <input type="text" id="name" name="name" class="form-control" value="{{getUser.profile.name}}">
+          <span class="glyphicon glyphicon-user form-control-feedback"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-6">
+        <div class="form-group has-feedback">
+          <input type="email" id="email" name="email" class="form-control" value="{{getUserEmail getUser.emails}}">
+          <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-6">
+        <div class="form-group has-feedback">
+          <select class="form-control" id="role" name="role">
+            <option value="Administrator">Administrator</option>
+            <option value="Employee">Employee</option>
+            <option value="Vendor">Vendor</option>
+            <option value="Customer">Customer</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        <div class="form-group has-feedback">
+          <select class="form-control" id="status" name="status">
+            <option value="Active" {{isActive getUser.profile.status}}>Active</option>
+            <option value="Suspended" {{isSuspended getUser.profile.status}}>Not Active</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <input type="hidden" name="id" id="id" value="{{getUser._id}}" />
+    <div class="row">
+      <div class="col-xs-12 col-sm-1 col-sm-offset-11">
+        <button type="submit" class="btn btn-primary btn-block btn-flat user-edit-submit">Save</button>
+      </div>
+    </div>
+
+    <h1>Not Authorized</h1>
+    {{/if}}
+    </section>
+</template>

@@ -1,0 +1,26 @@
+<template name="UserDelete">
+  {{> ContentHeader title=getUser.profile.name subTitle="Delete"}}
+    <section class="content">
+    {{#if isInRole 'manager'}}
+    <div id="alert"></div>
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">Delete User</h3>
+      </div>
+      <div class="box-body">
+        <div class="alert alert-info">
+          <p><i class="fa fa-info-circle"></i> Are you sure you want to delete the user {{getUserEmail getUser.emails}}</p>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <a href="#" title="cancel" class="btn btn-danger user-delete-cancel-btn">Cancel</a>
+            <a href="#" title="Delete User" class="btn btn-primary user-delete-btn">Delete</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{else}}
+    <h1>Not Authorized</h1>
+    {{/if}}
+    </section>
+</template>

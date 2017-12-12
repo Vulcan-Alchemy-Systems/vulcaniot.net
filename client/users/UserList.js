@@ -1,11 +1,16 @@
 
-Template.UserList.onCreated( () => {
-  Template.instance().subscribe( 'users' );
+Template.UserList.onCreated(function() {
+  this.autorun(() => {
+    this.subscribe('allUsers');
+  });
 });
 
 // rendered
 Template.UserList.rendered = function(){
-
+  Meteor.call('createHistory', {
+    userId: Meteor.userId(),
+    message: 'Viewed Admin User List'
+  });
 };
 
 // helpers
@@ -57,7 +62,7 @@ Template.UserList.events({
     var password = trimInput($('[name=password]').val());
     var passwordAgain = trimInput($('[name=confirm]').val());
     var status = trimInput($('[name=status]').val());
-    var role = trimInput($('[name=role]').val());
+    //var role = trimInput($('[name=role]').val());
 
     // Check password is at least 6 chars long
     var isValidPassword = function(pwd, pwd2) {
@@ -74,7 +79,6 @@ Template.UserList.events({
           email: email,
           name: name,
           status: status,
-          role: role,
           password: password
       }, function(error) {
          if (error) {
@@ -92,11 +96,41 @@ Template.UserList.events({
 });
 
 // router
-FlowRouter.route('/admin/users', {
-  name: 'users',
+var adminRoutes = FlowRouter.group({
+  prefix: '/admin',
+  name: 'adminUsers'
+
+});
+
+adminRoutes.route('/users', {
+  name: 'userList',
   parent: 'admin',
   title: 'Users',
   action: function() {
     BlazeLayout.render('MainLayout', {main: 'UserList'});
+  },
+});
+adminRoutes.route('/users/:id/view', {
+  name: 'userView',
+  parent: 'userList',
+  title: 'View',
+  action: function() {
+    BlazeLayout.render('MainLayout', {main: 'UserView'});
+  },
+});
+adminRoutes.route('/users/:id/edit', {
+  name: 'userEdit',
+  parent: 'userView',
+  title: 'Edit',
+  action: function() {
+    BlazeLayout.render('MainLayout', {main: 'UserEdit'});
+  },
+});
+adminRoutes.route('/users/:id/delete', {
+  name: 'userDelete',
+  parent: 'userView',
+  title: 'Delete',
+  action: function() {
+    BlazeLayout.render('MainLayout', {main: 'UserDelete'});
   },
 });

@@ -11,19 +11,20 @@
       <li>
         <!-- inner menu: contains the actual data -->
         <ul class="menu">
+          {{#each messageList}}
           <li><!-- start message -->
-            <a href="#">
+            <a href="/profile/messages/view/{{_id}}" title="View message">
               <div class="pull-left">
                 <img src="/images/user2-160x160.jpg" class="img-circle" alt="User Image">
               </div>
               <h4>
-                Support Team
-                <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                {{fromName}}
+                <small><i class="fa fa-clock-o"></i> {{timeAgo createdDate}}</small>
               </h4>
-              <p>Why not buy a new awesome theme?</p>
+              <p>{{subject}}</p>
             </a>
           </li>
-
+          {{/each}}
         </ul>
       </li>
       <li class="footer"><a href="/profile/messages" title="My Messages">See All Messages</a></li>

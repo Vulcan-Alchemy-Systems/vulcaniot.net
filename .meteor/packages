@@ -20,6 +20,8 @@ shell-server@0.3.0            # Server-side component of the `meteor shell` comm
 dburles:collection-helpers
 aldeed:collection2-core@2.0.0
 aldeed:autoform@6.0.0
+aldeed:template-extension
+sergeyt:typeahead
 accounts-base
 accounts-password
 alanning:roles

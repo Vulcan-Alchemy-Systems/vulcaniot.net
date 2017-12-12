@@ -1,0 +1,98 @@
+<template name="MessageSent">
+  {{> ContentHeader title="Messages" subTitle="Sent"}}
+  <section class="content">
+    <div id="alert"></div>
+    <div class="row">
+      <div class="col-md-3">
+        <a href="#" class="btn btn-primary btn-block margin-bottom compose-message">Compose</a>
+
+        <div class="box box-solid">
+          <div class="box-header with-border">
+            <h3 class="box-title">Folders</h3>
+
+            <div class="box-tools">
+              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+              </button>
+            </div>
+          </div>
+          <div class="box-body no-padding">
+            <ul class="nav nav-pills nav-stacked">
+              <li><a href="/profile/messages" class="message-inbox" title="Inbox"><i class="fa fa-inbox"></i> Inbox <span class="label label-primary pull-right">{{inboxCount}}</span></a></li>
+              <li class="active"><a href="/profile/messages/sent" class="message-sent" title="Sent"><i class="fa fa-envelope-o"></i> Sent <span class="label label-primary pull-right">{{sentCount}}</span></a></li>
+              <li><a href="/profile/messages/trash" class="message-trash" title="Trash"><i class="fa fa-trash-o"></i> Trash <span class="label label-primary pull-right">{{trashCount}}</span></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">Sent</h3>
+            <div class="box-tools pull-right">
+              <div class="has-feedback">
+                <input type="text" class="form-control input-sm" placeholder="Search Mail">
+                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+              </div>
+            </div>
+          </div>
+          <div class="box-body no-padding">
+            <div class="mailbox-controls">
+              <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
+              </button>
+              <div class="btn-group">
+                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
+              </div>
+              <div class="pull-right">
+                1-50/200
+                <div class="btn-group">
+                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
+                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
+                </div>
+              </div>
+            </div>
+
+            <div class="table-responsive mailbox-messages">
+              <table class="table table-hover table-striped">
+                <tbody>
+                  {{#each messages}}
+                  <tr>
+                    <td><input type="checkbox"></td>
+                    <td class="mailbox-name"><a href="/profile/messages/view/{{_id}}" title="View message">{{toName}}</a></td>
+                    <td class="mailbox-subject">{{subject}}</td>
+                    <td class="mailbox-attachment"></td>
+                    <td class="mailbox-date text-right">{{dateLongFormat createdDate}}</td>
+                  </tr>
+                  {{else}}
+                  <tr>
+                    <td colspan="6">
+                      <div class="alert alert-info">
+                        <p><i class="fa fa-info-circle"></i> No Messages</p>
+                      </div>
+                    </td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="box-footer no-padding">
+            <div class="mailbox-controls">
+              <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
+              </button>
+              <div class="btn-group">
+                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
+              </div>
+              <div class="pull-right">
+                1-50/200
+                <div class="btn-group">
+                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
+                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+</template>

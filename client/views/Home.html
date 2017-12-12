@@ -2,9 +2,24 @@
   {{> ContentHeader title="Dashboard" subTitle="Version 1.0"}}
 
   <section class="content">
-    <!-- Top Row -->
-    <div class="row">
+    <section id="alert"></section>
 
+    <div class="row">
+      {{#if isInRole 'employee'}}
+      <div class="col-md-3 col-sm-6 col-xs-12">
+        {{#if isClockedIn}}
+          <button class="btn btn-lg btn-danger btn-block clock-user-out-btn"><i class="fa fa-clock-o" aria-hidden="true"></i> Clock Out</button>
+        {{else}}
+          <button class="btn btn-lg btn-success btn-block clock-user-in-btn"><i class="fa fa-clock-o" aria-hidden="true"></i> Clock In</button>
+        {{/if}}
+          <br />
+          <a href="/employees" class="btn btn-lg btn-primary btn-block" title="View All Employees">Employees</a>
+          <br />
+          <a href="/customers" class="btn btn-lg btn-primary btn-block" title="View All Customers">Customers</a>
+          <br />
+          <a href="/vendors" class="btn btn-lg btn-primary btn-block" title="View All Customers">Vendors</a>
+      </div>
+      {{/if}}
     </div>
 
 

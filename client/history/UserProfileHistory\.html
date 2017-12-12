@@ -1,0 +1,22 @@
+<template name="UserProfileHistory">
+  <ul class="timeline timeline-inverse">
+    {{#each getUserHistoryData}}
+    <li class="time-label">
+          <span class="bg-red">{{dateShortFormat created}}</span>
+    </li>
+    <li>
+      <i class="fa fa-cog bg-blue"></i>
+      <div class="timeline-item">
+        <span class="time"><i class="fa fa-clock-o"></i> {{dateLongFormat created}}</span>
+        <h3 class="timeline-header">{{message}}</h3>
+      </div>
+    </li>
+    {{ else}}
+    <li>
+      <div class="timeline-item">
+         <h3 class="timeline-header"><i class="fa fa-info-circle"></i> No History</h3>
+      </div>
+    </li>
+    {{/each}}
+  </ul>
+</template>

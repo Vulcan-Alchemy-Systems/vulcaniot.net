@@ -1,6 +1,7 @@
 <template name="UserList">
   {{> ContentHeader title="Admin" subTitle="Users"}}
   <section class="content">
+    {{#if isInRole 'manager'}}
     <div class="row">
       <div class="col-md-3">
         <div class="box box-primary">
@@ -46,7 +47,7 @@
                         <i class="fa fa-circle text-danger" aria-hidden="true"></i>
                         {{/if}}
                     </td>
-                    <td><a href="#" title="View {{profile.name}}" class="user-view">{{profile.name}}</a></td>
+                    <td><a href="/admin/users/{{_id}}/view" title="View {{profile.name}}" class="user-view">{{profile.name}}</a></td>
                     <td>{{userPrimaryEmail emails}}</td>
                     <td>{{dateFormat profile.createdAt}}</td>
                     <td>{{profile.status}}</td>
@@ -56,13 +57,16 @@
                           <i class="fa fa-cogs"></i> <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
+                          {{#if isInRole 'manager'}}
                           <li>{{#if isUserActive profile.status}}
-                                <a href="#" title="suspend user" class="user-suspend" >Suspend</a>
+                                <a href="#" title="suspend user" class="user-suspend">Suspend</a>
                               {{else}}
                                 <a href="#" title="un-suspend user" class="user-un-suspend">Un-Suspend</a>
                               {{/if}}
                           </li>
                           <li><a href="/admin/users/{{_id}}/edit" title="Edit User">Edit</a></li>
+                          <li><a href="/admin/users/{{_id}}/delete" title="Delete User">Delete</a></li>
+                          {{/if}}
                           <li><a href="/admin/users/{{_id}}/message" title="Message User">Message</a></li>
                         </ul>
                       </div>
@@ -95,5 +99,8 @@
         </div>
       </div>
     </div>
+    {{else}}
+    <h1>Not Authorized</h1>
+    {{/if}}
   </section>
 </template>

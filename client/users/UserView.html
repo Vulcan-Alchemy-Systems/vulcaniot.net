@@ -1,0 +1,132 @@
+<template name="UserView">
+  {{> ContentHeader title=getUser.profile.name subTitle="View"}}
+    <section class="content">
+      <div id="alert"></div>
+    {{#if isInRole 'manager'}}
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="nav-tabs-custom">
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#activity" data-toggle="tab">Profile</a></li>
+            <li><a href="#roles" data-toggle="tab">Roles</a></li>
+            <li><a href="#history" data-toggle="tab">History</a></li>
+            <li><a href="#timeclock" data-toggle="tab">Time Clock</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="active tab-pane" id="activity">
+              <h3>Contact Info</h3>
+              <!-- Basic Stuff -->
+              <div class="row">
+                <div class="col-xs-12 col-sm-8">
+                  <p><b>Name:</b> {{getUser.profile.name}}</p>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                  <p><b>Created:</b> {{dateFormat getUser.profile.createdAt}}</p>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xs-12 col-sm-8">
+                  <p><b>E-Mail:</b> {{getUserEmail}}</p>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                  <p><b>Website:</b> </p>
+                </div>
+              </div>
+
+              <!-- Phones -->
+              <div class="row">
+                <div class="col-xs-12 col-sm-4">
+                  <p><b>Phone:</b></p>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                  <p><b>Mobile:</b></p>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                  <p><b>Fax:</b></p>
+                </div>
+              </div>
+
+              <!-- Address -->
+              <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                  <h4>Billing Address</h4>
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <p><b>Street: </b></p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <p><b>Street Cont: </b></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                  <h4>Shipping Address</h4>
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <p><b>Street: </b></p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <p><b>Street Cont: </b></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Roles -->
+            <div class="tab-pane" id="roles">
+              <!-- Roles -->
+              <div class="row">
+                  <div class="col-xs-12 col-sm-4">
+                    <input type="hidden" name="userId" id="userId" value="{{getUser._id}}" />
+                    <div class="input-group">
+                      <select id="role" name="role" class="form-control">
+                      {{#each listRoles}}
+                        <option value="{{name}}">{{name}}</option>
+                      {{/each}}
+                      </select>
+                      <span class="input-group-btn">
+                        <button class="btn btn-primary add-role-to-user" type="button">Add Role</button>
+                      </span>
+                    </div><!-- /input-group -->
+                  </div>
+                </div>
+
+                <br />
+              {{#each listUserRoles}}
+              <span class="label label-primary">{{listUserRoles}} <a href="" title="Remove Role" class=""><i class="fa fa-times"></i></a></span>
+              {{else}}
+              <div class="row">
+                <div class="col-xs-12">
+                  <div class="alert alert-info">
+                    <p><i class="fa fa-info-circle"></i> No Roles!</p>
+                  </div>
+                </div>
+              </div>
+              {{/each}}
+            </div>
+
+            <!-- History -->
+            <div class="tab-pane" id="history">
+              {{> UserHistory}}
+            </div>
+
+            <!-- timeclock -->
+            <div class="tab-pane" id="timeclock">
+              {{> UserAdminTime}}
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    {{else}}
+    <h1>Not Authorized</h1>
+    {{/if}}
+    </section>
+</template>

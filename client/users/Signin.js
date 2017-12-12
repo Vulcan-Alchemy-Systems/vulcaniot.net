@@ -3,15 +3,23 @@ import {FlowRouter} from 'meteor/kadira:flow-router';
 Template.SignIn.events({
     'submit form': function(event){
         event.preventDefault();
-
+        console.log("What")
         var email = $('[name=email]').val();
         var password = $('[name=password]').val();
 
-        Meteor.loginWithPassword(email, password, function(error){
+        Meteor.loginWithPassword(email, password, function(error, result){
+
           if(error){
             console.log(error.reason);
             $('#alert').html('<div class="alert alert-danger"><p>' + error.reason + '</p></div>');
           } else {
+            // record history
+            Meteor.call('createHistory', {
+              userId: Meteor.userId(),
+              message: 'User sign in'
+            });
+
+            // redirect to dashboard
             FlowRouter.go("dashboard");
           }
         });
@@ -38,6 +46,6 @@ Template.SignIn.helpers({
     return Meteor.settings.public.user.passwordReset;
   },
   registerEnabled: function() {
-    return Meteor.settings.public.user.register.enabled; 
+    return Meteor.settings.public.user.register.enabled;
   }
 });

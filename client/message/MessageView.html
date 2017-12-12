@@ -1,0 +1,60 @@
+<template name="MessageView">
+  {{> ContentHeader title="Messages" subTitle="View"}}
+  <section class="content">
+    <div id="alert"></div>
+    <div class="row">
+      <div class="col-md-3">
+        <a href="#" class="btn btn-primary btn-block margin-bottom compose-message">Compose</a>
+
+        <div class="box box-solid">
+          <div class="box-header with-border">
+            <h3 class="box-title">Folders</h3>
+
+            <div class="box-tools">
+              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+              </button>
+            </div>
+          </div>
+          <div class="box-body no-padding">
+            <ul class="nav nav-pills nav-stacked">
+              <li class="active"><a href="/profile/messages" class="message-inbox" title="Inbox"><i class="fa fa-inbox"></i> Inbox <span class="label label-primary pull-right">{{inboxCount}}</span></a></li>
+              <li><a href="/profile/messages/sent" class="message-sent" title="Sent"><i class="fa fa-envelope-o"></i> Sent <span class="label label-primary pull-right">{{sentCount}}</span></a></li>
+              <li><a href="/profile/messages/trash" class="message-trash" title="Trash"><i class="fa fa-trash-o"></i> Trash <span class="label label-primary pull-right">{{trashCount}}</span></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Read Message</h3>
+              <div class="box-tools pull-right">
+                <a href="#" class="btn btn-box-tool" data-toggle="tooltip" title="Previous"><i class="fa fa-chevron-left"></i></a>
+                <a href="#" class="btn btn-box-tool" data-toggle="tooltip" title="Next"><i class="fa fa-chevron-right"></i></a>
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+              <div class="mailbox-read-info">
+                <h3>{{message.subject}}</h3>
+                <h5>From: {{message.fromName}}
+                  <span class="mailbox-read-time pull-right">{{dateLongFormat message.createdDate}}</span></h5>
+              </div>
+              <div class="mailbox-read-message">{{message.body}}</div>
+            </div>
+            {{#if canEdit message.toId message.deleteFlag}}
+            <div class="box-footer">
+              <div class="pull-right">
+                <button type="button" class="btn btn-default message-reply"><i class="fa fa-reply"></i> Reply</button>
+                <button type="button" class="btn btn-default message-forward"><i class="fa fa-share"></i> Forward</button>
+              </div>
+              <button type="button" class="btn btn-default message-trash"><i class="fa fa-trash-o"></i> Delete</button>
+              <button type="button" class="btn btn-default"><i class="fa fa-print"></i> Print</button>
+            </div>
+            {{/if}}
+          </div>
+
+      </div>
+    </div>
+  </section>
+</template>

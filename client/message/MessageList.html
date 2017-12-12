@@ -1,6 +1,7 @@
 <template name="MessageList">
-    {{> ContentHeader title="Messages" subTitle=""}}
+    {{> ContentHeader title="Messages" subTitle="Inbox"}}
     <section class="content">
+      <div id="alert"></div>
       <div class="row">
         <div class="col-md-3">
           <a href="#" class="btn btn-primary btn-block margin-bottom compose-message">Compose</a>
@@ -16,30 +17,9 @@
             </div>
             <div class="box-body no-padding">
               <ul class="nav nav-pills nav-stacked">
-                <li class="active"><a href="#"><i class="fa fa-inbox"></i> Inbox
-                  <span class="label label-primary pull-right">12</span></a></li>
-                <li><a href="#"><i class="fa fa-envelope-o"></i> Sent</a></li>
-                <li><a href="#"><i class="fa fa-file-text-o"></i> Drafts</a></li>
-                <li><a href="#"><i class="fa fa-filter"></i> Junk <span class="label label-warning pull-right">65</span></a>
-                </li>
-                <li><a href="#"><i class="fa fa-trash-o"></i> Trash</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="box box-solid">
-            <div class="box-header with-border">
-              <h3 class="box-title">Labels</h3>
-
-              <div class="box-tools">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-              </div>
-            </div>
-            <div class="box-body no-padding">
-              <ul class="nav nav-pills nav-stacked">
-                <li><a href="#"><i class="fa fa-circle-o text-red"></i> Important</a></li>
-                <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> Promotions</a></li>
-                <li><a href="#"><i class="fa fa-circle-o text-light-blue"></i> Social</a></li>
+                <li class="active"><a href="/profile/messages" class="message-inbox" title="Inbox"><i class="fa fa-inbox"></i> Inbox <span class="label label-primary pull-right">{{inboxCount}}</span></a></li>
+                <li><a href="/profile/messages/sent" class="message-sent" title="Sent"><i class="fa fa-envelope-o"></i> Sent <span class="label label-primary pull-right">{{sentCount}}</span></a></li>
+                <li><a href="/profile/messages/trash" class="message-trash" title="Trash"><i class="fa fa-trash-o"></i> Trash <span class="label label-primary pull-right">{{trashCount}}</span></a></li>
               </ul>
             </div>
           </div>
@@ -64,11 +44,8 @@
                 <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
                 </button>
                 <div class="btn-group">
-                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
-                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
-                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
+                  <button type="button" class="btn btn-default btn-sm trash-message"><i class="fa fa-trash-o"></i></button>
                 </div>
-                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
                 <div class="pull-right">
                   1-50/200
                   <div class="btn-group">
@@ -79,20 +56,26 @@
               </div>
 
               <div class="table-responsive mailbox-messages">
-                <table class="table table-hover table-striped">
+                <table class="table table-hover table-striped" id="messageTable">
                   <tbody>
-
+                    {{#each messages}}
                     <tr>
-                      <td><input type="checkbox"></td>
-                      <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-                      <td class="mailbox-name"><a href="read-mail.html">Alexander Pierce</a></td>
-                      <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...
-                      </td>
+                      <td><input type="checkbox" value="{{_id}}" name="doTrash[]"></td>
+                      <td class="mailbox-star"><a href="#">{{{isStared starFlag}}}</a></td>
+                      <td class="mailbox-name"><a href="/profile/messages/view/{{_id}}" title="View message">{{toName}}</a></td>
+                      <td class="mailbox-subject">{{{isRead subject readFlag}}}</td>
                       <td class="mailbox-attachment"></td>
-                      <td class="mailbox-date">5 mins ago</td>
+                      <td class="mailbox-date text-right">{{dateLongFormat createdDate}}</td>
                     </tr>
-
-
+                    {{else}}
+                    <tr>
+                      <td colspan="6">
+                        <div class="alert alert-info">
+                          <p><i class="fa fa-info-circle"></i> No Messages</p>
+                        </div>
+                      </td>
+                    </tr>
+                    {{/each}}
                   </tbody>
                 </table>
               </div>
@@ -102,11 +85,8 @@
                 <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
                 </button>
                 <div class="btn-group">
-                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
-                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
-                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
+                  <button type="button" class="btn btn-default btn-sm trash-message"><i class="fa fa-trash-o"></i></button>
                 </div>
-                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
                 <div class="pull-right">
                   1-50/200
                   <div class="btn-group">

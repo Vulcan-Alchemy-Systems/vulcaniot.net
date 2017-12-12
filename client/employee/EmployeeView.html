@@ -1,0 +1,30 @@
+<template name="EmployeeView">
+    {{> ContentHeader title="Employee" subTitle="View"}}
+    <section class="content">
+      {{#if getUser}}
+      <div class="row">
+        <div class="col-xs-12 col-sm-4">
+          <div class="box box-widget widget-user-2">
+            <div class="widget-user-header {{isUserActive getUser.profile}}">
+              <div class="widget-user-image">
+                <img class="img-circle" src="/images/user7-128x128.jpg" alt="User Avatar">
+              </div>
+              <h3 class="widget-user-username"><a href="/employees/{{getUser._id}}/view" title="View " style="color:white">{{getUser.profile.name}}</a></h3>
+              <h5 class="widget-user-desc">Lead Developer</h5>
+            </div>
+            <div class="box-footer no-padding">
+              <ul class="nav nav-stacked">
+                <li><a href="#">&nbsp; {{{isOnline getUser.profile}}}</a></li>
+                <li><a href="#"><i class="fa fa-phone" aria-hidden="true"></i> Phone <span class="pull-right">{{getUser.profile.phone}}</span></a></li>
+                <li><a href="#" title="Message User" class="message-user"><i class="fa fa-envelope-o" aria-hidden="true"></i> Email <span class="pull-right">{{userPrimaryEmail getUser.emails}}</span></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-9">
+
+        </div>
+      </div>
+      {{/if}}
+    </section>
+</template>

@@ -1,34 +1,60 @@
 <template name="RolesList">
     {{> ContentHeader title="Admin" subTitle="Roles"}}
     <section class="content">
-      <div class="row">
-        <div class="col-md-3">
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">New Role</h3>
-            </div>
-            <div class="box-body">
-
-            </div>
+    {{#if isInRole 'admin'}}
+    <div class="row">
+      <div class="col-md-3">
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">New Role</h3>
           </div>
-        </div>
-        <div class="col-md-9">
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">Roles</h3>
-              <div class="box-tools pull-right">
-                <div class="has-feedback">
-                  <input type="text" class="form-control input-sm" placeholder="Search Roles">
-                  <span class="glyphicon glyphicon-search form-control-feedback"></span>
-                </div>
-              </div>
-            </div>
-            <div class="box-body no-padding">
-
-            </div>
+          <div class="box-body">
+            {{> RoleCreate}}
           </div>
         </div>
       </div>
-
+      <div class="col-md-9">
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">Roles</h3>
+            <div class="box-tools pull-right">
+              <div class="has-feedback">
+                <input type="text" class="form-control input-sm" placeholder="Search Roles">
+                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+              </div>
+            </div>
+          </div>
+          <div class="box-body">
+            <table class="table table-hover table-striped">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+              {{#each getAllRoles}}
+                <tr>
+                  <td><a href="" title="View Role">{{name}}</a></td>
+                  <td><a href="#" title="Remove Role" class="btn btn-xs btn-danger pull-right role-delete-btn"><i class="fa fa-trash"></i></a></td>
+                </tr>
+              {{else}}
+                <tr>
+                <td colspan="2">
+                  <div class="alert alert-info">
+                    <p><i class="fa fa-info-circle"></i> No Roles</p>
+                  </div>
+                </td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{else}}
+      <h1>Not Authorized</h1>
+    {{/if}}
     </section>
 </template>

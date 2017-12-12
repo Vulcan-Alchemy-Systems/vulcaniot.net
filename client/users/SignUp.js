@@ -16,7 +16,7 @@ Template.SignUp.events({
         profile: {
           name: name,
           image: "/images/user2-160x160.jpg",
-          position: "Software Engineer",
+          position: "None",
           createdAt: new Date(),
           status: 'Active',
         }

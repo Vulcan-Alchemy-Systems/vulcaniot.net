@@ -65,6 +65,14 @@ Template.Sidebar.helpers({
   noticesCount: function() {
     return Session.get('noticesCount');
   },
+  isClockedIn: function() {
+    userEntity = Meteor.user();
+    if(userEntity.profile.clockedIn) {
+      return true;
+    } else {
+      return false;
+    }
+  },
   userEnabled: function() {
     if(Meteor.settings.public.features.user) {
       return true;

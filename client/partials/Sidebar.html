@@ -10,7 +10,11 @@
         <div class="pull-left info">
           <p>{{fullName}}</p>
           {{#if displayUserStatusEnabled}}
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            {{#if isClockedIn}}
+              <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            {{else}}
+              <a href="#"><i class="fa fa-circle text-danger"></i> Offline</a>
+            {{/if}}
           {{/if}}
         </div>
       </div>
@@ -58,7 +62,7 @@
 
         {{/if}}
 
-        {{#if currentUser}}
+        {{#if isInRole 'admin'}}
         <!-- Admin -->
         <li class="treeview">
           <a href="#">

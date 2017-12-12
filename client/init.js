@@ -5,5 +5,6 @@ FlashMessages.configure({
     autoScroll: true
 });
 
+
 // Blaze config
 Blaze._allowJavascriptUrls();
