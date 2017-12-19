@@ -44,3 +44,12 @@ Template.UserDelete.events({
     });
   }
 });
+
+FlowRouter.route('/admin/users/:id/delete', {
+  name: 'userDelete',
+  parent: 'userView',
+  title: 'Delete',
+  action: function() {
+    BlazeLayout.render('MainLayout', {main: 'UserDelete'});
+  },
+});

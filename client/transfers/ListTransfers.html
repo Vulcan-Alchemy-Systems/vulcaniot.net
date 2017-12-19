@@ -1,0 +1,22 @@
+<template name="ListTransfers">
+  {{#if $.Session.get 'NewTransfer'}}
+    {{> NewTransfer}}
+  {{else}}
+  <a href="#" title="New Transfer" class="btn btn-xs btn-success pull-right new-transfer" style="margin-top:-42px;"><i class="fa fa-plus" aria-hidden="true"></i> New</a>
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Manifest</th>
+        <th>Manifest</th>
+        <th>Count</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td colspan="4"><i class="fa fa-info-circle" aria-hidden="true"></i> No Transfers</td>
+      </tr>
+    </tbody>
+  </table>
+  {{/if}}
+</template>

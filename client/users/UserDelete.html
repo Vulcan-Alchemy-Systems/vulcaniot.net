@@ -9,12 +9,12 @@
       </div>
       <div class="box-body">
         <div class="alert alert-info">
-          <p><i class="fa fa-info-circle"></i> Are you sure you want to delete the user {{getUserEmail getUser.emails}}</p>
+          <p><i class="fa fa-info-circle"></i> Are you sure you want to delete the user ({{getUser._id}}) {{getUserEmail getUser.emails}}</p>
         </div>
         <div class="row">
           <div class="col-xs-12">
-            <a href="#" title="cancel" class="btn btn-danger user-delete-cancel-btn">Cancel</a>
-            <a href="#" title="Delete User" class="btn btn-primary user-delete-btn">Delete</a>
+            <a href="#" title="cancel" class="btn btn-danger user-delete-cancel-btn"><i class="fa fa-times-circle"></i> Cancel</a>
+            <a href="#" title="Delete User" class="btn btn-primary user-delete-btn"><i class="fa fa-trash"></i> Delete</a>
           </div>
         </div>
       </div>

@@ -5,7 +5,6 @@ SimpleSchema.extendOptions(['autoform']);
 Messages = new Meteor.Collection("messages");
 
 // rules
-// rules
 Messages.allow({
   insert: function (userId, doc) {
     return true;

@@ -1,0 +1,47 @@
+<template name="LocationRooms">
+  {{#if $.Session.get 'NewRoom'}}
+    {{> NewRoom}}
+  {{else}}
+    {{#if $.Session.get 'ViewRoom'}}
+      <a href="#" title="Back" class="btn btn-xs btn-primary pull-right view-room" style="margin-top:-42px;"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back</a>
+      <div class="row">
+        <div class="col-xs-6">
+          <p><b>Room Name:</b> {{room.roomName}}</p>
+        </div>
+        <div class="col-xs-6">
+          <p><b>Room Number:</b> {{room.roomNumber}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <p><b>Description:</b> {{room.description}}</p>
+        </div>
+      </div>
+      <hr />
+    {{else}}
+    <a href="#" title="New Room" class="btn btn-xs btn-warning pull-right new-room" style="margin-top:-42px;"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Number</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+      {{#each location.rooms}}
+      <tr>
+        <td><a href="#" title="View {{roomName}}" class="view-room">{{roomName}}</a></td>
+        <td>{{roomNumber}}</td>
+        <td>{{description}}</td>
+      </tr>
+      {{else}}
+      <tr>
+        <td colspan="4"><p><i class="fa fa-info-circle"></i> No Rooms</p></td>
+      </tr>
+      {{/each}}
+      </tbody>
+    </table>
+    {{/if}}
+  {{/if}}
+</template>

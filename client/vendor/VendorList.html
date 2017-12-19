@@ -1,0 +1,27 @@
+<template name="VendorList">
+  {{> ContentHeader title="Vendors" subTitle="List"}}
+  <section class="content">
+    <div id="alert"></div>
+    <div class="row">
+      <div class="col-md-3">
+        <a href="#" class="btn btn-primary btn-block margin-bottom new-vendor"><i class="fa fa-plus" aria-hidden="true"></i> New Vendor</a>
+      </div>
+      <div class="col-md-9">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="panel panel-default">
+              <div class="panel=body">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Search for vendor">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>

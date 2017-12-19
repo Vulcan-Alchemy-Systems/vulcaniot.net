@@ -11,7 +11,6 @@ Template.UserEdit.helpers({
   getUser: ()=> {
     var id = FlowRouter.getParam('id');
     userData =  Meteor.users.findOne({_id: id});
-    //console.log(userData);
     return userData;
   },
   // get users email
@@ -41,30 +40,32 @@ Template.UserEdit.helpers({
 
 // events
 Template.UserEdit.events({
+  'click .cancel-edit-user': function(event) {
+    Session.set('EditUser', !Session.get('EditUser'));
+  },
   // click edit submit
-  'click .user-edit-submit': function() {
-    // fields from form
-    var name = $.trim($('[name=name]').val());
-    var email = $.trim($('[name=email]').val());
-    var status = $.trim($('[name=status]').val());
-    var role = $.trim($('[name=role]').val());
-    var id = $.trim($('[name=id]').val());
+  'click .edit-user-submit': function() {
+      var formData = AutoForm.getFormValues('updateUserForm');
+      var id = FlowRouter.getParam('id');
 
-    // call update
-    Meteor.call('updateUser', {
-      id: id,
-      name: name,
-      email: email,
-      status: status,
-      roles: role,
-    }, function (error) {
-      if(error) {
-        $('#alert').html('<div class="alert alert-danger"><p>'+error.reason+'</p></div>');
-        console.log('Error saving user changes: ' + error.reason);
-      }
-    });
+      // call update
+      Meteor.call('updateUser',
+        id, formData.updateDoc,
+        function (error) {
+          if(error) {
+            $("#alert").html('<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><i class="fa fa-warning"></i> Error ' + error.message + '</div>');
+          } else {
+            $("#alert").html('<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>User has been saved.</div>');
 
-    // redirect
-    FlowRouter.go('userView', {id: id});
+            // auto dismis
+            $("#alert").fadeTo(2000, 500).slideUp(500, function(){
+              $("#alert").slideUp(500);
+            });
+
+            // reset session
+            Session.set('EditUser', !Session.get('EditUser'));
+          }
+        }
+      );
   },
 });

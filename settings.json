@@ -6,6 +6,7 @@
     "ga": {
       "account": "UA-XX"
     },
+    "recordsPerPage": 10,
     "siteName": "Vulcan Alchemy Systems",
     "siteAbrv": "VAS",
     "siteUrl": "https://vulcaniot.net/",

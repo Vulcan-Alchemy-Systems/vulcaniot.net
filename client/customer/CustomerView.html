@@ -1,0 +1,100 @@
+<template name="CustomerView">
+  {{> ContentHeader title="Customers" subTitle="View"}}
+  <section class="content">
+    <div id="alert"></div>
+    {{#if customer}}
+    <div class="row">
+      <div class="col-xs-12 col-sm-4">
+        <div class="box box-widget widget-user-2">
+          <div class="widget-user-header {{isCustomerActive customer.status}}">
+            <div class="widget-user-image">
+              <img class="img-circle" src="/images/user7-128x128.jpg" alt="User Avatar">
+            </div>
+            <h3 class="widget-user-username"><a href="/customers/{{_id}}/view" title="View {{name}}" style="color:white">{{customer.name}}</a></h3>
+            <h5 class="widget-user-desc">{{{primaryPhone customer.phones}}}</h5>
+            <h5 class="widget-user-desc">{{primaryEmail}}</h5>
+          </div>
+          <div class="box-footer no-padding">
+            <ul class="nav nav-stacked">
+              <li><a href="#">Status: <span class="pull-right">{{{customerStatus customer.status}}}</span></a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Phones -->
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">Phones</h3>
+            <div class="box-tools pull-right">
+              <a href="#" title="Edit Phone" class="btn btn-xs btn-warning edit-phone"><i class="fa fa-pencil"></i> Edit</a>
+            </div>
+          </div>
+          <div class="box-body no-padding">
+            <ul class="nav nav-stacked">
+            {{#each customer.phones}}
+            <li><a href="tel:{{number}}"><b>{{type}}:</b> <span class="pull-right">{{number}}</span></a></li>
+            {{else}}
+            <li><a href="#" title="No phones">No Phone Numbers</a></li>
+            {{/each}}
+            </ul>
+          </div>
+        </div>
+
+        <!-- Addresses -->
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">Addresses</h3>
+            <div class="box-tools pull-right">
+              <a href="#" title="Edit Address" class="btn btn-xs btn-warning edit-address"><i class="fa fa-pencil"></i> Edit</a>
+            </div>
+          </div>
+          <div class="box-body no-padding">
+            <ul class="nav nav-stacked">
+              {{#each customer.address}}
+              <li><a href="#" title="View Address">
+                  <address>
+                  <b>{{type}}:</b><br />
+                  {{street}}<br />
+                  {{city}}, {{state}} {{postal}}
+                </address>
+                </a>
+            </li>
+              {{else}}
+              <li><a href="#" title="No phones">No Addresses</a></li>
+              {{/each}}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-8">
+        {{#if $.Session.get 'EditCustomer'}}
+          {{> CustomerEdit}}
+        {{else}}
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#jobs" data-toggle="tab">Jobs</a></li>
+              <li><a href="#products" data-toggle="tab">Products</a></li>
+              <li><a href="#transfers" data-toggle="tab">Transfers</a></li>
+              <li><a href="#users" data-toggle="tab">Users</a></li>
+            </ul>
+            <div class="tab-content">
+              <div class="active tab-pane" id="jobs">
+                {{> JobsList}}
+              </div>
+              <div class="tab-pane" id="products">
+                {{> ProductList}}
+              </div>
+              <div class="tab-pane" id="transfers">
+                {{> ListTransfers}}
+              </div>
+              <div class="tab-pane" id="users">
+                {{> CustomerUserList}}
+              </div>
+            </div>
+          </div>
+        {{/if}}
+      </div>
+    </div>
+    {{/if}}
+  </section>
+</template>

@@ -11,5 +11,5 @@ Meteor.methods({
     Roles.deleteRole(role.name);
   },
   // add user to role
-  
+
 });

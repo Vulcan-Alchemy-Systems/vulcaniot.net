@@ -1,0 +1,22 @@
+<template name="ProductList">
+  {{#if $.Session.get 'NewProduct'}}
+    {{> NewProduct}}
+  {{else}}
+  <a href="#" title="New Product" class="btn btn-xs btn-success pull-right new-product" style="margin-top:-42px;"><i class="fa fa-plus" aria-hidden="true"></i> New</a>
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td colspan="4"><i class="fa fa-info-circle" aria-hidden="true"></i> No Products</td>
+      </tr>
+    </tbody>
+  </table>
+  {{/if}}
+</template>

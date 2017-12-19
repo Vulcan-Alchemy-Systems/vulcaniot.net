@@ -1,0 +1,102 @@
+<template name="NewUser">
+  <section id="alert"></section>
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">New User</h3>
+    </div>
+    <div class="box-body">
+      {{# autoForm collection="Meteor.users" id="insertUserForm" type="insert"  class="new-user-form" validation="browser"}}
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group {{#if afFieldIsInvalid name='profile.name'}}has-error{{/if}}">
+            <label class="control-label">{{afFieldLabelText name='profile.name'}}</label>
+            {{> afFieldInput name='profile.name'}}
+            {{#if afFieldIsInvalid name='profile.name'}}
+            <span class="help-block">{{{afFieldMessage name='profile.name'}}}</span>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-4">
+          <div class="form-group {{#if afFieldIsInvalid name='profile.gender'}}has-error{{/if}}">
+            <label class="control-label">{{afFieldLabelText name='profile.gender'}}</label>
+            {{> afFieldInput name='profile.gender'}}
+            {{#if afFieldIsInvalid name='profile.gender'}}
+            <span class="help-block">{{{afFieldMessage name='profile.gender'}}}</span>
+            {{/if}}
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-4">
+          <div class="form-group {{#if afFieldIsInvalid name='profile.birthday'}}has-error{{/if}}">
+            <label class="control-label">{{afFieldLabelText name='profile.birthday'}}</label>
+            {{> afFieldInput name='profile.birthday'}}
+            {{#if afFieldIsInvalid name='profile.birthday'}}
+            <span class="help-block">{{{afFieldMessage name='profile.birthday'}}}</span>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-4">
+          <div class="form-group {{#if afFieldIsInvalid name='profile.status'}}has-error{{/if}}">
+            <label class="control-label">{{afFieldLabelText name='profile.status'}}</label>
+            {{> afFieldInput name='profile.status'}}
+            {{#if afFieldIsInvalid name='profile.status'}}
+            <span class="help-block">{{{afFieldMessage name='profile.status'}}}</span>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group {{#if afFieldIsInvalid name='profile.position'}}has-error{{/if}}">
+            <label class="control-label">{{afFieldLabelText name='profile.position'}}</label>
+            {{> afFieldInput name='profile.position'}}
+            {{#if afFieldIsInvalid name='profile.position'}}
+            <span class="help-block">{{{afFieldMessage name='profile.position'}}}</span>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group {{#if afFieldIsInvalid name='profile.website'}}has-error{{/if}}">
+            <label class="control-label">{{afFieldLabelText name='profile.website'}}</label>
+            {{> afFieldInput name='profile.website'}}
+            {{#if afFieldIsInvalid name='profile.website'}}
+            <span class="help-block">{{{afFieldMessage name='profile.website'}}}</span>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+      {{> afQuickField name="emails"}}
+
+      {{> afQuickField name="roles"}}
+
+      {{> afQuickField name="profile.phones"}}
+
+      {{> afQuickField name="profile.address"}}
+
+      {{> afQuickField name='profile.createdAt'}}
+
+      {{> afQuickField name='profile.clockedIn'}}
+
+      <div class="row">
+        <div class="col-xs-12">
+          <span class="pull-right">
+            <a href="#" title="cancel" class="btn btn-danger cancel-edit-user"><i class="fa fa-times-circle-o" aria-hidden="true"></i> cancel</a>
+            <button type="submit" class="btn btn-primary new-user-submit" name="submit" id="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+          </span>
+        </div>
+      </div>
+      {{/autoForm}}
+    </div>
+  </div>
+</template>

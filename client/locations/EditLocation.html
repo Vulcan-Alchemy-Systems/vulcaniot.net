@@ -1,0 +1,90 @@
+<template name="EditLocation">
+  {{# autoForm collection="Locations" id="insertLocationForm" type="update" class="new-location-form" doc=location}}
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Edit Location</h3>
+    </div>
+    <div class="box-body">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group {{#if afFieldIsInvalid name='toName'}}has-error{{/if}}">
+            <label class="control-label">{{afFieldLabelText name='name'}}</label>
+            {{> afFieldInput name='name'}}
+            {{#if afFieldIsInvalid name='name'}}
+            <span class="help-block">{{{afFieldMessage name='name'}}}</span>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group {{#if afFieldIsInvalid name='toName'}}has-error{{/if}}">
+            <label class="control-label">{{afFieldLabelText name='street'}}</label>
+            {{> afFieldInput name='street'}}
+            {{#if afFieldIsInvalid name='street'}}
+            <span class="help-block">{{{afFieldMessage name='street'}}}</span>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-5">
+          <div class="form-group {{#if afFieldIsInvalid name='toName'}}has-error{{/if}}">
+            <label class="control-label">{{afFieldLabelText name='city'}}</label>
+            {{> afFieldInput name='city'}}
+            {{#if afFieldIsInvalid name='city'}}
+            <span class="help-block">{{{afFieldMessage name='city'}}}</span>
+            {{/if}}
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+          <div class="form-group {{#if afFieldIsInvalid name='toName'}}has-error{{/if}}">
+            <label class="control-label">{{afFieldLabelText name='state'}}</label>
+            {{> afFieldInput name='state'}}
+            {{#if afFieldIsInvalid name='state'}}
+            <span class="help-block">{{{afFieldMessage name='state'}}}</span>
+            {{/if}}
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-3">
+          <div class="form-group {{#if afFieldIsInvalid name='toName'}}has-error{{/if}}">
+            <label class="control-label">{{afFieldLabelText name='postal'}}</label>
+            {{> afFieldInput name='postal'}}
+            {{#if afFieldIsInvalid name='postal'}}
+            <span class="help-block">{{{afFieldMessage name='postal'}}}</span>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-6">
+          <div class="form-group {{#if afFieldIsInvalid name='toName'}}has-error{{/if}}">
+            <label class="control-label">{{afFieldLabelText name='status'}}</label>
+            {{> afFieldInput name='status'}}
+            {{#if afFieldIsInvalid name='status'}}
+            <span class="help-block">{{{afFieldMessage name='status'}}}</span>
+            {{/if}}
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <div class="form-group {{#if afFieldIsInvalid name='toName'}}has-error{{/if}}">
+            <label class="control-label">{{afFieldLabelText name='type'}}</label>
+            {{> afFieldInput name='type'}}
+            {{#if afFieldIsInvalid name='type'}}
+            <span class="help-block">{{{afFieldMessage name='type'}}}</span>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+      <div class="pull-right">
+        <button type="button" class="btn btn-danger edit-location"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancel</button>
+        <button type="submit" class="btn btn-primary edit-location-submit" name="submit" id="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+      </div>
+
+    </div>
+  </div>
+  {{/autoForm}}
+
+</template>

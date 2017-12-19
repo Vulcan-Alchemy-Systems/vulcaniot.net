@@ -1,0 +1,13 @@
+<template name="NewLicenses">
+  <div class="row">
+    <div class="col-xs-12">
+    {{# autoForm collection="Locations" id="insertLocationForm" type="update" class="new-location-form" doc=location}}
+      {{> afQuickField name="license"}}
+      <div class="pull-right">
+        <button type="button" class="btn btn-danger new-licenses"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancel</button>
+        <button type="submit" class="btn btn-primary new-room-submit" name="submit" id="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+      </div>
+    {{/autoForm}}
+  </div>
+</div>
+</template>

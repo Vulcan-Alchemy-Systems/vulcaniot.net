@@ -1,7 +1,11 @@
-
+// onCreated
 Template.UserList.onCreated(function() {
   this.autorun(() => {
-    this.subscribe('allUsers');
+    var page = FlowRouter.getParam('page');
+    var currentPage = parseInt(page) || 1;
+    var skipCount = (currentPage - 1) * Meteor.settings.public.recordsPerPage;
+
+    this.subscribe('allUsers', skipCount);
   });
 });
 
@@ -11,6 +15,8 @@ Template.UserList.rendered = function(){
     userId: Meteor.userId(),
     message: 'Viewed Admin User List'
   });
+
+  $('body').scrollTop(0);
 };
 
 // helpers
@@ -18,81 +24,65 @@ Template.UserList.helpers({
   // gets all users
   userList: function() {
     var users = Meteor.users.find().fetch();
-    if ( users ) {
+    if (users) {
       return users;
     }
   },
-  // get user primary address
   userPrimaryEmail: function(emails) {
-    return emails[0].address;
+    if(emails) {
+      return emails[0].address;
+    }
   },
   dateFormat: function(dateTime) {
     return moment(dateTime).format(Meteor.settings.public.shortDate);
   },
-  // test if user is active
-  isUserActive: function(status) {
-    if(status == 'Active') {
-      return true;
+  isUserActive: function(profile) {
+    if(profile.status == 'Active') {
+      return 'bg-aqua-active';
     } else {
-      return false;
+      return 'bg-red';
     }
+  },
+  isOnline: function(profile) {
+    if(profile.clockedIn) {
+      return '<span class="pull-right badge bg-green">online</span></a>';
+    } else {
+      return '<span class="pull-right badge bg-red">offline</span></a>';
+    }
+  },
+  prevPage: function() {
+    var previousPage = currentPage() === 1 ? 1 : currentPage() - 1;
+    var pathDef = "/customers/:page";
+    var params = {page: previousPage};
+    var path = FlowRouter.path(pathDef, params);
+    return path;;
+  },
+  nextPage: function() {
+    var nextPage = hasMorePages() ? currentPage() + 1 : currentPage();
+    var pathDef = "/customers/:page";
+    var params = {page: nextPage};
+    var path = FlowRouter.path(pathDef, params);
+    return path;
+  },
+  prevPageClass: function() {
+    return currentPage() <= 1 ? "disabled" : "";
+  },
+  nextPageClass: function() {
+    return hasMorePages() ? "" : "disabled";
   }
 });
 
 // events
 Template.UserList.events({
-  // suspend user
-  'click .user-suspend': function() {
-    Meteor.call("usersToggleStatus", this._id, 'Suspended');
+  'click .new-user': function(event) {
+    Session.set('NewUser', !Session.get('NewUser'));
   },
-  // un suspend user
-  'click .user-un-suspend': function() {
-    Meteor.call("usersToggleStatus", this._id, 'Active');
+  'click #prevPage': function(event) {
+      $('body').scrollTop(0);
   },
-  // create user
-  'click .user-create-btn': function() {
-    // Trim Helper
-    var trimInput = function(val) {
-       return val.replace(/^\s*|\s*$/g, "");
-    }
-
-    // fields from form
-    var name = trimInput($('[name=name]').val());
-    var email = trimInput($('[name=email]').val());
-    var password = trimInput($('[name=password]').val());
-    var passwordAgain = trimInput($('[name=confirm]').val());
-    var status = trimInput($('[name=status]').val());
-    //var role = trimInput($('[name=role]').val());
-
-    // Check password is at least 6 chars long
-    var isValidPassword = function(pwd, pwd2) {
-       if (pwd === pwd2) {
-         return pwd.length >= 6 ? true : false;
-       } else {
-         $('#alert').html('<div class="alert alert-danger"><p>Password fails</p></div>');
-       }
-     }
-
-     // if password is valid
-     if (isValidPassword(password, passwordAgain)) {
-       Accounts.createUser({
-          email: email,
-          name: name,
-          status: status,
-          password: password
-      }, function(error) {
-         if (error) {
-           $('#alert').html('<div class="alert alert-danger"><p>' + error.reason + '</p></div>');
-           console.log(error.reason); // Output error if registration fails
-         } else {
-           // reset the form
-
-         }
-      });
-    }
-    // return nothinga
-    return false;
-  },
+  'click #nextPage': function(event) {
+    $('body').scrollTop(0);
+  }
 });
 
 // router
@@ -110,27 +100,22 @@ adminRoutes.route('/users', {
     BlazeLayout.render('MainLayout', {main: 'UserList'});
   },
 });
-adminRoutes.route('/users/:id/view', {
-  name: 'userView',
-  parent: 'userList',
-  title: 'View',
+adminRoutes.route('/users/:page', {
+  name: 'userListPage',
+  parent: 'admin',
+  title: 'Users',
   action: function() {
-    BlazeLayout.render('MainLayout', {main: 'UserView'});
+    BlazeLayout.render('MainLayout', {main: 'UserList'});
   },
 });
-adminRoutes.route('/users/:id/edit', {
-  name: 'userEdit',
-  parent: 'userView',
-  title: 'Edit',
-  action: function() {
-    BlazeLayout.render('MainLayout', {main: 'UserEdit'});
-  },
-});
-adminRoutes.route('/users/:id/delete', {
-  name: 'userDelete',
-  parent: 'userView',
-  title: 'Delete',
-  action: function() {
-    BlazeLayout.render('MainLayout', {main: 'UserDelete'});
-  },
-});
+
+
+var hasMorePages = function() {
+  var totalEmployees = Counts.get('userCount');
+  return currentPage() * parseInt(10) < totalEmployees;
+}
+
+var currentPage = function() {
+  var page = FlowRouter.getParam('page');
+  return parseInt(page) || 1;
+}

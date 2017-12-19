@@ -1,0 +1,91 @@
+<template name="LocationView">
+  {{> ContentHeader title="Location" subTitle="View"}}
+  <section class="content">
+    {{#unless Template.subscriptionsReady}}
+      {{> spinner}}
+    {{/unless}}
+
+    {{#if Template.subscriptionsReady}}
+      <div id="alert"></div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-4">
+          <div class="box box-widget widget-user-2">
+            <div class="widget-user-header {{isLocationActive location.status}}">
+              <div class="widget-user-image">
+                <img class="img-circle" src="/images/user7-128x128.jpg" alt="User Avatar">
+              </div>
+              <h3 class="widget-user-username"><a href="/locations/{{_id}}/view" title="View {{name}}" style="color:white">{{location.name}}</a></h3>
+              <h5 class="widget-user-desc">{{location.street}}</h5>
+              <h5 class="widget-user-desc">{{location.city}} {{location.state}} {{location.postal}}</h5>
+            </div>
+            <div class="box-footer no-padding">
+              <ul class="nav nav-stacked">
+                <li><a href="#">Status: <span class="pull-right">{{{locationStatus location.status}}}</span></a></li>
+                <li><a href="#">Type: <span class="pull-right">{{location.type}}</span></a></li>
+                <li><a href="#">Rooms: <span class="pull-right">{{roomCount location.rooms}}</span></a></li>
+                <li><a href="#">License: <span class="pull-right">{{licenseCount location.license}}</span></a></li>
+              </ul>
+            </div>
+            <div class="box-footer">
+              <div class="text-right">
+                <a href="#" class="btn btn-danger delete-location"><i class="fa fa-trash"></i> Delete</a>
+                <a href="#" class="btn btn-warning edit-location"><i class="fa fa-pencil"></i> Edit</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-8">
+          {{#if $.Session.get 'EditLocation'}}
+            {{> EditLocation}}
+          {{else}}
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#cameras" data-toggle="tab">Cameras</a></li>
+              <li><a href="#rooms" data-toggle="tab">Rooms</a></li>
+              <li><a href="#licenses" data-toggle="tab">Licenses</a></li>
+              <li><a href="#access" data-toggle="tab">Access</a></li>
+            </ul>
+            <div class="tab-content">
+              <!-- cameras -->
+              <div class="active tab-pane" id="cameras">{{> LocationCameras}}</div>
+
+              <!-- Rooms -->
+              <div class="tab-pane" id="rooms">{{> LocationRooms}}</div>
+
+              <!-- License -->
+              <div class="tab-pane" id="licenses">{{> LocationLicense}}</div>
+
+              <!-- access -->
+              <div class="tab-pane" id="access"></div>
+            </div>
+          </div>
+        {{/if}}
+        </div>
+      </div>
+    {{/if}}
+  </section>
+
+  <!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="deleteModalLabel">Delete Location</h4>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-info">
+          <p><i class="fa fa-warning"></i> Are you sure you want to delete the location? <br />
+            <b><i>{{location.name}}: {{location.street}} {{location.city}}, {{location.state}} {{location.postal}}</i></b>
+          </p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger do-delete-location">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</template>

@@ -1,0 +1,14 @@
+<template name="NewCamera">
+  {{# autoForm collection="Locations" id="insertLocationForm" type="update" class="new-location-form" doc=location}}
+  <div class="row">
+    <div class="col-xs-12">
+      {{> afQuickField name="cameras"}}
+      <div class="pull-right">
+        <button type="button" class="btn btn-danger new-camera"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancel</button>
+        <button type="submit" class="btn btn-primary new-camera-submit" name="submit" id="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+      </div>
+    </div>
+  </div>
+  {{/autoForm}}
+
+</template>

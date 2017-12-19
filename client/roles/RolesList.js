@@ -1,8 +1,6 @@
 Template.RolesList.onCreated( () => {
   Template.instance().subscribe( 'roles' );
-
 });
-
 
 // helpers
 Template.RolesList.helpers({
@@ -31,6 +29,7 @@ Template.RolesList.events({
 
     $('[name=name]').val('');
   },
+
   // delete role
   'click .role-delete-btn': function() {
     Meteor.call('deleteRole', {

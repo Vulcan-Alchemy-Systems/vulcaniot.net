@@ -19,4 +19,18 @@
     </li>
     {{/each}}
   </ul>
+  <nav>
+    <ul class="pager">
+      <li class="{{prevPageClass}}">
+        <a id="prevPage" href="{{prevPage}}">
+          <span aria-hidden="true">&larr;</span> Previous
+        </a>
+      </li>
+      <li class="{{nextPageClass}}">
+        <a id="nextPage" href="{{nextPage}}">
+          Next <span aria-hidden="true">&rarr;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
 </template>

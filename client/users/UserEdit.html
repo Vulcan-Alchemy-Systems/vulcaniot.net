@@ -1,58 +1,94 @@
 <template name="UserEdit">
-  {{> ContentHeader title=getUser.profile.name subTitle="Edit"}}
-    <section class="content">
-    {{#if isInRole 'admin'}}
 
-    {{else}}
-    <section id="alert"></section>
+  {{# autoForm collection="Meteor.users" id="updateUserForm" type="update" class="edit-user-form" doc=getUser}}
 
-    <div class="row">
-      <div class="col-xs-12 col-sm-6">
-        <div class="form-group has-feedback">
-          <input type="text" id="name" name="name" class="form-control" value="{{getUser.profile.name}}">
-          <span class="glyphicon glyphicon-user form-control-feedback"></span>
-        </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="form-group {{#if afFieldIsInvalid name='profile.name'}}has-error{{/if}}">
+        <label class="control-label">{{afFieldLabelText name='profile.name'}}</label>
+        {{> afFieldInput name='profile.name'}}
+        {{#if afFieldIsInvalid name='profile.name'}}
+        <span class="help-block">{{{afFieldMessage name='profile.name'}}}</span>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-4">
+      <div class="form-group {{#if afFieldIsInvalid name='profile.gender'}}has-error{{/if}}">
+        <label class="control-label">{{afFieldLabelText name='profile.gender'}}</label>
+        {{> afFieldInput name='profile.gender'}}
+        {{#if afFieldIsInvalid name='profile.gender'}}
+        <span class="help-block">{{{afFieldMessage name='profile.gender'}}}</span>
+        {{/if}}
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-xs-12 col-sm-6">
-        <div class="form-group has-feedback">
-          <input type="email" id="email" name="email" class="form-control" value="{{getUserEmail getUser.emails}}">
-          <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-        </div>
+    <div class="col-xs-12 col-sm-4">
+      <div class="form-group {{#if afFieldIsInvalid name='profile.birthday'}}has-error{{/if}}">
+        <label class="control-label">{{afFieldLabelText name='profile.birthday'}}</label>
+        {{> afFieldInput name='profile.birthday'}}
+        {{#if afFieldIsInvalid name='profile.birthday'}}
+        <span class="help-block">{{{afFieldMessage name='profile.birthday'}}}</span>
+        {{/if}}
       </div>
     </div>
+  </div>
 
-    <div class="row">
-      <div class="col-xs-12 col-sm-6">
-        <div class="form-group has-feedback">
-          <select class="form-control" id="role" name="role">
-            <option value="Administrator">Administrator</option>
-            <option value="Employee">Employee</option>
-            <option value="Vendor">Vendor</option>
-            <option value="Customer">Customer</option>
-          </select>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-6">
-        <div class="form-group has-feedback">
-          <select class="form-control" id="status" name="status">
-            <option value="Active" {{isActive getUser.profile.status}}>Active</option>
-            <option value="Suspended" {{isSuspended getUser.profile.status}}>Not Active</option>
-          </select>
-        </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-4">
+      <div class="form-group {{#if afFieldIsInvalid name='profile.status'}}has-error{{/if}}">
+        <label class="control-label">{{afFieldLabelText name='profile.status'}}</label>
+        {{> afFieldInput name='profile.status'}}
+        {{#if afFieldIsInvalid name='profile.status'}}
+        <span class="help-block">{{{afFieldMessage name='profile.status'}}}</span>
+        {{/if}}
       </div>
     </div>
+  </div>
 
-    <input type="hidden" name="id" id="id" value="{{getUser._id}}" />
-    <div class="row">
-      <div class="col-xs-12 col-sm-1 col-sm-offset-11">
-        <button type="submit" class="btn btn-primary btn-block btn-flat user-edit-submit">Save</button>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="form-group {{#if afFieldIsInvalid name='profile.position'}}has-error{{/if}}">
+        <label class="control-label">{{afFieldLabelText name='profile.position'}}</label>
+        {{> afFieldInput name='profile.position'}}
+        {{#if afFieldIsInvalid name='profile.position'}}
+        <span class="help-block">{{{afFieldMessage name='profile.position'}}}</span>
+        {{/if}}
       </div>
     </div>
+  </div>
 
-    <h1>Not Authorized</h1>
-    {{/if}}
-    </section>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="form-group {{#if afFieldIsInvalid name='profile.website'}}has-error{{/if}}">
+        <label class="control-label">{{afFieldLabelText name='profile.website'}}</label>
+        {{> afFieldInput name='profile.website'}}
+        {{#if afFieldIsInvalid name='profile.website'}}
+        <span class="help-block">{{{afFieldMessage name='profile.website'}}}</span>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+
+  {{> afQuickField name="emails"}}
+
+  {{> afQuickField name="profile.phones"}}
+
+  {{> afQuickField name="profile.address"}}
+
+  {{> afFieldInput name='profile.createdAt'}}
+
+  {{> afFieldInput name='profile.clockedIn'}}
+  {{/autoForm}}
+
+  <div class="row">
+    <div class="col-xs-12">
+      <span class="pull-right">
+        <a href="#" title="cancel" class="btn btn-danger cancel-edit-user"><i class="fa fa-times-circle-o" aria-hidden="true"></i> cancel</a>
+        <button type="submit" class="btn btn-primary edit-user-submit" name="submit" id="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+      </span>
+    </div>
+  </div>
 </template>

@@ -2,23 +2,23 @@
   <aside class="main-sidebar">
     <section class="sidebar">
       {{#if userEnabled}}
-      {{#if currentUser}}
-      <div class="user-panel">
-        <div class="pull-left image">
-          <img src="{{profileImage}}" class="img-circle" alt="User Image">
-        </div>
-        <div class="pull-left info">
-          <p>{{fullName}}</p>
-          {{#if displayUserStatusEnabled}}
-            {{#if isClockedIn}}
-              <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-            {{else}}
-              <a href="#"><i class="fa fa-circle text-danger"></i> Offline</a>
+        {{#if currentUser}}
+        <div class="user-panel">
+          <div class="pull-left image">
+            <img src="{{profileImage}}" class="img-circle" alt="User Image">
+          </div>
+          <div class="pull-left info">
+            <p>{{fullName}}</p>
+            {{#if displayUserStatusEnabled}}
+              {{#if isClockedIn}}
+                <a href="#"><i class="fa fa-circle text-success" aria-hidden="true"></i> Online</a>
+              {{else}}
+                <a href="#"><i class="fa fa-circle text-danger" aria-hidden="true"></i> Offline</a>
+              {{/if}}
             {{/if}}
-          {{/if}}
+          </div>
         </div>
-      </div>
-      {{/if}}
+        {{/if}}
       {{/if}}
 
       {{#if searchEnabled}}
@@ -27,56 +27,54 @@
           <input type="text" name="q" class="form-control" placeholder="Search...">
           <span class="input-group-btn">
                 <button type="submit" name="search" id="search-btn" class="btn btn-flat">
-                  <i class="fa fa-search"></i>
+                  <i class="fa fa-search" aria-hidden="true"></i>
                 </button>
               </span>
         </div>
       </form>
       {{/if}}
 
-      <!-- sidebar menu: : style can be found in sidebar.less -->
-
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <li class="treeview menu-open">
+        <li class="treeview">
           <a href="/">
-            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+            <i class="fa fa-dashboard" aria-hidden="true"></i> <span>Dashboard</span>
           </a>
-
+          <ul class="treeview-menu">
+            <li><a href="/" title="Dashboard Home"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+            <li><a href="/employees" title="View All Employees"><i class="fa fa-user" aria-hidden="true"></i> Employees</a></li>
+            <li><a href="/locations" title="View All Locations"><i class="fa fa-globe" aria-hidden="true"></i> Locations</a></li>
+            <li><a href="/customers" title="View All Customers"><i class="fa fa-users" aria-hidden="true"></i> Customers</a></li>
+            <li><a href="/vendors"   title="View All Customers"><i class="fa fa-building" aria-hidden="true"></i> Vendors</a></li>
+          </ul>
         </li>
 
         {{#if currentUser}}
         <li class="treeview">
-            <a href="#"><i class="fa fa-user"></i> My Profile
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
+            <a href="#"><i class="fa fa-user" aria-hidden="true"></i> <span>My Profile</span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="/profile" title="My Profile"><i class="fa fa-circle-o"></i> Home</a></li>
-              <li><a href="/profile/tasks" title="My Tasks"><i class="fa fa-circle-o"></i> Tasks</a></li>
-              <li><a href="/profile/notices" title="My Notices"><i class="fa fa-circle-o"></i> Notices</a></li>
-              <li><a href="/profile/messages" title="My Messages"><i class="fa fa-circle-o"></i> Messages</a></li>
+              <li><a href="/profile" title="My Profile"><i class="fa fa-circle-o" aria-hidden="true"></i> Home</a></li>
+              <li><a href="/profile/tasks" title="My Tasks"><i class="fa fa-circle-o" aria-hidden="true"></i> Tasks</a></li>
+              <li><a href="/profile/notices" title="My Notices"><i class="fa fa-circle-o" aria-hidden="true"></i> Notices</a></li>
+              <li><a href="/profile/messages" title="My Messages"><i class="fa fa-circle-o" aria-hidden="true"></i> Messages</a></li>
             </ul>
         </li>
-
         {{/if}}
 
         {{#if isInRole 'admin'}}
-        <!-- Admin -->
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-cogs" aria-hidden="true"></i>
-            <span>Admin</span>
+            <i class="fa fa-cogs" aria-hidden="true"></i> <span>Admin</span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/admin/users" title="Users"><i class="fa fa-circle-o"></i> Users</a></li>
-            <li><a href="/admin/roles" title="Users"><i class="fa fa-circle-o"></i> Rols</a></li>
+            <li><a href="/admin" title="Admin Home"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+            <li><a href="/admin/users" title="Users"><i class="fa fa-group" aria-hidden="true"></i> Users</a></li>
+            <li><a href="/admin/roles" title="Roles"><i class="fa fa-lock" aria-hidden="true"></i> Roles</a></li>
           </ul>
         </li>
         {{/if}}
       </ul>
     </section>
   </aside>
-  <br />
 </template>

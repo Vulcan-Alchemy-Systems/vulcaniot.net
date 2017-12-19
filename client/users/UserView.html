@@ -10,72 +10,109 @@
             <li class="active"><a href="#activity" data-toggle="tab">Profile</a></li>
             <li><a href="#roles" data-toggle="tab">Roles</a></li>
             <li><a href="#history" data-toggle="tab">History</a></li>
+            {{#if isUserInRole getUser._id 'employee'}}
             <li><a href="#timeclock" data-toggle="tab">Time Clock</a></li>
+            {{/if}}
           </ul>
           <div class="tab-content">
             <div class="active tab-pane" id="activity">
+              {{#if $.Session.get 'EditUser'}}
+                {{> UserEdit}}
+              {{else }}
               <h3>Contact Info</h3>
               <!-- Basic Stuff -->
               <div class="row">
-                <div class="col-xs-12 col-sm-8">
+                <div class="col-xs-12 col-sm-6">
                   <p><b>Name:</b> {{getUser.profile.name}}</p>
                 </div>
-                <div class="col-xs-12 col-sm-4">
+                <div class="col-xs-12 col-sm-3">
                   <p><b>Created:</b> {{dateFormat getUser.profile.createdAt}}</p>
+                </div>
+                <div class="col-xs-12 col-sm-3">
+                  <p><b>Status:</b> {{getUser.profile.status}}</p>
                 </div>
               </div>
 
               <div class="row">
-                <div class="col-xs-12 col-sm-8">
+                <div class="col-xs-12 col-sm-6">
                   <p><b>E-Mail:</b> {{getUserEmail}}</p>
                 </div>
-                <div class="col-xs-12 col-sm-4">
-                  <p><b>Website:</b> </p>
+                <div class="col-xs-12 col-sm-3">
+                  <p><b>Website:</b> {{#if getUser.profile.website}}{{getUser.profile.website}}{{else}}N/A{{/if}}</p>
+                </div>
+                <div class="col-xs-12 col-sm-3">
+                  <p><b>Birthdate:</b> {{#if getUser.profile.birthday}}{{dateShortFormat getUser.profile.birthday}}{{else}}N/A{{/if}}</p>
                 </div>
               </div>
+
+              <div class="row">
+                <div class="col-xs-12 col-sm-9">
+                  <p><b>Position:</b> {{#if getUser.profile.position}}{{getUser.profile.position}}{{else}}N/A{{/if}}</p>
+                </div>
+                <div class="col-xs-12 col-sm-3">
+                  <p><b>Gender:</b> {{#if getUser.profile.gender}}{{getUser.profile.gender}}{{else}}N/A{{/if}}</p>
+                </div>
+              </div>
+
 
               <!-- Phones -->
               <div class="row">
+                {{#each getUser.profile.phones}}
                 <div class="col-xs-12 col-sm-4">
-                  <p><b>Phone:</b></p>
+                  <p><b>{{type}}:</b> {{number}}</p>
                 </div>
-                <div class="col-xs-12 col-sm-4">
-                  <p><b>Mobile:</b></p>
+                {{else}}
+                <div class="col-xs-12">
+                  <div class="alert alert-info">
+                    <p><i class="fa fa-info-circle"></i> No Phone Numbers</p>
+                  </div>
                 </div>
-                <div class="col-xs-12 col-sm-4">
-                  <p><b>Fax:</b></p>
-                </div>
+                {{/each}}
               </div>
 
               <!-- Address -->
               <div class="row">
+                {{#each getUser.profile.address}}
                 <div class="col-xs-12 col-sm-6">
-                  <h4>Billing Address</h4>
+                  <h4>{{type}}</h4>
                   <div class="row">
                     <div class="col-xs-12">
-                      <p><b>Street: </b></p>
+                      <p>{{street}}</p>
                     </div>
                   </div>
+                  {{#if streetCont}}
                   <div class="row">
                     <div class="col-xs-12">
                       <p><b>Street Cont: </b></p>
+                    </div>
+                  </div>
+                  {{/if}}
+                  <div class="row">
+                    <div class="col-xs-12">
+                      {{city}}, {{state}} {{postal}}
                     </div>
                   </div>
                 </div>
-                <div class="col-xs-12 col-sm-6">
-                  <h4>Shipping Address</h4>
-                  <div class="row">
-                    <div class="col-xs-12">
-                      <p><b>Street: </b></p>
-                    </div>
+                {{else}}
+                <div class="col-xs-12">
+                  <div class="alert alert-info">
+                    <p><i class="fa fa-info-circle"></i> No Addresses</p>
                   </div>
-                  <div class="row">
-                    <div class="col-xs-12">
-                      <p><b>Street Cont: </b></p>
-                    </div>
-                  </div>
+                </div>
+                {{/each}}
+              </div>
+
+              <div class="row">
+                <div class="col-xs-12">
+                  <span class="pull-right">
+                  {{#if isInRole 'admin'}}
+                    <a href="/admin/users/{{getUser._id}}/delete" title="Delete user" class="btn btn-danger delete-user"><i class="fa fa-trash"></i> Delete</a>
+                  {{/if}}
+                    <a href="#" title="Edit user" class="btn btn-warning edit-user"><i class="fa fa-pencil"></i> Edit</a>
+                  </span>
                 </div>
               </div>
+            {{/if}}
             </div>
 
             <!-- Roles -->
@@ -91,7 +128,7 @@
                       {{/each}}
                       </select>
                       <span class="input-group-btn">
-                        <button class="btn btn-primary add-role-to-user" type="button">Add Role</button>
+                        <button class="btn btn-primary add-role-to-users" type="button">Add Role</button>
                       </span>
                     </div><!-- /input-group -->
                   </div>
@@ -99,7 +136,7 @@
 
                 <br />
               {{#each listUserRoles}}
-              <span class="label label-primary">{{listUserRoles}} <a href="" title="Remove Role" class=""><i class="fa fa-times"></i></a></span>
+              <span class="label label-primary">{{listUserRoles}} <a href="#" title="Remove Role" class="remove-role"><i class="fa fa-times"></i></a></span>
               {{else}}
               <div class="row">
                 <div class="col-xs-12">

@@ -1,7 +1,11 @@
 
 Template.EmployeeList.onCreated(function() {
   this.autorun(() => {
-    this.subscribe('allUsers');
+    var page = FlowRouter.getParam('page');
+    var currentPage = parseInt(page) || 1;
+    var skipCount = (currentPage - 1) * Meteor.settings.public.recordsPerPage;
+
+    this.subscribe('allUsers', skipCount);
   });
 });
 
@@ -43,6 +47,26 @@ Template.EmployeeList.helpers({
     } else {
       return '<span class="pull-right badge bg-red">offline</span></a>';
     }
+  },
+  prevPage: function() {
+    var previousPage = currentPage() === 1 ? 1 : currentPage() - 1;
+    var pathDef = "/employees/:page";
+    var params = {page: previousPage};
+    var path = FlowRouter.path(pathDef, params);
+    return path;;
+  },
+  nextPage: function() {
+    var nextPage = hasMorePages() ? currentPage() + 1 : currentPage();
+    var pathDef = "/employees/:page";
+    var params = {page: nextPage};
+    var path = FlowRouter.path(pathDef, params);
+    return path;
+  },
+  prevPageClass: function() {
+    return currentPage() <= 1 ? "disabled" : "";
+  },
+  nextPageClass: function() {
+    return hasMorePages() ? "" : "disabled";
   }
 });
 
@@ -65,3 +89,21 @@ FlowRouter.route('/employees', {
     BlazeLayout.render('MainLayout', {main: 'EmployeeList'});
   },
 });
+FlowRouter.route('/employees/:page', {
+  name: 'employeeListPage',
+  parent: 'dashboard',
+  title: 'Employees',
+  action: function() {
+    BlazeLayout.render('MainLayout', {main: 'EmployeeList'});
+  },
+});
+
+var hasMorePages = function() {
+  var totalEmployees = Counts.get('userCount');
+  return currentPage() * parseInt(10) < totalEmployees;
+}
+
+var currentPage = function() {
+  var page = FlowRouter.getParam('page');
+  return parseInt(page) || 1;
+}

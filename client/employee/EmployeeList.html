@@ -1,10 +1,20 @@
 <template name="EmployeeList">
   {{> ContentHeader title="Employee" subTitle="List"}}
   <section class="content">
+    {{#unless Template.subscriptionsReady}}
+      {{> spinner}}
+    {{/unless}}
+
+    {{#if Template.subscriptionsReady}}
+    <div id="alert"></div>
     <div class="row">
-      <div class="col-xs-12">
-        <div class="panel panel-default">
-          <div class="panel=body">
+      <div class="col-md-3">
+        <a href="#" class="btn btn-primary btn-block margin-bottom new-customer"><i class="fa fa-plus" aria-hidden="true"></i> New Employee</a>
+      </div>
+      <div class="col-md-9">
+        <!-- Search -->
+        <div class="row">
+          <div class="col-xs-12">
             <div class="input-group">
               <input type="text" class="form-control" placeholder="Search for employee">
               <span class="input-group-btn">
@@ -13,33 +23,54 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="row">
-      {{#each userList}}
-      <div class="col-xs-12 col-md-4">
-        <div class="box box-widget widget-user-2">
-          <div class="widget-user-header {{isUserActive profile}}">
-            <div class="widget-user-image">
-              <img class="img-circle" src="/images/user7-128x128.jpg" alt="User Avatar">
+        <br />
+        <div class="row">
+          {{#each userList}}
+          <div class="col-xs-12 col-md-6">
+            <div class="box box-widget widget-user-2">
+              <div class="widget-user-header {{isUserActive profile}}" style="min-height:120px;">
+                <div class="widget-user-image">
+                  <img class="img-circle" src="/images/user7-128x128.jpg" alt="User Avatar">
+                </div>
+                <h3 class="widget-user-username"><a href="/employees/{{_id}}/view" title="View " style="color:white">{{profile.name}}</a></h3>
+                <h5 class="widget-user-desc">Lead Developer</h5>
+              </div>
+              <div class="box-footer no-padding">
+                <ul class="nav nav-stacked">
+                  <li><a href="#">&nbsp; {{{isOnline profile}}}</a></li>
+                  <li><a href="#"><i class="fa fa-phone" aria-hidden="true"></i> Phone: <span class="pull-right">{{profile.phone}}</span></a></li>
+                  <li><a href="#" title="Message User" class="message-user"><i class="fa fa-envelope-o" aria-hidden="true"></i> Email: <span class="pull-right">{{userPrimaryEmail emails}}</span></a></li>
+                </ul>
+              </div>
             </div>
-            <h3 class="widget-user-username"><a href="/employees/{{_id}}/view" title="View " style="color:white">{{profile.name}}</a></h3>
-            <h5 class="widget-user-desc">Lead Developer</h5>
           </div>
-          <div class="box-footer no-padding">
-            <ul class="nav nav-stacked">
-              <li><a href="#">&nbsp; {{{isOnline profile}}}</a></li>
-              <li><a href="#"><i class="fa fa-phone" aria-hidden="true"></i> Phone <span class="pull-right">{{profile.phone}}</span></a></li>
-              <li><a href="#" title="Message User" class="message-user"><i class="fa fa-envelope-o" aria-hidden="true"></i> Email <span class="pull-right">{{userPrimaryEmail emails}}</span></a></li>
-            </ul>
+          {{else}}
+          <div class="alert alert-info">
+            <p><i class="fa fa-info-circle" aria-hidden="true"></i> No Employees</p>
+          </div>
+          {{/each}}
+        </div>
+        <!-- Pagination -->
+        <div class="row">
+          <div class="col-xs-12">
+            <nav>
+              <ul class="pager">
+                <li class="{{prevPageClass}}">
+                  <a id="prevPage" href="{{prevPage}}">
+                    <span aria-hidden="true">&larr;</span> Previous
+                  </a>
+                </li>
+                <li class="{{nextPageClass}}">
+                  <a id="nextPage" href="{{nextPage}}">
+                    Next <span aria-hidden="true">&rarr;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
           </div>
         </div>
       </div>
-      {{else}}
-      <div class="alert alert-info">
-        <p><i class="fa fa-info-circle" aria-hidden="true"></i> No Employees</p>
-      </div>
-      {{/each}}
     </div>
+    {{/if}}
   </section>
 </template>

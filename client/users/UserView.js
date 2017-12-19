@@ -22,6 +22,10 @@ Template.UserView.rendered = function(){
   }
 };
 
+Template.registerHelper('isUserInRole', function(userId, role) {
+  return Roles.userIsInRole(userId, role);
+});
+
 // helpers
 Template.UserView.helpers({
   // get user
@@ -42,6 +46,9 @@ Template.UserView.helpers({
   dateFormat: function(date) {
     return moment(date).format(Meteor.settings.public.longDate);
   },
+  dateShortFormat: function(date) {
+    return moment(date).format(Meteor.settings.public.shortDate);
+  },
   // get all Roles for dropdown
   listRoles: function() {
     return Roles.getAllRoles();
@@ -55,7 +62,7 @@ Template.UserView.helpers({
 
 // events
 Template.UserView.events({
-  'click .add-role-to-user': function(event) {
+  'click .add-role-to-users': function(event) {
     var role = $.trim($('[name=role]').val());
     var userId = FlowRouter.getParam('id');
 
@@ -67,9 +74,25 @@ Template.UserView.events({
         $('#alert').html('<div class="alert alert-danger"><p>'+error.reason+'</p></div>');
         console.log('Error adding user to role: ' + error.reason);
       } else {
-        $('#alert').html('<div class="alert alert-success"><p>Role was deleted</p></div>');
+        $('#alert').html('<div class="alert alert-success"><p>Role was added to user</p></div>');
       }
     });
 
+  },
+  'click .remove-role': function(event) {
+      console.log(this);
+  },
+  'click .edit-user': function(event) {
+    Session.set('EditUser', !Session.get('EditUser'));
   }
+});
+
+
+FlowRouter.route('/admin/users/:id/view', {
+  name: 'userView',
+  parent: 'userList',
+  title: 'View',
+  action: function() {
+    BlazeLayout.render('MainLayout', {main: 'UserView'});
+  },
 });

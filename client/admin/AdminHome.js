@@ -1,28 +1,29 @@
+Template.AdminHome.onCreated(function() {
+  this.autorun(() => {
+    this.subscribe('allUsers', 0);
+  });
+});
 
 // rendered
 Template.AdminHome.rendered = function(){
+  // history
   Meteor.call('createHistory', {
     userId: Meteor.userId(),
     message: 'Viewed Admin Home'
-  }, function (error) {
-    if(error) {
-      $('#alert').html('<div class="alert alert-danger"><p>'+error.reason+'</p></div>');
-    } else {
-
-    }
   });
 };
 
 // helpers
 Template.AdminHome.helpers({
   userCount: function() {
-      return Meteor.users.find({}).count();
+    return Counts.get('userCount');
   }
 });
 
 // events
-Template.AdminHome.events({});
+Template.AdminHome.events({
 
+});
 
 // router
 FlowRouter.route('/admin', {

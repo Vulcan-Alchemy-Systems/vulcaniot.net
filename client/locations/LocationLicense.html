@@ -1,0 +1,31 @@
+<template name="LocationLicense">
+  {{#if $.Session.get 'NewLicenses'}}
+    {{> NewLicenses}}
+  {{else}}
+  <a href="#" title="New Room" class="btn btn-xs btn-warning pull-right new-licenses" style="margin-top:-42px;"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <th>Number</th>
+        <th>Valid</th>
+        <th>Type</th>
+      </tr>
+    </thead>
+    <tbody>
+    {{#each location.license}}
+      <tr>
+        <td>{{number}}</td>
+        <td>{{dateFormat startDate}} - {{dateFormat endDate}}</td>
+        <td>{{licenseType}}</td>
+      </tr>
+    {{else}}
+      <tr>
+        <td colspan="4">
+          <i class="fa fa-info-circle"></i> No licenses
+        </td>
+      </tr>
+    {{/each}}
+    </tbody>
+  </table>
+  {{/if}}
+</template>

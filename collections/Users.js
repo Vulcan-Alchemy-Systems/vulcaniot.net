@@ -2,13 +2,6 @@ import SimpleSchema from 'simpl-schema';
 
 SimpleSchema.extendOptions(['autoform']);
 
-//// User admin methods
-if (typeof(AdminUser) === 'undefined') {
-  AdminUser = {};
-  // add callback functions for deletingUserMethod(id), savingUserMethod(options) if you want
-  // returning false from those callbacks cancel the delete/save methods
-}
-
 Meteor.users.allow({
   insert: function (userId, doc) {
     return true;
@@ -21,18 +14,292 @@ Meteor.users.allow({
   }
 });
 
+RolesSchema = new SimpleSchema({
+  roles: {
+    type: String,
+    optional: false,
+    autoform: {
+      type: "select",
+      options: [
+        {
+          label: "Admin",
+          value: "admin"
+        },
+        {
+          label: "User",
+          value: "user"
+        },
+      ]
+    }
+  }
+
+});
+
+PhonesSchema = new SimpleSchema({
+  // number
+  number: {
+    type: String,
+    label: "Number"
+  },
+  // type
+  type: {
+    type: String,
+    label: "Type",
+    autoform: {
+      type: "select",
+      options: [
+        {
+          label: "Primary Phone",
+          value: "Primary Phone"
+        },
+        {
+          label: "Mobile Phone",
+          value: "Mobile Phone"
+        },
+        {
+          label: "Other Phone",
+          value: "Other Phone"
+        },
+        {
+          label: "Fax",
+          value: "Fax"
+        },
+      ],
+      afFieldInput: {
+        firstOption: "(Select a Type)"
+      }
+    }
+  },
+});
+
+AddressSchema = new SimpleSchema({
+  // type
+  type: {
+    type: String,
+    label: "Type",
+    autoform: {
+      type: "select",
+      options: [
+        {
+          label: "Billing Address",
+          value: "Billing Address"
+        },
+        {
+          label: "Shipping Address",
+          value: "Shipping Address"
+        },
+        {
+          label: "Other Address",
+          value: "Other Address"
+        },
+      ],
+      afFieldInput: {
+        firstOption: "(Select a Type)"
+      }
+    }
+  },
+  // street
+  street: {
+    type: String,
+    label: "Street"
+  },
+  // streetCont
+  streetCont: {
+    type: String,
+    label: "Street Cont.",
+    optional: true,
+  },
+  // city
+  city: {
+    type: String,
+    label: "City"
+  },
+  // state
+  state: {
+    type: String,
+    label: "State",
+    allowedValues: ["Oregon", "Washington", "California", "Colorado"],
+    autoform: {
+      afFieldInput: {
+        firstOption: "(Select a State)"
+      }
+    }
+  },
+  // postal
+  postal: {
+    type: String,
+    label: "Postal"
+  },
+});
+
+UserProfileSchema = new SimpleSchema({
+  // name
+  name: {
+    type: String,
+    label: "Name",
+    optional: false,
+  },
+  // status
+  status: {
+    type: String,
+    label: "Status",
+    autoform: {
+      type: "select",
+      options: [
+        {
+          label: "Active",
+          value: "Active"
+        },
+        {
+          label: "Suspended",
+          value: "Suspended"
+        },
+        {
+          label: "Deleted",
+          value: "Deleted"
+        },
+      ],
+      afFieldInput: {
+        firstOption: "(Select a Status)"
+      }
+    }
+  },
+  // created
+  createdAt: {
+    type: Date,
+    label: "Created",
+    optional: true,
+    autoValue: function () {
+      return new Date();
+    },
+    autoform: {
+      type: "hidden",
+    }
+  },
+  // position
+  position: {
+    type: String,
+    label: "Position",
+    optional: true,
+  },
+  // image
+  image: {
+    type: String,
+    label: "Image",
+    optional: true,
+  },
+  // website
+  website: {
+    type: String,
+    label: "Website",
+    optional: true,
+  },
+  // gender
+  gender: {
+    type: String,
+    label: "Gender",
+    autoform: {
+      type: "select",
+      options: [
+        {
+          label: "Male",
+          value: "Male"
+        },
+        {
+          label: "Female",
+          value: "Female"
+        },
+      ],
+      afFieldInput: {
+        firstOption: "(Select a Gender)"
+      }
+    }
+  },
+  // birthday
+  birthday: {
+    type: Date,
+    label: "Birthday",
+    optional: true,
+  },
+  // clockedIn
+  clockedIn: {
+    type: Boolean,
+    defaultValue: false,
+    optional: true,
+    autoform: {
+      type: "hidden"
+    }
+  },
+  // address
+  address: {
+    type: Array,
+    optional: true,
+  },
+  'address.$': AddressSchema,
+  // phones
+  phones: {
+    type: Array,
+    optional: true,
+  },
+  'phones.$': PhonesSchema,
+});
+
+EmailSchema = new SimpleSchema({
+  // address
+  address: {
+    type: String,
+    label: "E-Mail",
+    optional: false,
+  },
+  // verified
+  verified: {
+    type: Boolean,
+    label: "Verified",
+    optional: false,
+    autoValue: function () {
+      return true;
+    },
+    autoform: {
+      type: "hidden",
+    }
+  },
+});
+
+UserSchema = new SimpleSchema({
+    profile: {
+        type: UserProfileSchema,
+        optional: false
+    },
+    emails: {
+      type: Array,
+      optional: false
+    },
+    'emails.$': EmailSchema,
+    roles: {
+        type: Array,
+        optional: false,
+        blackbox: true,
+    },
+    'roles.$': RolesSchema,
+});
+
+Meteor.users.attachSchema(UserSchema);
+
+
 
 // methods
 Meteor.methods({
   addUserToRole: function(data) {
     Roles.addUsersToRoles(data.userId, data.role);
-    //Meteor.users.update({_id: data.userId}, {$set: {roles:[data.role]}});
   },
   // toggle user status
   usersToggleStatus: function(id, status){
     Meteor.users.update({_id: id}, {$set: {"profile.status": status}});
   },
+  usersCreate:function(options) {
 
+    //Roles.addUsersToRoles(userId, 'user');
+  },
   // user count
   userCount: function() {
     return Meteor.users.find({}).count();
@@ -57,30 +324,10 @@ Meteor.methods({
     }
 
     Meteor.users.remove({ _id: options.id });
-    console.log("User " + options.id + " deleted");
   },
 
   // update user
-  updateUser: function(options) {
-    // options should include: id, username, email, roles
-    options = options || {};
-
-    // validate
-    if ( !(typeof options.id === "string") ||
-      !(typeof options.name === "string") ||
-      !(typeof options.email === "string") ) {
-      throw new Meteor.Error(400, "Required parameter missing");
-    }
-
-    if (! Meteor.userId()) {
-      throw new Meteor.Error(403, "You must be logged in");
-    }
-
-    var user = Meteor.users.findOne({ _id: options.id });
-    if (user == null) {
-      throw new Meteor.Error(402, "User not found");
-    }
-
-    Meteor.users.update({_id: options.id}, {$set: {"profile.status": options.status, 'profile.name': options.name, emails: [{ "address": options.email, "verified": true}], roles: options.role}});
+  updateUser: function(id, doc) {
+    Meteor.users.update({_id: id}, doc);
   },
 });

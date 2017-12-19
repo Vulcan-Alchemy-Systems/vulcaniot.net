@@ -41,3 +41,7 @@ perak:mqtt-collection
 check
 random
 email
+stolinski:stylus-multi
+sacha:spin
+tmeasday:publish-counts
+ostrio:files
