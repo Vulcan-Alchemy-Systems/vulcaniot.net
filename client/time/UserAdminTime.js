@@ -14,9 +14,6 @@ Template.UserAdminTime.rendered = function(){
     userId: Meteor.userId(),
     message: 'User Viewed Admin Time Clock'
   });
-
-  // get TimeS
-
 };
 
 // helpers
@@ -44,6 +41,14 @@ Template.UserAdminTime.helpers({
 
 // events
 Template.UserAdminTime.events({
+  'click .edit-time': function(event) {
+      Session.set('TimeData', this);
+      Session.set('EditTime', !Session.get('EditTime'));
+  },
+  'click .create-time': function(event) {
+    Session.set('CreateTime', !Session.get('CreateTime'));
+    console.log(Session.get('CreateTime'));
+  },
   // open modal
   'click .delete-time': function(event) {
     event.preventDefault();
@@ -71,9 +76,24 @@ Template.UserAdminTime.events({
       }
     });
 
+    // scrollTop
+    $('body').scrollTop(0);
+
     // auto dismiss
     $("#alert").fadeTo(2000, 500).slideUp(500, function(){
       $("#alert").slideUp(500);
+    });
+  },
+
+  // export
+  'click .export-time': function(event) {
+    var userId = FlowRouter.getParam('id');
+    var nameFile = 'fileDownloaded.csv';
+    Meteor.call('download', userId, function(err, fileContent) {
+      if(fileContent){
+        var blob = new Blob([fileContent], {type: "text/plain;charset=utf-8"});
+        saveAs(blob, nameFile);
+      }
     });
   }
 });

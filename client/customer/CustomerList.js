@@ -4,8 +4,8 @@ Template.CustomerList.onCreated(function() {
     var page = FlowRouter.getParam('page');
     var currentPage = parseInt(page) || 1;
     var skipCount = (currentPage - 1) * Meteor.settings.public.recordsPerPage;
-
     this.subscribe('allCustomers', skipCount);
+    Session.set("search-query", "");
   });
 });
 
@@ -22,10 +22,13 @@ Template.CustomerList.rendered = function(){
 // helpers
 Template.CustomerList.helpers({
   customers: function() {
-    var results = Customers.find({}).fetch();
-    if(results) {
-      return results;
-    }
+    var keyword  = Session.get("search-query");
+    var query = new RegExp( keyword, 'i' );
+    var results =  Customers.find( { $or: [{'name': query}]} );
+    return results;
+  },
+  searchQuery: function() {
+    return Session.get("search-query");
   },
   isCustomerActive: function(status) {
     if(status == 'Active') {
@@ -103,6 +106,9 @@ Template.CustomerList.events({
   },
   'click #nextPage': function(event) {
     $('body').scrollTop(0);
+  },
+  'keyup .customer-search': function(event) {
+    Session.set("search-query", event.currentTarget.value);
   }
 });
 
@@ -115,6 +121,8 @@ FlowRouter.route('/customers/:page', {
     BlazeLayout.render('MainLayout', {main: 'CustomerList'});
   },
 });
+
+// route
 FlowRouter.route('/customers', {
   name: 'customerList',
   parent: 'dashboard',

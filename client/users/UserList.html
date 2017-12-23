@@ -1,7 +1,7 @@
 <template name="UserList">
   {{> ContentHeader title="Admin" subTitle="Users"}}
   <section class="content">
-  {{#if isInRole 'manager'}}
+
 
   {{#unless Template.subscriptionsReady}}
     {{> spinner}}
@@ -12,7 +12,9 @@
 
     <div class="row">
       <div class="col-md-3">
+          {{#if isInRole 'manager'}}
           <a href="#" class="btn btn-primary btn-block margin-bottom new-user"><i class="fa fa-plus" aria-hidden="true"></i> New User</a>
+          {{/if}}
       </div>
       <div class="col-md-9">
         {{#if $.Session.get 'NewUser'}}
@@ -82,8 +84,6 @@
     </div>
     {{/if}}
 
-    {{else}}
-    <h1>Not Authorized</h1>
-    {{/if}}
+
   </section>
 </template>

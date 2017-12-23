@@ -1,0 +1,84 @@
+<template name="EditJob">
+  {{# autoForm collection="Jobs" id="updateJobForm" type="update"  class="new-job-form" validation="browser" doc=job}}
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="form-group {{#if afFieldIsInvalid name='jobName'}}has-error{{/if}}">
+        <label class="control-label">{{afFieldLabelText name='jobName'}}</label>
+        {{> afFieldInput name='jobName'}}
+        {{#if afFieldIsInvalid name='jobName'}}
+        <span class="help-block">{{{afFieldMessage name='jobName'}}}</span>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="form-group {{#if afFieldIsInvalid name='jobDescription'}}has-error{{/if}}">
+        <label class="control-label">{{afFieldLabelText name='jobDescription'}}</label>
+        {{> afFieldInput name='jobDescription'}}
+        {{#if afFieldIsInvalid name='jobDescription'}}
+        <span class="help-block">{{{afFieldMessage name='jobDescription'}}}</span>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-4">
+      <div class="form-group {{#if afFieldIsInvalid name='jobStartDate'}}has-error{{/if}}">
+        <label class="control-label">{{afFieldLabelText name='jobStartDate'}}</label>
+        {{> afFieldInput name='jobStartDate'}}
+        {{#if afFieldIsInvalid name='jobStartDate'}}
+        <span class="help-block">{{{afFieldMessage name='jobStartDate'}}}</span>
+        {{/if}}
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-4">
+      <div class="form-group {{#if afFieldIsInvalid name='jobExpectedCompleteDate'}}has-error{{/if}}">
+        <label class="control-label">{{afFieldLabelText name='jobExpectedCompleteDate'}}</label>
+        {{> afFieldInput name='jobExpectedCompleteDate'}}
+        {{#if afFieldIsInvalid name='jobExpectedCompleteDate'}}
+        <span class="help-block">{{{afFieldMessage name='jobExpectedCompleteDate'}}}</span>
+        {{/if}}
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-4">
+      <div class="form-group {{#if afFieldIsInvalid name='jobCompleteDate'}}has-error{{/if}}">
+        <label class="control-label">{{afFieldLabelText name='jobCompleteDate'}}</label>
+        {{> afFieldInput name='jobCompleteDate'}}
+        {{#if afFieldIsInvalid name='jobCompleteDate'}}
+        <span class="help-block">{{{afFieldMessage name='jobCompleteDate'}}}</span>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="form-group {{#if afFieldIsInvalid name='jobDescription'}}has-error{{/if}}">
+        <label class="control-label">{{afFieldLabelText name='externalReporting'}}</label>
+        {{> afFieldInput name='externalReporting'}}
+        {{#if afFieldIsInvalid name='externalReporting'}}
+        <span class="help-block">{{{afFieldMessage name='externalReporting'}}}</span>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+  
+  {{> afQuickField name='customerId'}}
+
+  {{> afQuickField name='createdAt'}}
+
+  {{> afQuickField name='createdBy'}}
+
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="pull-right">
+        <button type="cancel" class="btn btn-danger new-job" name="cancel" id="cancel"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancel</button>
+        <button type="button" class="btn btn-primary edit-job-submit" name="submit" id="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+      </div>
+    </div>
+  </div>
+  {{/autoForm}}
+</template>

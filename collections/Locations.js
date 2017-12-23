@@ -9,7 +9,6 @@ Locations = new Meteor.Collection("locations");
 
 Locations.allow({
   insert: function (userId, doc) {
-    console.log(doc)
     return true;
   },
   update: function (userId, doc) {
@@ -17,6 +16,118 @@ Locations.allow({
   },
   remove: function (userId, doc) {
     return true;
+  },
+});
+
+// get users
+var getOptions = function() {
+  var options = [];
+  var users = Meteor.users.find().fetch();
+
+  // loop though
+  users.forEach(function(user){
+    options.push({
+      label: user.profile.name,
+      value: user.profile.name
+    });
+  });
+  return options;
+};
+
+AccessPinSchema = new SimpleSchema({
+  // userId
+  userId: {
+    type: String,
+    label: "user Id",
+    optional: true,
+    autoform: {
+      type: "hidden",
+    }
+  },
+
+  // name
+  name: {
+    type: String,
+    label: "Name",
+    autoform: {
+      type: "select",
+      options: getOptions
+    }
+  },
+
+  // Photo
+  photo: {
+    type: String,
+    label: "Photo",
+    optional: true,
+    autoform: {
+      type: "hidden",
+    }
+  },
+
+  // fingerPrint
+  fingerPrint: {
+    type: String,
+    label: "Finger Print",
+    optional: true,
+    autoform: {
+      type: "hidden",
+    }
+  },
+
+  // pinCode
+  pinCode: {
+    type: String,
+    label: "Pin Code",
+  },
+
+  // status
+  status: {
+    type: String,
+    label: "Status",
+    autoform: {
+      type: "select",
+      options: [
+        {
+          label: "Active",
+          value: "Active"
+        },
+        {
+          label: "Not Active",
+          value: "Not Active"
+        },
+      ]
+    }
+  },
+});
+
+AccessSchema = new SimpleSchema({
+  name: {
+    type: String,
+    label: "Name",
+  },
+  users: {
+    type: Array,
+    optional: true
+  },
+  'users.$': AccessPinSchema,
+  // status
+  status: {
+    type: String,
+    label: "Status",
+    autoform: {
+      type: "select",
+      options: [
+        {
+          label: "Active",
+          value: "Active"
+        },
+        {
+          label: "Not Active",
+          value: "Not Active"
+        },
+      ]
+    }
   },
 });
 
@@ -209,6 +320,12 @@ LocationsSchema = new SimpleSchema({
     optional: true,
   },
   'cameras.$': CameraSchema,
+  // Access
+  access: {
+    type: Array,
+    optional: true
+  },
+  'access.$': AccessSchema,
   // created
   created: {
     type: Date,

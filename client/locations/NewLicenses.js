@@ -33,6 +33,9 @@ Template.NewLicenses.events({
 
           // set newRoom to false
           Session.set('NewLicenses', false);
+
+          // scrollTop
+          $('body').scrollTop(0);
         }
       }
     );

@@ -25,6 +25,16 @@ ProductsSchema = new SimpleSchema({
     type: String,
     label: "Label"
   },
+
+  // jobId
+  jobId: {
+    type: String,
+    label: "Job Id",
+    autoform: {
+      type: "hidden"
+    }
+  },
+
   // PackageType
   packageType: {
     type: String,

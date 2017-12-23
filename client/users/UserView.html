@@ -1,169 +1,201 @@
 <template name="UserView">
   {{> ContentHeader title=getUser.profile.name subTitle="View"}}
     <section class="content">
+      {{#unless Template.subscriptionsReady}}
+        {{> spinner}}
+      {{/unless}}
+      {{#if Template.subscriptionsReady}}
       <div id="alert"></div>
-    {{#if isInRole 'manager'}}
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="nav-tabs-custom">
-          <ul class="nav nav-tabs">
-            <li class="active"><a href="#activity" data-toggle="tab">Profile</a></li>
-            <li><a href="#roles" data-toggle="tab">Roles</a></li>
-            <li><a href="#history" data-toggle="tab">History</a></li>
-            {{#if isUserInRole getUser._id 'employee'}}
-            <li><a href="#timeclock" data-toggle="tab">Time Clock</a></li>
-            {{/if}}
-          </ul>
-          <div class="tab-content">
-            <div class="active tab-pane" id="activity">
-              {{#if $.Session.get 'EditUser'}}
-                {{> UserEdit}}
-              {{else }}
-              <h3>Contact Info</h3>
-              <!-- Basic Stuff -->
-              <div class="row">
-                <div class="col-xs-12 col-sm-6">
-                  <p><b>Name:</b> {{getUser.profile.name}}</p>
-                </div>
-                <div class="col-xs-12 col-sm-3">
-                  <p><b>Created:</b> {{dateFormat getUser.profile.createdAt}}</p>
-                </div>
-                <div class="col-xs-12 col-sm-3">
-                  <p><b>Status:</b> {{getUser.profile.status}}</p>
-                </div>
-              </div>
 
-              <div class="row">
-                <div class="col-xs-12 col-sm-6">
-                  <p><b>E-Mail:</b> {{getUserEmail}}</p>
-                </div>
-                <div class="col-xs-12 col-sm-3">
-                  <p><b>Website:</b> {{#if getUser.profile.website}}{{getUser.profile.website}}{{else}}N/A{{/if}}</p>
-                </div>
-                <div class="col-xs-12 col-sm-3">
-                  <p><b>Birthdate:</b> {{#if getUser.profile.birthday}}{{dateShortFormat getUser.profile.birthday}}{{else}}N/A{{/if}}</p>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-xs-12 col-sm-9">
-                  <p><b>Position:</b> {{#if getUser.profile.position}}{{getUser.profile.position}}{{else}}N/A{{/if}}</p>
-                </div>
-                <div class="col-xs-12 col-sm-3">
-                  <p><b>Gender:</b> {{#if getUser.profile.gender}}{{getUser.profile.gender}}{{else}}N/A{{/if}}</p>
-                </div>
-              </div>
-
-
-              <!-- Phones -->
-              <div class="row">
-                {{#each getUser.profile.phones}}
-                <div class="col-xs-12 col-sm-4">
-                  <p><b>{{type}}:</b> {{number}}</p>
-                </div>
-                {{else}}
-                <div class="col-xs-12">
-                  <div class="alert alert-info">
-                    <p><i class="fa fa-info-circle"></i> No Phone Numbers</p>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#activity" data-toggle="tab">Profile</a></li>
+              <li><a href="#roles" data-toggle="tab">Roles</a></li>
+              <li><a href="#history" data-toggle="tab">History</a></li>
+              <li><a href="#timeClock" data-toggle="tab">Time Clock</a></li>
+            </ul>
+            <div class="tab-content">
+              <div class="active tab-pane" id="activity">
+                {{#if $.Session.get 'EditUser'}}
+                  {{> UserEdit}}
+                {{else }}
+                <h3>Contact Info</h3>
+                <!-- Basic Stuff -->
+                <div class="row">
+                  <div class="col-xs-12 col-sm-6">
+                    <p><b>Name:</b> {{getUser.profile.name}}</p>
+                  </div>
+                  <div class="col-xs-12 col-sm-3">
+                    <p><b>Created:</b> {{dateFormat getUser.profile.createdAt}}</p>
+                  </div>
+                  <div class="col-xs-12 col-sm-3">
+                    <p><b>Status:</b> {{getUser.profile.status}}</p>
                   </div>
                 </div>
-                {{/each}}
-              </div>
 
-              <!-- Address -->
-              <div class="row">
-                {{#each getUser.profile.address}}
-                <div class="col-xs-12 col-sm-6">
-                  <h4>{{type}}</h4>
-                  <div class="row">
-                    <div class="col-xs-12">
-                      <p>{{street}}</p>
-                    </div>
+                <div class="row">
+                  <div class="col-xs-12 col-sm-6">
+                    <p><b>E-Mail:</b> {{getUserEmail}}</p>
                   </div>
-                  {{#if streetCont}}
-                  <div class="row">
-                    <div class="col-xs-12">
-                      <p><b>Street Cont: </b></p>
-                    </div>
+                  <div class="col-xs-12 col-sm-3">
+                    <p><b>Website:</b> {{#if getUser.profile.website}}{{getUser.profile.website}}{{else}}N/A{{/if}}</p>
                   </div>
-                  {{/if}}
-                  <div class="row">
-                    <div class="col-xs-12">
-                      {{city}}, {{state}} {{postal}}
-                    </div>
+                  <div class="col-xs-12 col-sm-3">
+                    <p><b>Birthdate:</b> {{#if getUser.profile.birthday}}{{dateShortFormat getUser.profile.birthday}}{{else}}N/A{{/if}}</p>
                   </div>
                 </div>
-                {{else}}
-                <div class="col-xs-12">
-                  <div class="alert alert-info">
-                    <p><i class="fa fa-info-circle"></i> No Addresses</p>
+
+                <div class="row">
+                  <div class="col-xs-12 col-sm-6">
+                    <p><b>ID:</b> {{getUser._id}}</p>
+                  </div>
+                  <div class="col-xs-12 col-sm-3">
+                    <p><b>Position:</b> {{#if getUser.profile.position}}{{getUser.profile.position}}{{else}}N/A{{/if}}</p>
+                  </div>
+                  <div class="col-xs-12 col-sm-3">
+                    <p><b>Gender:</b> {{#if getUser.profile.gender}}{{getUser.profile.gender}}{{else}}N/A{{/if}}</p>
                   </div>
                 </div>
-                {{/each}}
-              </div>
 
-              <div class="row">
-                <div class="col-xs-12">
-                  <span class="pull-right">
-                  {{#if isInRole 'admin'}}
-                    <a href="/admin/users/{{getUser._id}}/delete" title="Delete user" class="btn btn-danger delete-user"><i class="fa fa-trash"></i> Delete</a>
-                  {{/if}}
-                    <a href="#" title="Edit user" class="btn btn-warning edit-user"><i class="fa fa-pencil"></i> Edit</a>
-                  </span>
-                </div>
-              </div>
-            {{/if}}
-            </div>
 
-            <!-- Roles -->
-            <div class="tab-pane" id="roles">
-              <!-- Roles -->
-              <div class="row">
+                <!-- Phones -->
+                <div class="row">
+                  {{#each getUser.profile.phones}}
                   <div class="col-xs-12 col-sm-4">
-                    <input type="hidden" name="userId" id="userId" value="{{getUser._id}}" />
-                    <div class="input-group">
-                      <select id="role" name="role" class="form-control">
-                      {{#each listRoles}}
-                        <option value="{{name}}">{{name}}</option>
-                      {{/each}}
-                      </select>
-                      <span class="input-group-btn">
-                        <button class="btn btn-primary add-role-to-users" type="button">Add Role</button>
-                      </span>
-                    </div><!-- /input-group -->
+                    <p><b>{{type}}:</b> {{number}}</p>
                   </div>
+                  {{else}}
+                  <div class="col-xs-12">
+                    <div class="alert alert-info">
+                      <p><i class="fa fa-info-circle"></i> No Phone Numbers</p>
+                    </div>
+                  </div>
+                  {{/each}}
                 </div>
 
-                <br />
-              {{#each listUserRoles}}
-              <span class="label label-primary">{{listUserRoles}} <a href="#" title="Remove Role" class="remove-role"><i class="fa fa-times"></i></a></span>
-              {{else}}
-              <div class="row">
-                <div class="col-xs-12">
-                  <div class="alert alert-info">
-                    <p><i class="fa fa-info-circle"></i> No Roles!</p>
+                <!-- Address -->
+                <div class="row">
+                  {{#each getUser.profile.address}}
+                  <div class="col-xs-12 col-sm-6">
+                    <h4>{{type}}</h4>
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <p>{{street}}</p>
+                      </div>
+                    </div>
+                    {{#if streetCont}}
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <p><b>Street Cont: </b></p>
+                      </div>
+                    </div>
+                    {{/if}}
+                    <div class="row">
+                      <div class="col-xs-12">
+                        {{city}}, {{state}} {{postal}}
+                      </div>
+                    </div>
+                  </div>
+                  {{else}}
+                  <div class="col-xs-12">
+                    <div class="alert alert-info">
+                      <p><i class="fa fa-info-circle"></i> No Addresses</p>
+                    </div>
+                  </div>
+                  {{/each}}
+                </div>
+
+                <div class="row">
+                  <div class="col-xs-12">
+                    <span class="pull-right">
+                    {{#if isInRole 'manager'}}
+                      <a href="/admin/users/{{getUser._id}}/delete" title="Delete user" class="btn btn-danger delete-user"><i class="fa fa-trash"></i> Delete</a>
+                      <a href="#" title="Reset Password" class="btn btn-primary reset-password"><i class="fa fa-lock"></i> Reset Password</a>
+                      <a href="#" title="Edit user" class="btn btn-warning edit-user"><i class="fa fa-pencil"></i> Edit</a>
+                    {{/if}}
+                    </span>
                   </div>
                 </div>
+              {{/if}}
               </div>
-              {{/each}}
-            </div>
 
-            <!-- History -->
-            <div class="tab-pane" id="history">
-              {{> UserHistory}}
-            </div>
+              <!-- Roles -->
+              <div class="tab-pane" id="roles">
+                {{#if isInRole 'manager'}}
+                <!-- Roles -->
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4">
+                      <input type="hidden" name="userId" id="userId" value="{{getUser._id}}" />
+                      <div class="input-group">
+                        <select id="role" name="role" class="form-control">
+                        {{#each listRoles}}
+                          <option value="{{name}}">{{name}}</option>
+                        {{/each}}
+                        </select>
+                        <span class="input-group-btn">
+                          <button class="btn btn-primary add-role-to-users" type="button">Add Role</button>
+                        </span>
+                      </div><!-- /input-group -->
+                    </div>
+                  </div>
+                  <br />
+                  {{/if}}
+                {{#each role in listUserRoles}}
+                <span class="label label-primary">{{role}} {{#if isInRole 'manager'}}<a href="#" title="Remove Role" class="remove-role"  id="{{role}}"><i class="fa fa-times"></i></a>{{else}}&nbsp;{{/if}}</span>
+                {{else}}
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="alert alert-info">
+                      <p><i class="fa fa-info-circle"></i> No Roles!</p>
+                    </div>
+                  </div>
+                </div>
+                {{/each}}
+              </div>
 
-            <!-- timeclock -->
-            <div class="tab-pane" id="timeclock">
-              {{> UserAdminTime}}
-            </div>
+              <!-- History -->
+              <div class="tab-pane" id="history">
+                {{> UserHistory}}
+              </div>
 
+              <!-- timeclock -->
+              <div class="tab-pane" id="timeClock">
+                {{> UserAdminTime}}
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      {{/if}}
+    </section>
+    <!-- Modal -->
+    <div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-labelledby="passwordModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="passwordModalLabel">Reset Password</h4>
+          </div>
+          <div class="modal-body">
+            <form id="resetPasswordForm">
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Password">
+              </div>
+              <div class="form-group">
+                <label for="confirm">Confirm</label>
+                <input type="password" class="form-control" id="confirm" placeholder="Repeat Password">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary do-reset-password">Reset</button>
           </div>
         </div>
       </div>
     </div>
-    {{else}}
-    <h1>Not Authorized</h1>
-    {{/if}}
-    </section>
 </template>

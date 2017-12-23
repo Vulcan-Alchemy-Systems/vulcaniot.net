@@ -1,0 +1,91 @@
+<template name="SensorView">
+  {{> ContentHeader title="Sensors" subTitle="View"}}
+  <section class="content">
+    {{#unless Template.subscriptionsReady}}
+      {{> spinner}}
+    {{/unless}}
+
+    <div id="alert"></div>
+      <div class="row">
+        <div class="col-md-12">
+
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#sensor" data-toggle="tab" class="sensor-tab">Sensor</a></li>
+              <li><a href="#event" data-toggle="tab" class="event-tab">Events</a></li>
+            </ul>
+            <div class="tab-content">
+              <!-- Sensor -->
+              <div class="active tab-pane" id="sensor">
+                {{#if $.Session.get 'EditSensor'}}
+                  {{> EditSensor}}
+                {{else}}
+
+                  <div class="text-right" style="margin-top:-40px">
+                    <button type="button" class="btn btn-xs btn-danger delete-sensor"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+                    <button type="button" class="btn btn-xs btn-warning edit-sensor"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
+                  </div>
+
+
+                <div class="row">
+                  <div class="col-xs-12 col-sm-8">
+                    <p><b>Name:</b> {{sensor.name}}</p>
+                  </div>
+                  <div class="col-xs-12 col-sm-4">
+                    <p><b>ID:</b> {{sensor._id}}</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <p><b>Description:</b> {{sensor.description}}</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12 col-sm-4 {{status sensor.status}}">
+                    <p><b>Status:</b> {{sensor.status}}</p>
+                  </div>
+                  <div class="col-xs-12 col-sm-4">
+                    <p><b>Display:</b> {{sensor.display}}</p>
+                  </div>
+                </div>
+
+                <hr />
+                <h4>Triggers</h4>
+                <table class="table table-hover table-striped">
+                  <thead>
+                    <tr>
+                      <th>Type</th>
+                      <th>value</th>
+                      <th>Alert</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {{#each sensor.parameters}}
+                    <tr>
+                      <td>{{type}}</td>
+                      <td>{{value}}</td>
+                      <td>{{sendAlert alert}}</td>
+                    </tr>
+                  {{else}}
+                    <tr>
+                      <td colspan="3"><i class="fa fa-info-circle" aria-hidden="true"></i> No Triggers</td>
+                    </tr>
+                  {{/each}}
+                  </tbody>
+                </table>
+                  <canvas id="myChart"> Chart</canvas>
+                {{/if}}
+              </div>
+              <!-- event -->
+              <div class="tab-pane" id="event">
+                {{> SensorEvents}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+  </section>
+
+</template>

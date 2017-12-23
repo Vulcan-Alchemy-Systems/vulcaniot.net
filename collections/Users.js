@@ -1,5 +1,6 @@
 import SimpleSchema from 'simpl-schema';
-
+import { Accounts } from 'meteor/accounts-base';
+import { Roles } from 'meteor/alanning:roles';
 SimpleSchema.extendOptions(['autoform']);
 
 Meteor.users.allow({
@@ -22,12 +23,16 @@ RolesSchema = new SimpleSchema({
       type: "select",
       options: [
         {
-          label: "Admin",
+          label: "admin",
           value: "admin"
         },
         {
-          label: "User",
-          value: "user"
+          label: "customer",
+          value: "customer"
+        },
+        {
+          label: "employee",
+          value: "employee"
         },
       ]
     }
@@ -224,7 +229,6 @@ UserProfileSchema = new SimpleSchema({
   // clockedIn
   clockedIn: {
     type: Boolean,
-    defaultValue: false,
     optional: true,
     autoform: {
       type: "hidden"
@@ -277,28 +281,47 @@ UserSchema = new SimpleSchema({
     'emails.$': EmailSchema,
     roles: {
         type: Array,
-        optional: false,
+        optional: true,
         blackbox: true,
     },
     'roles.$': RolesSchema,
+    services: {
+        type: Object,
+        optional: true,
+        blackbox: true
+    },
 });
 
 Meteor.users.attachSchema(UserSchema);
 
-
-
 // methods
 Meteor.methods({
-  addUserToRole: function(data) {
-    Roles.addUsersToRoles(data.userId, data.role);
+  addUserToRole: function(user, role) {
+    return Roles.addUsersToRoles(user, role);
+  },
+  // remove role
+  removeUserRole: function(user, role) {
+    return Roles.removeUsersFromRoles(user, role);
   },
   // toggle user status
   usersToggleStatus: function(id, status){
     Meteor.users.update({_id: id}, {$set: {"profile.status": status}});
   },
-  usersCreate:function(options) {
-
-    //Roles.addUsersToRoles(userId, 'user');
+  // create user
+  usersCreate:function(user) {
+    var userId = Meteor.users.insert(user);
+    Roles.addUsersToRoles(userId, 'user');
+    return userId;
+  },
+  // reset users password
+  userResetPassword: function(user, password) {
+    if (Meteor.isServer) {
+      return Accounts.setPassword(user._id, password);
+    }
+  },
+  // fetch users
+  userFetch: function() {
+    return Meteor.users.find({});
   },
   // user count
   userCount: function() {

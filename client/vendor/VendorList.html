@@ -1,6 +1,10 @@
 <template name="VendorList">
   {{> ContentHeader title="Vendors" subTitle="List"}}
   <section class="content">
+    {{#unless Template.subscriptionsReady}}
+      {{> spinner}}
+    {{/unless}}
+    {{#if Template.subscriptionsReady}}
     <div id="alert"></div>
     <div class="row">
       <div class="col-md-3">
@@ -23,5 +27,6 @@
         </div>
       </div>
     </div>
+    {{/if}}
   </section>
 </template>

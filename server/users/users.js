@@ -16,14 +16,12 @@ Meteor.publish( 'allUsers', function(skipCount) {
   return Meteor.users.find({}, {fields: {profile: 1, emails: 1}});
 });
 
-Meteor.publish( 'singleUser', function(id) {
+Meteor.publish( 'users', function(id) {
   check(id, String);
-  return Meteor.users.find({_id: id}, {fields: {profile: 1, emails: 1}});
+  return Meteor.users.find({});
 });
 
-// acctouns create
-Accounts.onCreateUser(function(options, user) {
-   
-
-   return user;
+Meteor.publish( 'singleUser', function(id) {
+  check(id, String);
+  return Meteor.users.find({_id: id}, {fields: {profile: 1, emails: 1, roles: 1}});
 });

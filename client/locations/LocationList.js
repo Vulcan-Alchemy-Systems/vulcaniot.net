@@ -4,8 +4,8 @@ Template.LocationList.onCreated(function() {
     var page = FlowRouter.getParam('page');
     var currentPage = parseInt(page) || 1;
     var skipCount = (currentPage - 1) * Meteor.settings.public.recordsPerPage;
-
     this.subscribe('allLocations', skipCount);
+    Session.set("search-query", "");
   });
 });
 
@@ -20,8 +20,13 @@ Template.LocationList.rendered = function(){
 // helpers
 Template.LocationList.helpers({
   locations: function() {
-    var results = Locations.find({}).fetch();
+    var keyword  = Session.get("search-query");
+    var query = new RegExp( keyword, 'i' );
+    var results =  Locations.find( { $or: [{'name': query}]} );
     return results;
+  },
+  searchQuery: function() {
+    return Session.get("search-query");
   },
   isLocationActive: function(status) {
     if(status == 'Active') {
@@ -83,6 +88,10 @@ Template.LocationList.events({
   },
   'click #nextPage': function(event) {
     $('body').scrollTop(0);
+  },
+  'keyup .location-search': function(event) {
+    Session.set("search-query", event.currentTarget.value);
+    console.log(event.currentTarget.value);
   }
 });
 

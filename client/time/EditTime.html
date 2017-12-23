@@ -1,0 +1,35 @@
+<template name="EditTime">
+  <div class="row">
+    <div class="col-xs-12">
+    {{# autoForm collection="Time" id="updateTimeForm" type="update" class="edit-time-form" doc=time}}
+      <div class="row">
+        <div class="col-xs-12 col-sm-5">
+          <div class="form-group {{#if afFieldIsInvalid name='toName'}}has-error{{/if}}">
+            <label class="control-label">{{afFieldLabelText name='created'}}</label>
+            {{> afFieldInput name='created'}}
+            {{#if afFieldIsInvalid name='created'}}
+            <span class="help-block">{{{afFieldMessage name='created'}}}</span>
+            {{/if}}
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-4">
+          <div class="form-group {{#if afFieldIsInvalid name='toName'}}has-error{{/if}}">
+            <label class="control-label">{{afFieldLabelText name='action'}}</label>
+            {{> afFieldInput name='action'}}
+            {{#if afFieldIsInvalid name='action'}}
+            <span class="help-block">{{{afFieldMessage name='action'}}}</span>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+
+
+      <div class="pull-right">
+        <button type="button" class="btn btn-danger edit-time"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancel</button>
+        <button type="submit" class="btn btn-primary edit-time-submit" name="submit" id="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+      </div>
+    {{/autoForm}}
+    </div>
+  </div>
+</template>

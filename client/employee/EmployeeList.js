@@ -4,8 +4,8 @@ Template.EmployeeList.onCreated(function() {
     var page = FlowRouter.getParam('page');
     var currentPage = parseInt(page) || 1;
     var skipCount = (currentPage - 1) * Meteor.settings.public.recordsPerPage;
-
     this.subscribe('allUsers', skipCount);
+    Session.set("search-query", "");
   });
 });
 
@@ -17,14 +17,17 @@ Template.EmployeeList.rendered = function(){
   });
 };
 
+Template.EmployeeList.searchResults = function () {
+    var keyword  = Session.get("search-query");
+    var query = new RegExp( keyword, 'i' );
+    var results =  Meteor.users.find( { $or: [{'profile.name': query}]} );
+    return results;
+}
+
 // helpers
 Template.EmployeeList.helpers({
-  // gets all users
-  userList: function() {
-    var users = Meteor.users.find().fetch();
-    if ( users ) {
-      return users;
-    }
+  searchQuery: function() {
+    return Session.get("search-query");
   },
   // get user primary address
   userPrimaryEmail: function(emails) {
@@ -77,6 +80,10 @@ Template.EmployeeList.events({
     Session.set('composeMessage', true);
     Session.set('messageUserId', this._id);
     FlowRouter.go('messages');
+  },
+  'keyup .employee-search': function(event) {
+    Session.set("search-query", event.currentTarget.value);
+    console.log(event.currentTarget.value);
   }
 });
 

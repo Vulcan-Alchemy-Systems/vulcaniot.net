@@ -1,0 +1,64 @@
+<template name="LocationSecurity">
+  {{#if $.Session.get 'NewSecurity'}}
+    {{> NewSecurity}}
+  {{else}}
+  <a href="#" title="New Security Device" class="btn btn-xs btn-success pull-right new-security" style="margin-top:-42px;"><i class="fa fa-plus" aria-hidden="true"></i> New</a>
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each sensors}}
+      <tr class="{{sensorStatus status}}">
+        <td><a href="#" title="View Sensor" class="view-sensor">{{name}}</a></td>
+        <td>{{type}}</td>
+        <td>{{status}}</td>
+      </tr>
+      {{else}}
+      <tr>
+        <td colspan="3">
+          <i class="fa fa-info-circle" aria-hidden="true"></i> No security devices
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  {{/if}}
+  <!-- Modal -->
+  <div class="modal fade" id="sensorModal" tabindex="-1" role="dialog" aria-labelledby="userAccessModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="userAccessModalLabel">Events For {{sensor.name}}</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-xs-6">
+              <p><b>Name:</b> {{sensor.name}}</p>
+            </div>
+            <div class="col-xs-6">
+              <p><b>Device Id:</b> {{sensor._id}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6">
+              <p><b>Type:</b> {{sensor.type}}</p>
+            </div>
+            <div class="col-xs-6">
+              <p><b>Status:</b> {{sensor.status}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a href="#" title="View Sensor" class="btn btn-primary view-sensor-details"><i class="fa fa-eye"></i> View More</a>
+          <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle"></i>Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

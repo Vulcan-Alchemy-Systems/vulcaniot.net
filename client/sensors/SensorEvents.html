@@ -1,0 +1,44 @@
+<template name="SensorEvents">
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <th>Event</th>
+        <th>State</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+    {{#each events}}
+    <tr>
+      <td>{{event}}</td>
+      <td>{{state}}</td>
+      <td>{{dateFormat createdAt}}</td>
+    </tr>
+    {{else}}
+    <tr>
+      <td colspan="3"><i class="fa fa-info-circle" aria-hidden="true"></i> No events</td>
+    </tr>
+    {{/each}}
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3">
+          <nav>
+            <ul class="pager">
+              <li class="{{prevPageClass}}">
+                <a id="prevPage" href="{{prevPage}}">
+                  <span aria-hidden="true">&larr;</span> Previous
+                </a>
+              </li>
+              <li class="{{nextPageClass}}">
+                <a id="nextPage" href="{{nextPage}}">
+                  Next <span aria-hidden="true">&rarr;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</template>

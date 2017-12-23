@@ -1,0 +1,61 @@
+<template name="NewSecurity">
+  <div class="row">
+    <div class="col-xs-12">
+    {{# autoForm collection="Sensors" id="insertSecurityForm" type="insert" class="new-location-form"}}
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group {{#if afFieldIsInvalid name='toName'}}has-error{{/if}}">
+            <label class="control-label">{{afFieldLabelText name='name'}}</label>
+            {{> afFieldInput name='name'}}
+            {{#if afFieldIsInvalid name='name'}}
+            <span class="help-block">{{{afFieldMessage name='name'}}}</span>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group {{#if afFieldIsInvalid name='toName'}}has-error{{/if}}">
+            <label class="control-label">{{afFieldLabelText name='description'}}</label>
+            {{> afFieldInput name='description'}}
+            {{#if afFieldIsInvalid name='description'}}
+            <span class="help-block">{{{afFieldMessage name='description'}}}</span>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-3">
+          <div class="form-group {{#if afFieldIsInvalid name='toName'}}has-error{{/if}}">
+            <label class="control-label">{{afFieldLabelText name='type'}}</label>
+            {{> afFieldInput name='type'}}
+            {{#if afFieldIsInvalid name='type'}}
+            <span class="help-block">{{{afFieldMessage name='type'}}}</span>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-3">
+          <div class="form-group {{#if afFieldIsInvalid name='toName'}}has-error{{/if}}">
+            <label class="control-label">{{afFieldLabelText name='status'}}</label>
+            {{> afFieldInput name='status'}}
+            {{#if afFieldIsInvalid name='status'}}
+            <span class="help-block">{{{afFieldMessage name='status'}}}</span>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+
+      <div class="pull-right">
+        <button type="button" class="btn btn-danger new-security"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancel</button>
+        <button type="submit" class="btn btn-primary new-security-submit" name="submit" id="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+      </div>
+    {{/autoForm}}
+  </div>
+</div>
+</template>

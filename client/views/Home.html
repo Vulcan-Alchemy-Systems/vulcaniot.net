@@ -17,10 +17,18 @@
           <br />
           <a href="/locations" class="btn btn-lg btn-primary btn-block" title="View All Locations"><i class="fa fa-globe" aria-hidden="true"></i> Locations</a>
           <br />
+          <a href="/sensors" class="btn btn-lg btn-primary btn-block" title="View All Sensors"><i class="fa fa-cog" aria-hidden="true"></i> Sensors</a>
+          <br />
           <a href="/customers" class="btn btn-lg btn-primary btn-block" title="View All Customers"><i class="fa fa-users" aria-hidden="true"></i> Customers</a>
           <br />
           <a href="/vendors" class="btn btn-lg btn-primary btn-block" title="View All Customers"><i class="fa fa-building" aria-hidden="true"></i> Vendors</a>
       </div>
+      {{/if}}
+
+      {{#if isInRole 'customer'}}
+        <div class="col-md-3 col-sm-6 col-xs-12">
+
+        </div>
       {{/if}}
     </div>
 

@@ -16,7 +16,7 @@
         <div class="row">
           <div class="col-xs-12">
             <div class="input-group">
-              <input type="text" class="form-control" placeholder="Search for employee">
+              <input type="text" class="form-control employee-search" placeholder="Search for employee" value="{{searchQuery}}"/>
               <span class="input-group-btn">
                 <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
               </span>
@@ -25,7 +25,7 @@
         </div>
         <br />
         <div class="row">
-          {{#each userList}}
+          {{#each searchResults}}
           <div class="col-xs-12 col-md-6">
             <div class="box box-widget widget-user-2">
               <div class="widget-user-header {{isUserActive profile}}" style="min-height:120px;">

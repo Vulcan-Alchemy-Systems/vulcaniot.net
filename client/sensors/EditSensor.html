@@ -1,0 +1,59 @@
+<template name="EditSensor">
+  {{# autoForm collection="Sensors" id="updateSensorForm" type="update" class="update-sensor-form" doc=sensor}}
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="form-group {{#if afFieldIsInvalid name='toName'}}has-error{{/if}}">
+        <label class="control-label">{{afFieldLabelText name='name'}}</label>
+        {{> afFieldInput name='name'}}
+        {{#if afFieldIsInvalid name='name'}}
+        <span class="help-block">{{{afFieldMessage name='name'}}}</span>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="form-group {{#if afFieldIsInvalid name='toName'}}has-error{{/if}}">
+        <label class="control-label">{{afFieldLabelText name='description'}}</label>
+        {{> afFieldInput name='description'}}
+        {{#if afFieldIsInvalid name='description'}}
+        <span class="help-block">{{{afFieldMessage name='description'}}}</span>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-4">
+      <div class="form-group {{#if afFieldIsInvalid name='toName'}}has-error{{/if}}">
+        <label class="control-label">{{afFieldLabelText name='status'}}</label>
+        {{> afFieldInput name='status'}}
+        {{#if afFieldIsInvalid name='status'}}
+        <span class="help-block">{{{afFieldMessage name='status'}}}</span>
+        {{/if}}
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-4">
+      <div class="form-group {{#if afFieldIsInvalid name='toName'}}has-error{{/if}}">
+        <label class="control-label">{{afFieldLabelText name='display'}}</label>
+        {{> afFieldInput name='display'}}
+        {{#if afFieldIsInvalid name='display'}}
+        <span class="help-block">{{{afFieldMessage name='display'}}}</span>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+
+  {{> afQuickField name="parameters"}}
+
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="pull-right">
+        <button type="button" class="btn btn-danger edit-sensor"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancel</button>
+        <button type="submit" class="btn btn-primary edit-sensor-submit" name="submit" id="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+      </div>
+    </div>
+  </div>
+  {{/autoForm}}
+</template>

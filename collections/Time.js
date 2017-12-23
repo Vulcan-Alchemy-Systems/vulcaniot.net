@@ -37,11 +37,8 @@ TimeSchema = new SimpleSchema({
   created: {
     type: Date,
     label: "Created",
-    autoValue: function () {
-      return new Date();
-    },
     autoform: {
-      type: "hidden",
+      type: "datetime-local",
     }
   },
   // action
@@ -117,21 +114,46 @@ Meteor.methods({
 
     return result;
   },
-
   // get user times
   getUserTimes: function(userId) {
     return Time.find({userId: Meteor.userId()},  {"sort" : [['created', 'desc']]}).fetch();
   },
-  createTime: function() {
+  // create new time
+  createTime: function(data) {
+    // if we are not signed in
+    if (! Meteor.userId()) {
+      throw new Meteor.Error(403, "You must be logged in");
+    }
 
+    return Time.insert(data);
+  },
+  // update time
+  updateTime: function(id, data) {
+    // if we are not signed in
+    if (! Meteor.userId()) {
+      throw new Meteor.Error(403, "You must be logged in");
+    }
+
+    return Time.update({_id:id}, {data});
   },
   // delete time
   deleteTime: function(data) {
-    console.log(data.id);
+    // if we are not signed in
+    if (! Meteor.userId()) {
+      throw new Meteor.Error(403, "You must be logged in");
+    }
     Time.remove({_id:data.id});
   },
+  // download
+  download: function(userId) {
+    console.log(userId);
+    var collection = Time.find({userId: userId}).fetch();
+    console.log(collection);
+    var heading = true; // Optional, defaults to true
+    var delimiter = "," // Optional, defaults to ",";
+    return exportcsv.exportToCSV(collection, heading, delimiter);
+  }
 });
-
 
 // attach
 Time.attachSchema( TimeSchema );

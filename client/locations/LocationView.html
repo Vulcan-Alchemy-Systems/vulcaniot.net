@@ -41,22 +41,22 @@
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
               <li class="active"><a href="#cameras" data-toggle="tab">Cameras</a></li>
+              <li><a href="#security" data-toggle="tab">Security</a></li>
+              <li><a href="#access" data-toggle="tab">Access</a></li>
               <li><a href="#rooms" data-toggle="tab">Rooms</a></li>
               <li><a href="#licenses" data-toggle="tab">Licenses</a></li>
-              <li><a href="#access" data-toggle="tab">Access</a></li>
             </ul>
             <div class="tab-content">
               <!-- cameras -->
               <div class="active tab-pane" id="cameras">{{> LocationCameras}}</div>
-
+              <!-- Security -->
+              <div class="tab-pane" id="security">{{> LocationSecurity}}</div>
+              <!-- Access -->
+              <div class="tab-pane" id="access">{{> LocationAccess}}</div>
               <!-- Rooms -->
               <div class="tab-pane" id="rooms">{{> LocationRooms}}</div>
-
               <!-- License -->
               <div class="tab-pane" id="licenses">{{> LocationLicense}}</div>
-
-              <!-- access -->
-              <div class="tab-pane" id="access"></div>
             </div>
           </div>
         {{/if}}

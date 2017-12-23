@@ -11,6 +11,7 @@ Template.UserEdit.helpers({
   getUser: ()=> {
     var id = FlowRouter.getParam('id');
     userData =  Meteor.users.findOne({_id: id});
+    console.log(userData);
     return userData;
   },
   // get users email

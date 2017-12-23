@@ -77,9 +77,7 @@ Template.CustomerView.events({
   'click .edit-customer': function(event) {
     Session.set('EditCustomer', !Session.get('EditCustomer'));
   },
-  'click .new-product': function(event) {
-    Session.set('NewProduct', !Session.get('NewProduct'));
-  }
+  
 });
 
 // router

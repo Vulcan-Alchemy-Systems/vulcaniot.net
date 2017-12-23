@@ -1,6 +1,10 @@
 <template name="CustomerView">
   {{> ContentHeader title="Customers" subTitle="View"}}
   <section class="content">
+  {{#unless Template.subscriptionsReady}}
+    {{> spinner}}
+  {{/unless}}
+  {{#if Template.subscriptionsReady}}
     <div id="alert"></div>
     {{#if customer}}
     <div class="row">
@@ -10,7 +14,7 @@
             <div class="widget-user-image">
               <img class="img-circle" src="/images/user7-128x128.jpg" alt="User Avatar">
             </div>
-            <h3 class="widget-user-username"><a href="/customers/{{_id}}/view" title="View {{name}}" style="color:white">{{customer.name}}</a></h3>
+            <h3 class="widget-user-username"><a href="/customers/{{customer._id}}/view" title="View {{name}}" style="color:white">{{customer.name}}</a></h3>
             <h5 class="widget-user-desc">{{{primaryPhone customer.phones}}}</h5>
             <h5 class="widget-user-desc">{{primaryEmail}}</h5>
           </div>
@@ -73,8 +77,6 @@
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
               <li class="active"><a href="#jobs" data-toggle="tab">Jobs</a></li>
-              <li><a href="#products" data-toggle="tab">Products</a></li>
-              <li><a href="#transfers" data-toggle="tab">Transfers</a></li>
               <li><a href="#users" data-toggle="tab">Users</a></li>
             </ul>
             <div class="tab-content">
@@ -96,5 +98,6 @@
       </div>
     </div>
     {{/if}}
+  {{/if}}
   </section>
 </template>

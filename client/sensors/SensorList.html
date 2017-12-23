@@ -1,0 +1,60 @@
+<template name="SensorList">
+  {{> ContentHeader title="Sensors" subTitle="Lists"}}
+  <section class="content">
+    {{#unless Template.subscriptionsReady}}
+      {{> spinner}}
+    {{/unless}}
+
+    {{#if Template.subscriptionsReady}}
+    <div id="alert"></div>
+    <div class="row">
+      <div class="col-md-3">
+        <a href="#" class="btn btn-primary btn-block margin-bottom new-sensor" title="New Sensor"><i class="fa fa-plus" aria-hidden="true"></i> New Sensor</a>
+      </div>
+      <div class="col-md-9">
+        {{#if $.Session.get 'NewSensor'}}
+          {{> NewSensor}}
+        {{else}}
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search for sensor">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+              </span>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div class="row">
+        {{#each sensors}}
+          <div class="col-xs-12 col-md-6">
+            <div class="box box-widget widget-user-2">
+              <div class="widget-user-header {{sensorStatus status}}">
+                <div class="widget-user-image">
+
+                </div>
+                <h3 class="widget-user-username"><a href="/sensors/{{_id}}/view" title="View {{name}}" style="color:white">{{name}}</a></h3>
+                <h5 class="widget-user-desc">{{status}}</h5>
+              </div>
+              <div class="box-footer no-padding">
+                <ul class="nav nav-stacked">
+
+                </ul>
+              </div>
+            </div>
+          </div>
+        {{else}}
+          <div class="col-xs-12">
+            <div class="alert alert-info">
+              <i class="fa fa-info-circle" aria-hidden="true"></i> No Sensors
+            </div>
+          </div>
+        {{/each}}
+        </div>
+        {{/if}}
+      </div>
+    </div>
+    {{/if}}
+  </section>
+</template>

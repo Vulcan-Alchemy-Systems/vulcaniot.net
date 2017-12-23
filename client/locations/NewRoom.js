@@ -33,6 +33,9 @@ Template.NewRoom.events({
 
           // set newRoom to false
           Session.set('NewRoom', false);
+
+          // scrollTop
+          $('body').scrollTop(0);
         }
       }
     );

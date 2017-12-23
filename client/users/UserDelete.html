@@ -1,7 +1,7 @@
 <template name="UserDelete">
   {{> ContentHeader title=getUser.profile.name subTitle="Delete"}}
     <section class="content">
-    {{#if isInRole 'manager'}}
+
     <div id="alert"></div>
     <div class="box box-primary">
       <div class="box-header with-border">
@@ -19,8 +19,6 @@
         </div>
       </div>
     </div>
-    {{else}}
-    <h1>Not Authorized</h1>
-    {{/if}}
+    
     </section>
 </template>
