@@ -1,0 +1,56 @@
+<template name="VendorEdit">
+  {{# autoForm collection="Vendors" id="updateVendorForm" type="update" class="new-location-form" doc=vendor}}
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Edit Vendor</h3>
+    </div>
+    <div class="box-body">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group {{#if afFieldIsInvalid name='name'}}has-error{{/if}}">
+            <label class="control-label">{{afFieldLabelText name='name'}}</label>
+            {{> afFieldInput name='name'}}
+            {{#if afFieldIsInvalid name='name'}}
+            <span class="help-block">{{{afFieldMessage name='name'}}}</span>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group {{#if afFieldIsInvalid name='website'}}has-error{{/if}}">
+            <label class="control-label">{{afFieldLabelText name='website'}}</label>
+            {{> afFieldInput name='website'}}
+            {{#if afFieldIsInvalid name='website'}}
+            <span class="help-block">{{{afFieldMessage name='website'}}}</span>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-4">
+          <div class="form-group {{#if afFieldIsInvalid name='status'}}has-error{{/if}}">
+            <label class="control-label">{{afFieldLabelText name='status'}}</label>
+            {{> afFieldInput name='status'}}
+            {{#if afFieldIsInvalid name='status'}}
+            <span class="help-block">{{{afFieldMessage name='status'}}}</span>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+
+      {{> afQuickField name="phones"}}
+
+      {{> afQuickField name="emails"}}
+
+      {{> afQuickField name="addresses"}}
+
+      <div class="pull-right">
+        <button type="button" class="btn btn-danger edit-vendor"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancel</button>
+        <button type="submit" class="btn btn-primary edit-vendor-submit" name="submit" id="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+      </div>
+    </div>
+  </div>
+  {{/autoForm}}
+</template>

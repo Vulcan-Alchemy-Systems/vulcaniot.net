@@ -1,0 +1,19 @@
+<template name="InventoryDelete">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="alert alert-info">
+        <i class="fa fa-warning"></i> Are you sure you want to delete the following Inventory Item?<br />
+        <b><i>{{inventoryEntity.name}}</i></b>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="pull-right">
+        <button type="cancel" class="btn btn-danger inventory-delete" name="cancel" id="cancel"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancel</button>
+        <button type="submit" class="btn btn-primary inventory-delete-submit" name="submit" id="submit"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+      </div>
+    </div>
+  </div>
+</template>

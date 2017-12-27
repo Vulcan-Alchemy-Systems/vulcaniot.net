@@ -22,6 +22,5 @@ Meteor.publish( 'users', function(id) {
 });
 
 Meteor.publish( 'singleUser', function(id) {
-  check(id, String);
   return Meteor.users.find({_id: id}, {fields: {profile: 1, emails: 1, roles: 1}});
 });

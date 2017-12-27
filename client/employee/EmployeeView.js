@@ -1,6 +1,7 @@
 Template.EmployeeView.onCreated(function() {
   this.autorun(() => {
-    this.subscribe('allUsers');
+    var id = FlowRouter.getParam('id');
+    this.subscribe('singleUser', id);
   });
 });
 

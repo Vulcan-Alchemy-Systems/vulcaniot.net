@@ -1,0 +1,41 @@
+<template name="InventoryCategoryNew">
+  {{# autoForm collection="InventoryCategory" id="insertInventoryCategoryForm" type="insert" class="new-inventory-category-form"}}
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">New Inventory Category</h3>
+    </div>
+    <div class="box-body">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group {{#if afFieldIsInvalid name='name'}}has-error{{/if}}">
+            <label class="control-label">{{afFieldLabelText name='name'}}</label>
+            {{> afFieldInput name='name'}}
+            {{#if afFieldIsInvalid name='name'}}
+            <span class="help-block">{{{afFieldMessage name='name'}}}</span>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-4">
+          <div class="form-group {{#if afFieldIsInvalid name='status'}}has-error{{/if}}">
+            <label class="control-label">{{afFieldLabelText name='status'}}</label>
+            {{> afFieldInput name='status'}}
+            {{#if afFieldIsInvalid name='status'}}
+            <span class="help-block">{{{afFieldMessage name='status'}}}</span>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+
+      {{> afQuickField name="createdAt"}}
+
+      <div class="pull-right">
+        <button type="button" class="btn btn-danger new-inventory-category"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancel</button>
+        <button type="submit" class="btn btn-primary new-inventory-category-submit" name="submit" id="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+      </div>
+    </div>
+  </div>
+  {{/autoForm}}
+</template>

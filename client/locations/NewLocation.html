@@ -7,7 +7,7 @@
     <div class="box-body">
       <div class="row">
         <div class="col-xs-12">
-          <div class="form-group {{#if afFieldIsInvalid name='toName'}}has-error{{/if}}">
+          <div class="form-group {{#if afFieldIsInvalid name='name'}}has-error{{/if}}">
             <label class="control-label">{{afFieldLabelText name='name'}}</label>
             {{> afFieldInput name='name'}}
             {{#if afFieldIsInvalid name='name'}}
@@ -88,6 +88,7 @@
   {{> afQuickField name="license"}}
   {{/autoForm}}
   <div class="pull-right">
+    <button type="button" class="btn btn-danger new-location"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancel</button>
     <button type="submit" class="btn btn-primary new-location-submit" name="submit" id="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
   </div>
 

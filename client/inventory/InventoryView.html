@@ -1,0 +1,45 @@
+<template name="InventoryView">
+  <a href="#" title="Back to list" class="btn btn-xs btn-primary pull-right inventory-view" style="margin-top:-42px;"><i class="fa fa-reply" aria-hidden="true"></i> Back</a>
+  <div class="row">
+    <div class="col-xs-12">
+      <p><b>Name:</b> {{inventoryEntity.name}}</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <p><b>Description:</b> {{inventoryEntity.description}}</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <p><b>Part Number:</b> {{inventoryEntity.partNumber}}</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-6">
+      <p><b>Qty In Stock:</b> {{inventoryEntity.quantityInStock}} <i>{{unitOfMeasureName}}</i></p>
+    </div>
+    <div class="col-xs-12 col-sm-6">
+      <p><b>Low Stock Alert:</b> {{inventoryEntity.lowStockAlert}}</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-4">
+      <p><b>Category:</b> {{inventoryEntity.category}}</p>
+    </div>
+    <div class="col-xs-12 col-sm-4">
+      <p><b>Status:</b> {{inventoryEntity.status}}</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 text-right">
+        <a href="#" title="Delete Item" class="btn btn-danger btn-danger inventory-delete"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
+        <a href="#" title="Edit Item" class="btn btn-warning btn-warning inventory-edit"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+    </div>
+  </div>
+</template>

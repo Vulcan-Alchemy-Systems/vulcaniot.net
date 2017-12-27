@@ -91,7 +91,6 @@ Template.LocationList.events({
   },
   'keyup .location-search': function(event) {
     Session.set("search-query", event.currentTarget.value);
-    console.log(event.currentTarget.value);
   }
 });
 

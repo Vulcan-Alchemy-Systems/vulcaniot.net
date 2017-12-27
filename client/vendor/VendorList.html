@@ -11,12 +11,15 @@
         <a href="#" class="btn btn-primary btn-block margin-bottom new-vendor"><i class="fa fa-plus" aria-hidden="true"></i> New Vendor</a>
       </div>
       <div class="col-md-9">
+        {{#if $.Session.get 'NewVendor'}}
+          {{> VendorNew}}
+        {{else}}
         <div class="row">
           <div class="col-xs-12">
             <div class="panel panel-default">
               <div class="panel=body">
                 <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Search for vendor">
+                  <input type="text" class="form-control vendor-search" placeholder="Search for vendor">
                   <span class="input-group-btn">
                     <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
                   </span>
@@ -25,6 +28,32 @@
             </div>
           </div>
         </div>
+        <br />
+        <div class="row">
+        {{#each vendors}}
+          <div class="col-xs-12 col-md-6">
+            <div class="box box-widget widget-user-2">
+              <div class="widget-user-header {{isVendorActive status}}">
+                <div class="widget-user-image">
+                  <img class="img-circle" src="/images/user7-128x128.jpg" alt="User Avatar">
+                </div>
+                <h3 class="widget-user-username"><a href="/vendors/{{_id}}/view" title="View {{name}}" style="color:white">{{name}}</a></h3>
+                <h5 class="widget-user-desc">Phone</h5>
+              </div>
+              <div class="box-footer no-padding">
+                <ul class="nav nav-stacked">
+                  <li><a href="#">Status: <span class="pull-right">{{{vendorStatus status}}}</span></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        {{else}}
+          <div class="alert alert-info">
+            <p><i class="fa fa-info-circle"></i> No Vendors</p>
+          </div>
+        {{/each}}
+        </div>
+        {{/if}}
       </div>
     </div>
     {{/if}}
