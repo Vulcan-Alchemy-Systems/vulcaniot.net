@@ -1,19 +1,33 @@
+// created
+Template.CustomerEdit.onCreated(function() {
+  this.autorun(() => {
+    var customerId = Session.get('CustomerId');
+    this.subscribe('singleCustomer', customerId);
+  });
+});
+
 // helpers
 Template.CustomerEdit.helpers({
+  // customer
   customer: function() {
-    return Session.get('customerData');
+    var customerId = Session.get('CustomerId');
+    var result =  Customers.findOne({_id: customerId});
+    return result;
   },
 });
 
 // events
 Template.CustomerView.events({
+  
+
+  // submit
   'click .edit-customer-submit': function(event) {
     var formData = AutoForm.getFormValues('updateCustomerForm');
     var customer = Session.get('customerData');
+
     // call update
-    Meteor.call('updateCustomer',
-      customer._id, formData.updateDoc,
-      function (error) {
+    Meteor.call('customerUpdate',
+      customer._id, formData.updateDoc, function (error, result) {
         if(error) {
           $("#alert").html('<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><i class="fa fa-warning"></i> Error ' + error.message + '</div>');
         } else {
@@ -33,10 +47,9 @@ Template.CustomerView.events({
           $('body').scrollTop(0);
 
           // set edit to false
-          Session.set('EditCustomer', !Session.get('EditCustomer'));
+          Session.set('CustomerEdit', false);
         }
       }
     );
-
   },
 });

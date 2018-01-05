@@ -1,5 +1,6 @@
 
 Template.CustomerList.onCreated(function() {
+  Session.set('redirectAfterLogin', 'customerList');
   this.autorun(() => {
     var page = FlowRouter.getParam('page');
     var currentPage = parseInt(page) || 1;
@@ -19,6 +20,58 @@ Template.CustomerList.rendered = function(){
   $('body').scrollTop(0);
 };
 
+// customerIsActive
+Template.registerHelper( 'customerIsActive', ( customerStatus ) => {
+  if(customerStatus == 'Active') {
+    return 'bg-aqua-active';
+  } else {
+    return 'bg-red';
+  }
+});
+
+// customerStatus
+Template.registerHelper( 'customerStatus', ( customerStatus ) => {
+  if(customerStatus == 'Active') {
+      return '<span class="pull-right badge bg-green">'+customerStatus+'</span></a>';
+  } else {
+    return '<span class="pull-right badge bg-green">'+customerStatus+'</span></a>';
+  }
+});
+
+// customerPrimaryPhone
+Template.registerHelper( 'customerPrimaryPhone', ( phones ) => {
+  if(phones) {
+    var number = null;
+    phones.forEach(function(phone) {
+      if(phone.type == 'Primary') {
+         number = phone.number;
+      }
+    });
+
+    if(number) {
+      return '<a href="tel:'+number+'" title="Call" style="color:white">' + number + '</a>';
+    }
+  } else {
+    return 'No Phone Number';
+  }
+});
+
+// customerPrimaryEmail
+Template.registerHelper( 'customerPrimaryEmail', ( emails ) => {
+  if(emails) {
+    var address = false;
+    emails.forEach(function(email) {
+      if(email.type == 'Primary') {
+         address = email.address;
+      }
+    });
+    if(address) {
+      return '<a href="mailto:'+address+'" title="Email" style="color:white">' + address + '</a>'
+    }
+  }
+});
+
+
 // helpers
 Template.CustomerList.helpers({
   customers: function() {
@@ -27,52 +80,7 @@ Template.CustomerList.helpers({
     var results =  Customers.find( { $or: [{'name': query}]} );
     return results;
   },
-  searchQuery: function() {
-    return Session.get("search-query");
-  },
-  isCustomerActive: function(status) {
-    if(status == 'Active') {
-      return 'bg-aqua-active';
-    } else {
-      return 'bg-red';
-    }
-  },
-  customerStatus: function(status) {
-    if(status) {
-        return '<span class="pull-right badge bg-green">'+status+'</span></a>';
-    } else {
-      return '<span class="pull-right badge bg-green">'+status+'</span></a>';
-    }
-  },
-  primaryPhone: function(phones) {
-    if(phones) {
-      var number = null;
-      phones.forEach(function(phone) {
-        if(phone.type == 'Primary') {
-           number = phone.number;
-        }
-      });
 
-      if(number) {
-        return '<a href="tel:'+number+'" title="Call" style="color:white">' + number + '</a>';
-      }
-    } else {
-      return 'No Phone Number';
-    }
-  },
-  primaryEmail: function(emails) {
-    if(emails) {
-      var address = false;
-      emails.forEach(function(email) {
-        if(email.type == 'Primary') {
-           address = email.address;
-        }
-      });
-      if(address) {
-        return '<a href="mailto:'+address+'" title="Email" style="color:white">' + address + '</a>'
-      }
-    }
-  },
   prevPage: function() {
     var previousPage = currentPage() === 1 ? 1 : currentPage() - 1;
     var pathDef = "/customers/:page";
@@ -80,6 +88,7 @@ Template.CustomerList.helpers({
     var path = FlowRouter.path(pathDef, params);
     return path;;
   },
+
   nextPage: function() {
     var nextPage = hasMorePages() ? currentPage() + 1 : currentPage();
     var pathDef = "/customers/:page";
@@ -87,9 +96,11 @@ Template.CustomerList.helpers({
     var path = FlowRouter.path(pathDef, params);
     return path;
   },
+
   prevPageClass: function() {
     return currentPage() <= 1 ? "disabled" : "";
   },
+
   nextPageClass: function() {
     return hasMorePages() ? "" : "disabled";
   }
@@ -97,17 +108,40 @@ Template.CustomerList.helpers({
 
 // events
 Template.CustomerList.events({
-  // new location
-  'click .new-customer': function(event) {
-    Session.set('NewCustomer', !Session.get('NewCustomer'));
+  // customer-new
+  'click .customer-new': function(event) {
+    event.preventDefault();
+    Session.set('CustomerNew', !Session.get('CustomerNew'));
   },
+
+  // customer-view
+  'click .customer-view': function(event) {
+    event.preventDefault();
+    Session.set('CustomerId', this._id);
+    Session.set('CustomerView', !Session.get('CustomerView'));
+  },
+
+  // customer edit
+  'click .customer-edit': function(event) {
+    event.preventDefault();
+    Session.set('CustomerEdit', !Session.get('CustomerEdit'));
+  },
+
+  // prevPage
   'click #prevPage': function(event) {
+    event.preventDefault();
       $('body').scrollTop(0);
   },
+
+  // nextPage
   'click #nextPage': function(event) {
+    event.preventDefault();
     $('body').scrollTop(0);
   },
+
+  // customer-search
   'keyup .customer-search': function(event) {
+    event.preventDefault();
     Session.set("search-query", event.currentTarget.value);
   }
 });
@@ -117,6 +151,11 @@ FlowRouter.route('/customers/:page', {
   name: 'customerListPage',
   parent: 'dashboard',
   title: 'Customers',
+  triggersEnter: [function(context, redirect) {
+    if (!Roles.userIsInRole(Meteor.userId(), ['employee'])) {
+      FlowRouter.go('signIn');
+    }
+  }],
   action: function() {
     BlazeLayout.render('MainLayout', {main: 'CustomerList'});
   },
@@ -127,6 +166,11 @@ FlowRouter.route('/customers', {
   name: 'customerList',
   parent: 'dashboard',
   title: 'Customers',
+  triggersEnter: [function(context, redirect) {
+    if (!Roles.userIsInRole(Meteor.userId(), ['employee'])) {
+      FlowRouter.go('signIn');
+    }
+  }],
   action: function() {
     BlazeLayout.render('MainLayout', {main: 'CustomerList'});
   },

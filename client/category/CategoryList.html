@@ -1,0 +1,21 @@
+<template name="CategoryList">
+  {{#if $.Session.get 'CategoryNew'}}
+    {{> CategoryNew}}
+  {{else}}
+    {{#if $.Session.get 'CategoryEdit'}}
+      {{> CategoryEdit}}
+    {{else}}
+      {{#if $.Session.get 'CategoryView'}}
+        {{> CategoryView}}
+      {{else}}
+        {{> ContentHeader title="Category" subTitle="List"}}
+        <section class="content">
+          {{#unless Template.subscriptionsReady}}{{> spinner}}{{/unless}}
+          {{#if Template.subscriptionsReady}}
+            <div id="alert"></div>
+          {{/if}}
+        </section>
+      {{/if}}
+    {{/if}}
+  {{/if}}
+</template>

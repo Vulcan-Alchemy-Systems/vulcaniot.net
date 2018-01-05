@@ -1,6 +1,6 @@
 <template name="NavbarMessages">
   {{#if currentUser}}
-  <!-- Messages: style can be found in dropdown.less-->
+  {{#if isInRole 'messages'}}
   <li class="dropdown messages-menu">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
       <i class="fa fa-envelope-o"></i>
@@ -9,10 +9,9 @@
     <ul class="dropdown-menu">
       <li class="header">You have {{messageCount}} messages</li>
       <li>
-        <!-- inner menu: contains the actual data -->
         <ul class="menu">
           {{#each messageList}}
-          <li><!-- start message -->
+          <li>
             <a href="/profile/messages/view/{{_id}}" title="View message">
               <div class="pull-left">
                 <img src="/images/user2-160x160.jpg" class="img-circle" alt="User Image">
@@ -30,5 +29,6 @@
       <li class="footer"><a href="/profile/messages" title="My Messages">See All Messages</a></li>
     </ul>
   </li>
+  {{/if}}
   {{/if}}
 </template>

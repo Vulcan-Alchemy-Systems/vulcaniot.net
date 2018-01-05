@@ -42,10 +42,12 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="/" title="Dashboard Home"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+            {{#if isInRole 'employee'}}
             <li><a href="/employees" title="View All Employees"><i class="fa fa-user" aria-hidden="true"></i> Employees</a></li>
             <li><a href="/locations" title="View All Locations"><i class="fa fa-globe" aria-hidden="true"></i> Locations</a></li>
             <li><a href="/customers" title="View All Customers"><i class="fa fa-users" aria-hidden="true"></i> Customers</a></li>
             <li><a href="/vendors"   title="View All Customers"><i class="fa fa-building" aria-hidden="true"></i> Vendors</a></li>
+            {{/if}}
           </ul>
         </li>
 
@@ -55,9 +57,15 @@
             </a>
             <ul class="treeview-menu">
               <li><a href="/profile" title="My Profile"><i class="fa fa-circle-o" aria-hidden="true"></i> Home</a></li>
+              {{#if isInRole 'tasks'}}
               <li><a href="/profile/tasks" title="My Tasks"><i class="fa fa-circle-o" aria-hidden="true"></i> Tasks</a></li>
+              {{/if}}
+              {{#if isInRole 'notices'}}
               <li><a href="/profile/notices" title="My Notices"><i class="fa fa-circle-o" aria-hidden="true"></i> Notices</a></li>
+              {{/if}}
+              {{#if isInRole 'messages'}}
               <li><a href="/profile/messages" title="My Messages"><i class="fa fa-circle-o" aria-hidden="true"></i> Messages</a></li>
+              {{/if}}
             </ul>
         </li>
         {{/if}}

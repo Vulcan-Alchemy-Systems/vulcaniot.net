@@ -2,12 +2,12 @@
   <ul class="timeline timeline-inverse">
     {{#each getUserHistoryData}}
     <li class="time-label">
-          <span class="bg-red">{{dateShortFormat created}}</span>
+          <span class="bg-red">{{dateFormatShort created}}</span>
     </li>
     <li>
       <i class="fa fa-cog bg-blue"></i>
       <div class="timeline-item">
-        <span class="time"><i class="fa fa-clock-o"></i> {{dateLongFormat created}}</span>
+        <span class="time"><i class="fa fa-clock-o"></i> {{dateFormatLong created}}</span>
         <h3 class="timeline-header">{{message}}</h3>
       </div>
     </li>

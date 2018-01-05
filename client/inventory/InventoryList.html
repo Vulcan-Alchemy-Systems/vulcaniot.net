@@ -11,7 +11,9 @@
         {{#if $.Session.get 'InventoryView'}}
           {{> InventoryView}}
         {{else}}
+        {{#if isInRole 'manager'}}
         <a href="#" title="New Inventory Item" class="btn btn-xs btn-success pull-right inventory-new" style="margin-top:-42px;"><i class="fa fa-times" aria-hidden="true"></i> New</a>
+        {{/if}}
         <table class="table table-hover table-striped">
           <thead>
             <tr>

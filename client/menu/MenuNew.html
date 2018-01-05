@@ -1,0 +1,85 @@
+<template name="MenuNew">
+  <section class="content">
+  {{> ContentHeader title="Menu" subTitle="New"}}
+  {{#unless Template.subscriptionsReady}}{{> spinner}}{{/unless}}
+  {{#if Template.subscriptionsReady}}
+    <div id="alert"></div>
+    <br />
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">New Menu Item</h3>
+        <div class="box-tools pull-right">
+          <a href="#" title="Back" class="btn btn-xs btn-primary menu-new"><i class="fa fa-reply" aria-hidden="true"></i> Back</a>
+        </div>
+      </div>
+      <div class="box-body">
+      {{# autoForm collection="Menu" id="menuInsertForm" type="insert" class="menu-new-form"}}
+
+        <div class="row">
+          <div class="col-xs-12">
+            {{> afQuickField name="application"}}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="form-group {{#if afFieldIsInvalid name='name'}}has-error{{/if}}">
+              <label class="control-label">{{afFieldLabelText name='name'}}</label>
+              {{> afFieldInput name='name'}}
+              {{#if afFieldIsInvalid name='name'}}
+              <span class="help-block">{{{afFieldMessage name='name'}}}</span>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="form-group {{#if afFieldIsInvalid name='icon'}}has-error{{/if}}">
+              <label class="control-label">{{afFieldLabelText name='icon'}}</label>
+              {{> afFieldInput name='icon'}}
+              {{#if afFieldIsInvalid name='icon'}}
+              <span class="help-block">{{{afFieldMessage name='icon'}}}</span>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="form-group {{#if afFieldIsInvalid name='order'}}has-error{{/if}}">
+              <label class="control-label">{{afFieldLabelText name='order'}}</label>
+              {{> afFieldInput name='order'}}
+              {{#if afFieldIsInvalid name='order'}}
+              <span class="help-block">{{{afFieldMessage name='order'}}}</span>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="form-group {{#if afFieldIsInvalid name='active'}}has-error{{/if}}">
+              {{> afFieldInput name='active'}}
+              {{#if afFieldIsInvalid name='active'}}
+              <span class="help-block">{{{afFieldMessage name='active'}}}</span>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+
+        {{> afQuickField name="subMenu"}}
+
+        {{> afQuickField name="created"}}
+
+        {{> afQuickField name="lastModified"}}
+        <div class="pull-right">
+          <button type="cancel" class="btn btn-danger menu-new" name="cancel" id="cancel"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancel</button>
+          <button type="submit" class="btn btn-primary menu-new-submit" name="submit" id="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+        </div>
+      {{/autoForm}}
+      </div>
+    </div>
+  {{/if}}
+  </section>
+</template>

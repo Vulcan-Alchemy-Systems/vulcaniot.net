@@ -1,7 +1,7 @@
 Template.JobView.onCreated(function() {
   this.autorun(() => {
-    var jobId = FlowRouter.getParam('id');
-    var customerId = FlowRouter.getParam('customerId');
+    var jobId = Session.get('JobId');
+    var customerId = Session.get('customerId');
     this.subscribe('singleCustomer', customerId);
     this.subscribe('singleJob', jobId);
   });
@@ -10,13 +10,13 @@ Template.JobView.onCreated(function() {
 // helpers
 Template.JobView.helpers({
   job: function() {
-    var jobId = FlowRouter.getParam('id');
+    var jobId = Session.get('JobId');
     var job = Jobs.findOne({_id: jobId});
     Session.set('Job', job);
     return job;
   },
   customer: function() {
-    var customerId = FlowRouter.getParam('customerId');
+    var customerId = Session.get('customerId');
     return Customers.findOne({_id: customerId});
   },
   longDateFormat: function(dateTime) {
@@ -73,20 +73,10 @@ Template.JobView.helpers({
 
 // events
 Template.JobView.events({
-  'click .new-job-note': function(event) {
-    Session.set('NewJobNote', !Session.get('NewJobNote'));
+  // new note
+  'click .job-note-new': function(event) {
+    event.preventDefault();
+    Session.set('JobNoteNew', !Session.get('JobNoteNew'));
   },
-  'click .edit-job': function(event) {
-    Session.set('EditJob', !Session.get('EditJob'));
-  }
-});
 
-// route
-FlowRouter.route('/customers/:customerId/jobs/:id/view', {
-  name: 'customerJobs',
-  parent: 'customerView',
-  title: 'Jobs',
-  action: function() {
-    BlazeLayout.render('MainLayout', {main: 'JobView'});
-  },
 });

@@ -1,0 +1,13 @@
+<template name="JobNoteNew">
+  {{# autoForm collection="Jobs" id="updateJobForm" type="update"  class="new-job-form" validation="browser" doc=job}}
+  {{> afQuickField name='jobNotes'}}
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="pull-right">
+        <button type="cancel" class="btn btn-danger job-note-new" name="cancel" id="cancel"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancel</button>
+        <button type="button" class="btn btn-primary job-note-new-submit" name="submit" id="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+      </div>
+    </div>
+  </div>
+  {{/autoForm}}
+</template>

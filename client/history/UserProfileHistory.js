@@ -20,12 +20,6 @@ Template.UserProfileHistory.helpers({
     //return Session.get('userHistoryData')
     return History.find();
   },
-  dateLongFormat: function(dateTime) {
-    return moment(dateTime).format(Meteor.settings.public.longDate);
-  },
-  dateShortFormat: function(dateTime) {
-    return moment(dateTime).format(Meteor.settings.public.shortDate);
-  },
   prevPage: function() {
     var previousPage = currentPage() === 1 ? 1 : currentPage() - 1;
     return Router.routes.listCustomers.path({page: previousPage});

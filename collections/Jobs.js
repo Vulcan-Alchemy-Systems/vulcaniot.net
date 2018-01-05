@@ -20,6 +20,90 @@ Jobs.allow({
   },
 });
 
+JobProductsSchema = new SimpleSchema({
+  // ProductName
+  productName: {
+    type: String,
+    label: "Product Name"
+  },
+
+  // PackageType
+  packageType: {
+    type: String,
+    label: "Product Type",
+    autoform: {
+      type: "select",
+      options: [
+        {
+          label: "Other",
+          value: "Other"
+        },
+        {
+          label: "Immature Plant",
+          value: "Immature Plant"
+        },
+        {
+          label: "Vegetative Plant",
+          value: "Vegetative Plant"
+        },
+        {
+          label: "Shatter",
+          value: "Shatter"
+        },
+        {
+          label: "Hash Oil",
+          value: "Hash Oil"
+        },
+      ]
+    }
+  },
+
+  // Quantity
+  quantity: {
+    type: String,
+    label: "Quantity"
+  },
+
+  // UnitOfMeasureName
+  unitOfMeasureName: {
+    type: String,
+    label: "Unit Of Measure",
+    autoform: {
+      type: "select",
+      options: [
+        {
+          label: "Each (ea)",
+          value: "Each"
+        },
+        {
+          label: "Ounces (oz)",
+          value: "Ounces"
+        },
+        {
+          label: "Pounds (lb)",
+          value: "Pounds"
+        },
+        {
+          label: "Grams (g)",
+          value: "Grams"
+        },
+        {
+          label: "Milligrams (mg)",
+          value: "Milligrams"
+        },
+        {
+          label: "Kilograms (kg)",
+          value: "Kilograms"
+        },
+        {
+          label: "Metric Tons (t)",
+          value: "Metric Tons"
+        },
+      ]
+    }
+  }
+});
+
 JobsNoteSchema = new SimpleSchema({
   // note
   note: {
@@ -184,13 +268,30 @@ Jobs.attachSchema(JobsSchema);
 
 // methods
 Meteor.methods({
-  createJob: function(job) {
-    return Jobs.insert(job);
-  },
-  updateJob: function(id, job) {
-    return Jobs.update({_id:id}, job);
-  },
-  deleteJob: function(id) {
+  // create
+  jobCreate: function(jobEntity) {
+    if (! Meteor.userId()) {
+      throw new Meteor.Error(403, "You must be logged in");
+    }
 
+    return Jobs.insert(jobEntity);
+  },
+
+  // update
+  jobUpdate: function(jobId, jobEntity) {
+    if (! Meteor.userId()) {
+      throw new Meteor.Error(403, "You must be logged in");
+    }
+
+    return Jobs.update({_id: jobId}, jobEntity);
+  },
+
+  // delete
+  jobDelete: function(jobId) {
+    if (! Meteor.userId()) {
+      throw new Meteor.Error(403, "You must be logged in");
+    }
+
+    Jobs.remove({_id: jobId});
   }
 });

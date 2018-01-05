@@ -36,13 +36,13 @@
               {{#each getAllRoles}}
                 <tr>
                   <td><a href="#" title="View Role">{{name}}</a></td>
-                  <td><a href="#" title="Remove Role" class="btn btn-xs btn-danger pull-right role-delete-btn"><i class="fa fa-trash"></i></a></td>
+                  <td><a href="#" title="Remove Role" class="btn btn-xs btn-danger pull-right role-delete-btn"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
                 </tr>
               {{else}}
                 <tr>
                 <td colspan="2">
                   <div class="alert alert-info">
-                    <p><i class="fa fa-info-circle"></i> No Roles</p>
+                    <p><i class="fa fa-info-circle" aria-hidden="true"></i> No Roles</p>
                   </div>
                 </td>
               </tr>

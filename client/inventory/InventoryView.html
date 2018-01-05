@@ -38,8 +38,10 @@
 
   <div class="row">
     <div class="col-xs-12 text-right">
+        {{#if isInRole 'manager'}}
         <a href="#" title="Delete Item" class="btn btn-danger btn-danger inventory-delete"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
         <a href="#" title="Edit Item" class="btn btn-warning btn-warning inventory-edit"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+        {{/if}}
     </div>
   </div>
 </template>

@@ -1,6 +1,6 @@
 Template.InventoryList.onCreated(function() {
   this.autorun(() => {
-    var vendorId = FlowRouter.getParam('id');
+    var vendorId = Session.get('VendorId');
     this.subscribe('allVendorInventory', vendorId);
   });
 });
@@ -9,7 +9,7 @@ Template.InventoryList.onCreated(function() {
 Template.InventoryList.helpers({
   // gets inventory items for vendor
   inventory: function() {
-    var vendorId = FlowRouter.getParam('id');
+    var vendorId = Session.get('VendorId');
     var results =  Inventory.find({vendorId: vendorId});
     return results;
   },

@@ -1,8 +1,9 @@
 // created
 Template.VendorView.onCreated(function() {
   this.autorun(() => {
-    var id = FlowRouter.getParam('id');
-    this.subscribe('singleVendor', id);
+    var vendorId = FlowRouter.getParam('id');
+    Session.set('VendorId', vendorId);
+    this.subscribe('singleVendor', vendorId);
   });
 });
 
@@ -42,6 +43,7 @@ Template.VendorView.helpers({
       return '<span class="pull-right badge bg-green">'+status+'</span></a>';
     }
   },
+
 });
 
 // events
@@ -53,7 +55,8 @@ Template.VendorView.events({
   // delete vendor
   'click .vendor-delete': function(event) {
     Session.set('VendorDelete', !Session.get('VendorDelete'));
-  }
+  },
+
 });
 
 // router

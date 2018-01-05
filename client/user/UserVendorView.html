@@ -1,0 +1,77 @@
+<template name="UserVendorView">
+  <a href="#" title="Back to user list" class="btn btn-xs btn-primary pull-right user-vendor-view" style="margin-top:-42px;"><i class="fa fa-reply" aria-hidden="true"></i> Back</a>
+  <div class="row">
+    <div class="col-xs-12">
+      <p><b>Name:</b> {{user.profile.name}}</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <p><b>E-Mail:</b> {{userEmail user.emails}}</p>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-4">
+      <p><b>Gender:</b> {{user.profile.gender}}</p>
+    </div>
+    <div class="col-xs-12 col-sm-4">
+      <p><b>Birthday:</b> {{#if user.profile.birthday}}{{dateFormatShort user.profile.birthday}}{{else}}N/A{{/if}}</p>
+    </div>
+    <div class="col-xs-12 col-sm-4">
+      <p><b>Status:</b> {{user.profile.status}}</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <p><b>Position:</b> {{#if user.profile.position}}{{user.profile.position}}{{else}}N/A{{/if}}</p>
+    </div>
+  </div>
+
+  <h4>Roles</h4>
+  {{#if isInRole 'manager'}}
+  <div class="row">
+    <div class="col-xs-12 col-sm-6">
+      <input type="hidden" name="userId" id="userId" value="{{getUser._id}}" />
+      <div class="input-group">
+        <select id="role" name="role" class="form-control">
+        {{#each listRoles}}
+          <option value="{{name}}">{{name}}</option>
+        {{/each}}
+        </select>
+        <span class="input-group-btn">
+          <button class="btn btn-primary add-role-to-users" type="button">Add Role</button>
+        </span>
+      </div>
+    </div>
+  </div>
+  <br />
+  {{/if}}
+  {{#each role in listUserRoles}}
+  <span class="label label-primary">{{role}} {{#if isInRole 'manager'}}<a href="#" title="Remove Role" class="remove-role"  id="{{role}}"><i class="fa fa-times" aria-hidden="true"></i></a>{{else}}&nbsp;{{/if}}</span>
+  {{else}}
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="alert alert-info">
+        <p><i class="fa fa-info-circle"></i> No Roles!</p>
+      </div>
+    </div>
+  </div>
+  {{/each}}
+  <br />
+  <hr />
+  <div class="row">
+    <div class="col-xs-12">
+      <span class="pull-right">
+        {{#if isInRole 'manager'}}
+        <a href="#" title="Reset Password" class="btn btn-primary user-vendor-password"><i class="fa fa-lock" aria-hidden="true"></i> Password</a>
+        <a href="#" title="Delete User" class="btn btn-danger user-vendor-delete"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
+        <a href="#" title="Edit User" class="btn btn-warning user-vendor-edit"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+        {{/if}}
+      </span>
+    </div>
+  </div>
+</template>

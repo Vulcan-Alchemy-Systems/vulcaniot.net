@@ -1,28 +1,30 @@
 <template name="CustomerView">
-  {{> ContentHeader title="Customers" subTitle="View"}}
+  {{> ContentHeader title="Customer" subTitle=customer.name}}
   <section class="content">
-  {{#unless Template.subscriptionsReady}}
-    {{> spinner}}
-  {{/unless}}
+  {{#unless Template.subscriptionsReady}}{{> spinner}}{{/unless}}
   {{#if Template.subscriptionsReady}}
     <div id="alert"></div>
     {{#if customer}}
     <div class="row">
+
+      <!-- Left Column -->
       <div class="col-xs-12 col-sm-4">
+
         <div class="box box-widget widget-user-2">
-          <div class="widget-user-header {{isCustomerActive customer.status}}">
+          <div class="widget-user-header {{customerIsActive customer.status}}">
             <div class="widget-user-image">
-              <img class="img-circle" src="/images/user7-128x128.jpg" alt="User Avatar">
+              <img class="img-circle" src="/images/user7-128x128.jpg" alt="{{customer.name}}">
             </div>
-            <h3 class="widget-user-username"><a href="/customers/{{customer._id}}/view" title="View {{name}}" style="color:white">{{customer.name}}</a></h3>
-            <h5 class="widget-user-desc">{{{primaryPhone customer.phones}}}</h5>
+            <h3 class="widget-user-username"><a href="#" class="customer-view" title="View {{name}}" style="color:white">{{customer.name}}</a></h3>
+            <h5 class="widget-user-desc">{{{customerPrimaryPhone customer.phones}}}</h5>
             <h5 class="widget-user-desc">{{primaryEmail}}</h5>
           </div>
           <div class="box-footer no-padding">
             <ul class="nav nav-stacked">
-              <li><a href="#">Status: <span class="pull-right">{{{customerStatus customer.status}}}</span></a></li>
+              <li><a href="#" title="Status">Status: <span class="pull-right">{{{customerStatus customer.status}}}</span></a></li>
             </ul>
           </div>
+          
         </div>
 
         <!-- Phones -->
@@ -30,7 +32,7 @@
           <div class="box-header with-border">
             <h3 class="box-title">Phones</h3>
             <div class="box-tools pull-right">
-              <a href="#" title="Edit Phone" class="btn btn-xs btn-warning edit-phone"><i class="fa fa-pencil"></i> Edit</a>
+              <a href="#" title="Edit Phone" class="btn btn-xs btn-warning customer-edit"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
             </div>
           </div>
           <div class="box-body no-padding">
@@ -49,7 +51,7 @@
           <div class="box-header with-border">
             <h3 class="box-title">Addresses</h3>
             <div class="box-tools pull-right">
-              <a href="#" title="Edit Address" class="btn btn-xs btn-warning edit-address"><i class="fa fa-pencil"></i> Edit</a>
+              <a href="#" title="Edit Address" class="btn btn-xs btn-warning customer-edit"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
             </div>
           </div>
           <div class="box-body no-padding">
@@ -64,7 +66,7 @@
                 </a>
             </li>
               {{else}}
-              <li><a href="#" title="No phones">No Addresses</a></li>
+              <li><a href="#" title="No Addresses">No Addresses</a></li>
               {{/each}}
             </ul>
           </div>
@@ -90,7 +92,7 @@
                 {{> ListTransfers}}
               </div>
               <div class="tab-pane" id="users">
-                {{> CustomerUserList}}
+                {{> UserCustomerList}}
               </div>
             </div>
           </div>

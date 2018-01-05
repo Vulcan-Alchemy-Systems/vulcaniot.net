@@ -25,9 +25,6 @@ Template.EmployeeView.helpers({
   userPrimaryEmail: function(emails) {
     return emails[0].address;
   },
-  dateFormat: function(dateTime) {
-    return moment(dateTime).format(Meteor.settings.public.shortDate);
-  },
   // test if user is active
   isUserActive: function(profile) {
     if(profile.status == 'Active') {

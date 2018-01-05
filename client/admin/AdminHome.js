@@ -25,11 +25,17 @@ Template.AdminHome.events({
 
 });
 
+
 // router
 FlowRouter.route('/admin', {
   name: 'admin',
   parent: 'dashboard',
   title: 'Admin',
+  triggersEnter: [function(context, redirect) {
+    if (!Roles.userIsInRole(Meteor.userId(), ['admin'])) {
+      FlowRouter.go('signIn');
+    }
+  }],
   action: function() {
     BlazeLayout.render('MainLayout', {main: 'AdminHome'});
   },

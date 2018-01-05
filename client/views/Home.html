@@ -6,29 +6,15 @@
 
     <div class="row">
       {{#if isInRole 'employee'}}
-      <div class="col-md-3 col-sm-6 col-xs-12">
-        {{#if isClockedIn}}
-          <button class="btn btn-lg btn-danger btn-block clock-user-out-btn"><i class="fa fa-clock-o" aria-hidden="true"></i> Clock Out</button>
-        {{else}}
-          <button class="btn btn-lg btn-success btn-block clock-user-in-btn"><i class="fa fa-clock-o" aria-hidden="true"></i> Clock In</button>
-        {{/if}}
-          <br />
-          <a href="/employees" class="btn btn-lg btn-primary btn-block" title="View All Employees"><i class="fa fa-user" aria-hidden="true"></i> Employees</a>
-          <br />
-          <a href="/locations" class="btn btn-lg btn-primary btn-block" title="View All Locations"><i class="fa fa-globe" aria-hidden="true"></i> Locations</a>
-          <br />
-          <a href="/sensors" class="btn btn-lg btn-primary btn-block" title="View All Sensors"><i class="fa fa-cog" aria-hidden="true"></i> Sensors</a>
-          <br />
-          <a href="/customers" class="btn btn-lg btn-primary btn-block" title="View All Customers"><i class="fa fa-users" aria-hidden="true"></i> Customers</a>
-          <br />
-          <a href="/vendors" class="btn btn-lg btn-primary btn-block" title="View All Customers"><i class="fa fa-building" aria-hidden="true"></i> Vendors</a>
-      </div>
+        {{> DashboardEmployee}}
+      {{/if}}
+
+      {{#if isInRole 'vendor'}}
+        {{> DashboardVendor}}
       {{/if}}
 
       {{#if isInRole 'customer'}}
-        <div class="col-md-3 col-sm-6 col-xs-12">
-
-        </div>
+        {{> DashboardCustomer}}
       {{/if}}
     </div>
 

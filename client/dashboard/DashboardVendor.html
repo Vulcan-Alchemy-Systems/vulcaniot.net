@@ -1,0 +1,118 @@
+<template name="DashboardVendor">
+  <section class="content">
+  {{#unless Template.subscriptionsReady}}
+    {{> spinner}}
+  {{/unless}}
+  {{#if Template.subscriptionsReady}}
+  <div id="alert"></div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-4">
+      <div class="box box-widget widget-user-2">
+        <div class="widget-user-header {{isVendorActive vendor.status}}">
+          <div class="widget-user-image">
+            <img class="img-circle" src="/images/user7-128x128.jpg" alt="User Avatar">
+          </div>
+          <h3 class="widget-user-username"><a href="/vendors/{{vendor._id}}/view" title="View {{vendor.name}}" style="color:white">{{vendor.name}}</a></h3>
+          <h5 class="widget-user-desc">Phone</h5>
+        </div>
+        <div class="box-footer no-padding">
+          <ul class="nav nav-stacked">
+            <li><a href="#">Status: <span class="pull-right">{{{vendorStatus vendor.status}}}</span></a></li>
+          </ul>
+        </div>
+        <div class="box-footer">
+        </div>
+      </div>
+    </div>
+  <div class="col-xs-12 col-sm-8">
+  {{#if $.Session.get 'VendorEdit'}}
+    {{> VendorEdit}}
+  {{else}}
+    <div class="nav-tabs-custom">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#details" data-toggle="tab">Details</a></li>
+        <li><a href="#inventory" data-toggle="tab">Inventory</a></li>
+        <li><a href="#users" data-toggle="tab">Users</a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="active tab-pane" id="details">
+          <div class="row">
+            <div class="col-xs-12">
+              <p><b>Name:</b> {{vendor.name}}</p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12">
+              <p><b>Website:</b> {{#if vendor.website}}<a href="{{vendor.website}}" title="{{vendor.website}}" target="_new">{{vendor.website}}</a>{{else}}N/A{{/if}}</p>
+            </div>
+          </div>
+
+          <hr />
+          <!-- Phones -->
+          <div class="row">
+          {{#each vendor.phones}}
+            <div class="col-xs-12 col-sm-4">
+              <p><b>{{type}} Phone:</b> <a href="tel: {{number}}" title="call {{number}}">{{number}}</a></p>
+            </div>
+          {{else}}
+            <div class="col-xs-12">
+              <div class="alert alert-info">
+                <i class="fa fa-info-circle" aria-hidden="true"></i> No Phone Numbers
+              </div>
+            </div>
+          {{/each}}
+          </div>
+
+          <hr />
+
+          <!-- Emails -->
+          <div class="row">
+          {{#each vendor.emails}}
+          <div class="col-xs-12 col-sm-6">
+            <p><b>{{name}}:</b> <a href="mailto: {{address}}" title="E-Mail {{name}}">{{address}}</a></p>
+          </div>
+          {{else}}
+          <div class="col-xs-12">
+            <div class="alert alert-info">
+              <i class="fa fa-info-circle" aria-hidden="true"></i> No E-Mail Addresses
+            </div>
+          </div>
+          {{/each}}
+          </div>
+
+          <hr />
+
+          <!-- Addresses -->
+          <div class="row">
+          {{#each vendor.addresses}}
+            <div class="col-xs-12 col-sm-6">
+              <p><b>{{type}}</b></p>
+              <p>{{street}}<br />
+                  {{#if streetCont}}
+                  {{streetCont}}<br />
+                  {{/if}}
+                  {{city}} {{state}}, {{postal}}
+              </p>
+            </div>
+          {{else}}
+          <div class="col-xs-12">
+            <div class="alert alert-info">
+              <i class="fa fa-info-circle" aria-hidden="true"></i> No Addresses
+            </div>
+          </div>
+          {{/each}}
+          </div>
+        </div>
+
+        <div class="tab-pane" id="inventory">{{> InventoryList}}</div>
+
+        <div class="tab-pane" id="users">{{> UserVendorList}}</div>
+      </div>
+    </div>
+    {{/if}}
+  </div>
+</div>
+{{/if}}
+</section>
+</template>

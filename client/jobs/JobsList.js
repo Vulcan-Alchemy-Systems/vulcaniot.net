@@ -1,6 +1,6 @@
 Template.JobsList.onCreated(function() {
   this.autorun(() => {
-    var customerId = FlowRouter.getParam('id');
+    var customerId = Session.get('CustomerId');
     var page = FlowRouter.getParam('page');
     var currentPage = parseInt(page) || 1;
     var skipCount = (currentPage - 1) * Meteor.settings.public.recordsPerPage;
@@ -12,20 +12,38 @@ Template.JobsList.onCreated(function() {
 // helpers
 Template.JobsList.helpers({
   jobs: function() {
-    var customerId = FlowRouter.getParam('id');
+    var customerId = Session.get('CustomerId');
     var keyword  = Session.get("search-query");
     var query = new RegExp( keyword, 'i' );
     var results =  Jobs.find({customerId: customerId}).fetch();
     return results;
   },
-  longDateFormat: function(dateTime) {
-    return moment(dateTime).format(Meteor.settings.public.longDate);
-  },
 });
 
 // events
 Template.JobsList.events({
-  'click .new-job': function(event) {
-    Session.set('NewJob', !Session.get('NewJob'));
+  // View Job
+  'click .job-view': function(event) {
+    event.preventDefault();
+    Session.set('JobId', this._id);
+    Session.set('JobView', !Session.get('JobView'));
+  },
+
+  // New Job
+  'click .job-new': function(event) {
+    event.preventDefault();
+    Session.set('JobNew', !Session.get('JobNew'));
+  },
+
+  // editJob
+  'click .job-edit': function(event) {
+    event.preventDefault();
+    Session.set('JobEdit', !Session.get('JobEdit'));
+  },
+
+  // delete job
+  'click .job-delete': function(event) {
+    event.preventDefault();
+    Session.set('JobDelete', !Session.get('JobDelete'));
   },
 });

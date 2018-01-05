@@ -1,6 +1,7 @@
 import SimpleSchema from 'simpl-schema';
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
+
 SimpleSchema.extendOptions(['autoform']);
 
 Meteor.users.allow({
@@ -234,6 +235,38 @@ UserProfileSchema = new SimpleSchema({
       type: "hidden"
     }
   },
+  // vendorId
+  vendorId: {
+    type: String,
+    optional: true,
+    autoform: {
+      type: "hidden"
+    }
+  },
+  // vendorName
+  vendorName: {
+    type: String,
+    optional: true,
+    autoform: {
+      type: "hidden"
+    }
+  },
+  // customerId
+  customerId: {
+    type: String,
+    optional: true,
+    autoform: {
+      type: "hidden"
+    }
+  },
+  // customerName
+  customerName: {
+    type: String,
+    optional: true,
+    autoform: {
+      type: "hidden"
+    }
+  },
   // address
   address: {
     type: Array,
@@ -299,24 +332,46 @@ Meteor.methods({
   addUserToRole: function(user, role) {
     return Roles.addUsersToRoles(user, role);
   },
+
   // remove role
   removeUserRole: function(user, role) {
     return Roles.removeUsersFromRoles(user, role);
   },
+
   // toggle user status
   usersToggleStatus: function(id, status){
     Meteor.users.update({_id: id}, {$set: {"profile.status": status}});
   },
+
   // create user
   usersCreate:function(user) {
     var userId = Meteor.users.insert(user);
     Roles.addUsersToRoles(userId, 'user');
     return userId;
   },
+
+  // vendor user
+  userVendorCreate: function(user) {
+    var userId = Meteor.users.insert(user);
+    Roles.addUsersToRoles(userId, 'user');
+    Roles.addUsersToRoles(userId, 'vendor');
+    Roles.addUsersToRoles(userId, 'messages');
+    return userId;
+  },
+
+  // customer user
+  userCustomerCreate: function(user) {
+    var userId = Meteor.users.insert(user);
+    Roles.addUsersToRoles(userId, 'user');
+    Roles.addUsersToRoles(userId, 'customer');
+    Roles.addUsersToRoles(userId, 'messages');
+    return userId;
+  },
+
   // reset users password
-  userResetPassword: function(user, password) {
+  userResetPassword: function(userId, password) {
     if (Meteor.isServer) {
-      return Accounts.setPassword(user._id, password);
+      return Accounts.setPassword(userId, password);
     }
   },
   // fetch users

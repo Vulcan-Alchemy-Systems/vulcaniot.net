@@ -53,7 +53,7 @@ Template.MainLayout.helpers({
   },
 
   loadingTemplate: function () {
-    return this.loadingTemplate || 'AdminLTE_loading';
+    return this.loadingTemplate || 'Vulcan Loading';
   },
 
   skin: function () {

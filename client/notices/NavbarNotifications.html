@@ -1,6 +1,6 @@
 <template name="NavbarNotifications">
  {{#if currentUser}}
-  <!-- Notifications: style can be found in dropdown.less -->
+  {{#if isInRole 'notices'}}
   <li class="dropdown notifications-menu">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
       <i class="fa fa-bell-o"></i>
@@ -9,7 +9,6 @@
     <ul class="dropdown-menu">
       <li class="header">You have {{noticesCount}} notifications</li>
       <li>
-        <!-- inner menu: contains the actual data -->
         <ul class="menu">
           {{#each noticesLatest}}
           <li>
@@ -23,5 +22,6 @@
       <li class="footer"><a href="/profile/notices" title="View all">View all</a></li>
     </ul>
   </li>
+  {{/if}}
   {{/if}}
 </template>

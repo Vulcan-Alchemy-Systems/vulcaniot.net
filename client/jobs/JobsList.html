@@ -1,36 +1,51 @@
 <template name="JobsList">
-  {{#if $.Session.get 'NewJob'}}
-    {{> NewJob}}
+  {{#if $.Session.get 'JobNew'}}
+    {{> JobNew}}
   {{else}}
-  {{#unless Template.subscriptionsReady}}
-    {{> spinner}}
-  {{/unless}}
-  {{#if Template.subscriptionsReady}}
-  <a href="#" title="New Job" class="btn btn-xs btn-success pull-right new-job" style="margin-top:-42px;"><i class="fa fa-plus" aria-hidden="true"></i> New</a>
-  <table class="table table-hover table-striped">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Start</th>
-        <th>Expected Completion</th>
-        <th>Created By</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each jobs}}
-      <tr>
-        <td><a href="/customers/{{customerId}}/jobs/{{_id}}/view" title="View job {{jobName}}">{{jobName}}</a></td>
-        <td>{{longDateFormat jobStartDate}}</td>
-        <td>{{longDateFormat jobExpectedCompleteDate}}</td>
-        <td>{{createdByName}}</td>
-      </tr>
+    {{#if $.Session.get 'JobEdit'}}
+      {{> JobEdit}}
+    {{else}}
+      {{#if $.Session.get 'JobDelete'}}
+        {{> JobDelete}}
       {{else}}
-      <tr>
-        <td colspan="4"><i class="fa fa-info-circle" aria-hidden="true"></i> No Jobs</td>
-      </tr>
-      {{/each}}
-    </tbody>
-  </table>
-  {{/if}}
+        {{#if $.Session.get 'JobView'}}
+          {{> JobView}}
+        {{else}}
+          {{#unless Template.subscriptionsReady}}
+            {{> spinner}}
+          {{/unless}}
+
+          {{#if Template.subscriptionsReady}}
+            {{#if isInRole 'manager'}}
+            <a href="#" title="New Job" class="btn btn-xs btn-success pull-right job-new" style="margin-top:-42px;"><i class="fa fa-plus" aria-hidden="true"></i> New</a>
+            {{/if}}
+            <table class="table table-hover table-striped">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Start</th>
+                  <th>Expected Completion</th>
+                  <th>Created By</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each jobs}}
+                <tr>
+                  <td><a href="#" class="job-view" title="View job {{jobName}}">{{jobName}}</a></td>
+                  <td>{{dateFormatLong jobStartDate}}</td>
+                  <td>{{dateFormatLong jobExpectedCompleteDate}}</td>
+                  <td>{{createdByName}}</td>
+                </tr>
+                {{else}}
+                <tr>
+                  <td colspan="4"><i class="fa fa-info-circle" aria-hidden="true"></i> No Jobs</td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          {{/if}}
+        {{/if}}
+      {{/if}}
+    {{/if}}
   {{/if}}
 </template>

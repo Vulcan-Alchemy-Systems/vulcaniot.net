@@ -11,7 +11,6 @@ Template.UserHistory.onCreated(function() {
 
 // rendered
 Template.UserHistory.rendered = function(){
-
 };
 
 // helpers
@@ -19,8 +18,5 @@ Template.UserHistory.helpers({
   getUserHistory: function() {
     var id = FlowRouter.getParam('id');
     return History.find({userId: id},  {"sort" : [['created', 'desc']]} ).fetch();
-  },
-  dateFormat: function(dateTime) {
-    return moment(dateTime).format(Meteor.settings.public.longDate);
   },
 });

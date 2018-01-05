@@ -53,6 +53,11 @@ FlowRouter.route('/admin/roles', {
   name: 'roles',
   parent: 'admin',
   title: 'Roles',
+  triggersEnter: [function(context, redirect) {
+    if (!Roles.userIsInRole(Meteor.userId(), ['admin'])) {
+      FlowRouter.go('signIn');
+    }
+  }],
   action: function() {
     BlazeLayout.render('MainLayout', {main: 'RolesList'});
   },

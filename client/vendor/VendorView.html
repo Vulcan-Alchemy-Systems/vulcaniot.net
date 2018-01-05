@@ -40,6 +40,7 @@
         <ul class="nav nav-tabs">
           <li class="active"><a href="#details" data-toggle="tab">Details</a></li>
           <li><a href="#inventory" data-toggle="tab">Inventory</a></li>
+          <li><a href="#users" data-toggle="tab">Users</a></li>
         </ul>
         <div class="tab-content">
           <div class="active tab-pane" id="details">
@@ -113,6 +114,8 @@
           </div>
 
           <div class="tab-pane" id="inventory">{{> InventoryList}}</div>
+
+          <div class="tab-pane" id="users">{{> UserVendorList}}</div>
         </div>
       </div>
       {{/if}}

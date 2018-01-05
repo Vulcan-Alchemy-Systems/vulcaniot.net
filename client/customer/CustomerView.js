@@ -1,16 +1,16 @@
 // created
 Template.CustomerView.onCreated(function() {
   this.autorun(() => {
-    var id = FlowRouter.getParam('id');
-    this.subscribe('singleCustomer', id);
-    var result =  Customers.findOne({_id: id});
-    Session.set('customerData', result);
+    var customerId = Session.get('CustomerId');
+    this.subscribe('singleCustomer', customerId);
   });
 });
 
 // rendered
 Template.CustomerView.rendered = function(){
-  var customer = Session.get('customerData');
+  var customerId = Session.get('CustomerId');
+  var customer =  Customers.findOne({_id: customerId});
+
   if(customer) {
     Meteor.call('createHistory', {
       userId: Meteor.userId(),
@@ -21,71 +21,10 @@ Template.CustomerView.rendered = function(){
 
 // helpers
 Template.CustomerView.helpers({
+  // customer
   customer: function() {
-    return Session.get('customerData');
-  },
-  isCustomerActive: function(status) {
-    if(status == 'Active') {
-      return 'bg-aqua-active';
-    } else {
-      return 'bg-red';
-    }
-  },
-  customerStatus: function(status) {
-    if(status) {
-        return '<span class="pull-right badge bg-green">'+status+'</span></a>';
-    } else {
-      return '<span class="pull-right badge bg-green">'+status+'</span></a>';
-    }
-  },
-  primaryPhone: function(phones) {
-    if(phones) {
-      var number = false;
-      phones.forEach(function(phone) {
-        if(phone.type == 'Primary') {
-           number = phone.number;
-        }
-      });
-      if(number) {
-        return '<a href="tel:'+number+'" title="Call" style="color:white">' + number + '</a>';
-      }
-    }
-  },
-  primaryEmail: function(emails) {
-    if(emails) {
-      var address = false;
-      emails.forEach(function(email) {
-        if(email.type == 'Primary') {
-           address = email.address;
-        }
-      });
-      if(address) {
-        return '<a href="mailto:'+address+'" title="Email" style="color:white">' + address + '</a>'
-      }
-    }
-  }
-});
-
-// events
-Template.CustomerView.events({
-  'click .edit-phone': function(event) {
-    Session.set('EditCustomer', !Session.get('EditCustomer'));
-  },
-  'click .edit-address': function(event) {
-    Session.set('EditCustomer', !Session.get('EditCustomer'));
-  },
-  'click .edit-customer': function(event) {
-    Session.set('EditCustomer', !Session.get('EditCustomer'));
-  },
-  
-});
-
-// router
-FlowRouter.route('/customers/:id/view', {
-  name: 'customerView',
-  parent: 'customerList',
-  title: 'View',
-  action: function() {
-    BlazeLayout.render('MainLayout', {main: 'CustomerView'});
+    var customerId = Session.get('CustomerId');
+    var result =  Customers.findOne({_id: customerId});
+    return result;
   },
 });

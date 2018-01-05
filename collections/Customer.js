@@ -19,6 +19,7 @@ Customers.allow({
   },
 });
 
+// phone schema
 PhonesSchema = new SimpleSchema({
   // number
   number: {
@@ -49,6 +50,7 @@ PhonesSchema = new SimpleSchema({
   },
 });
 
+// address schema
 AddressSchema = new SimpleSchema({
   // type
   type: {
@@ -100,7 +102,7 @@ AddressSchema = new SimpleSchema({
   },
 });
 
-// Locations Schema
+// Customer Schema
 CustomersSchema = new SimpleSchema({
   // name
   name: {
@@ -157,15 +159,29 @@ Customers.attachSchema(CustomersSchema);
 // methods
 Meteor.methods({
   //update
-  'updateCustomer': function(id, customer) {
-    Customers.update(id, customer);
+  customerUpdate: function(customerId, customerEntity) {
+    if (! Meteor.userId()) {
+      throw new Meteor.Error(403, "You must be logged in");
+    }
+
+    return Customers.update(customerId, customerEntity);
   },
+
   // create
-  'createCustomer': function(customer) {
-      Customers.insert(customer);
+  customerCreate: function(customerEntity) {
+    if (! Meteor.userId()) {
+      throw new Meteor.Error(403, "You must be logged in");
+    }
+
+    return Customers.insert(customerEntity);
   },
-  // remove
-  'removeCustomer': function(id) {
-    Customers.remove({_id: id});
+
+  // delete
+  customerDelete: function(customerId) {
+    if (! Meteor.userId()) {
+      throw new Meteor.Error(403, "You must be logged in");
+    }
+
+    return Customers.remove({_id: customerId});
   }
 });

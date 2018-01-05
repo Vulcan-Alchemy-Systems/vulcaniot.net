@@ -1,0 +1,26 @@
+<template name="JobDelete">
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Delete Job</h3>
+    </div>
+    <div class="box-body">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="alert alert-info">
+            <i class="fa fa-warning"></i> Are you sure you want to delete the following Job?<br />
+            <b><i>{{job.jobName}}</i></b>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="pull-right">
+            <button type="cancel" class="btn btn-danger job-delete" name="cancel" id="cancel"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancel</button>
+            <button type="submit" class="btn btn-primary job-delete-submit" name="submit" id="submit"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
