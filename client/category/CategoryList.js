@@ -26,12 +26,59 @@ Template.CategoryList.rendered = function(){
 
 // helpers
 Template.CategoryList.helpers({
+  // category
+  categories: function() {
+    var keyword  = Session.get("search-query");
+    var query = new RegExp( keyword, 'i' );
+    var results =  Category.find( { $or: [{'name': query}]} );
+    return results;
+  },
 
+  // pagination
+  prevPage: function() {
+    var previousPage = currentPage() === 1 ? 1 : currentPage() - 1;
+    var pathDef = "/admin/category/:page";
+    var params = {page: previousPage};
+    var path = FlowRouter.path(pathDef, params);
+    return path;;
+  },
+  nextPage: function() {
+    var nextPage = hasMorePages() ? currentPage() + 1 : currentPage();
+    var pathDef = "/admin/category/:page";
+    var params = {page: nextPage};
+    var path = FlowRouter.path(pathDef, params);
+    return path;
+  },
+  prevPageClass: function() {
+    return currentPage() <= 1 ? "disabled" : "";
+  },
+  nextPageClass: function() {
+    return hasMorePages() ? "" : "disabled";
+  }
 });
 
 // events
 Template.CategoryList.events({
+  // new
+  'click .category-new': function(event) {
+    Session.set('CategoryNew', ! Session.get('CategoryNew'));
+  },
 
+  // edit
+  'click .category-edit': function(event) {
+    Session.set('CategoryEdit', ! Session.get('CategoryEdit'));
+  },
+
+  // delete
+  'click .category-delete': function(event) {
+    Session.set('CategoryDelete', ! Session.get('CategoryDelete'));
+  },
+
+  // view
+  'click .category-view': function(event) {
+    Session.set('CategoryId', this._id);
+    Session.set('CategoryView', ! Session.get('CategoryView'));
+  }
 });
 
 // routes
@@ -64,3 +111,14 @@ FlowRouter.route('/admin/category', {
     BlazeLayout.render('MainLayout', {main: 'CategoryList'});
   },
 });
+
+// pagination functions
+var hasMorePages = function() {
+  var totalLocations = Counts.get('locationsCount');
+  return currentPage() * parseInt(10) < totalLocations;
+}
+
+var currentPage = function() {
+  var page = FlowRouter.getParam('page');
+  return parseInt(page) || 1;
+}

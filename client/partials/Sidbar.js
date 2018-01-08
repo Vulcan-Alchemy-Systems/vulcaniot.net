@@ -1,3 +1,12 @@
+// on Created
+Template.Sidebar.onCreated(function() {
+  // auto run
+  this.autorun(() => {
+    // subscribe
+    this.subscribe('applicationMenu', 'VulcanIOT.net');
+  });
+});
+
 Template.Sidebar.rendered = function(){
   Meteor.setInterval(function () {
     // events.count
@@ -100,5 +109,9 @@ Template.Sidebar.helpers({
     } else {
       return true;
     }
+  },
+  adminMenuItem: function() {
+    var menuItem = Menu.findOne({'application.name': 'VulcanIOT.net'});
+    return menuItem;
   }
 });

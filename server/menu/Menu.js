@@ -20,8 +20,8 @@ Meteor.publish("allMenu", function(skipCount) {
 });
 
 // application Menu
-Meteor.publish("applicationMenu", function(application, status) {
-  return Menu.find({application: application, status: status});
+Meteor.publish("applicationMenu", function(application, name, active) {
+  return Menu.find({});
 });
 
 // Single Menu

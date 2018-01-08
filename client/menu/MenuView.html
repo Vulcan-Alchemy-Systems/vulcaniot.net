@@ -9,14 +9,70 @@
       <div class="box-header with-border">
         <h3 class="box-title">View</h3>
         <div class="box-tools pull-right">
+          <a href="#" title="Back" class="btn btn-xs btn-danger menu-delete"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
+          <a href="#" title="Back" class="btn btn-xs btn-warning menu-edit"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
           <a href="#" title="Back" class="btn btn-xs btn-primary menu-view"><i class="fa fa-reply" aria-hidden="true"></i> Back</a>
         </div>
       </div>
       <div class="box-body">
+        <div class="row">
+          <div class="col-xs-12">
+            <p><b>Applications:</b> {{#each menuItem.application}}{{name}},{{/each}}</p>
+          </div>
+        </div>
 
+        <div class="row">
+          <div class="col-xs-12">
+            <p><b>Name:</b> {{menuItem.name}}</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <p><b>Icon:</b> <i class="fa {{menuItem.icon}}"></i></p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <p><b>Order:</b> {{menuItem.order}}</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <p><b>Active:</b> {{menuItem.active}}</p>
+          </div>
+        </div>
+        <h4>Sub Menu Items</h4>
+        <table class="table table-hover table-striped">
+          <thead>
+            <tr>
+              <th class="col-xs-1">Icon</th>
+              <th>Name</th>
+              <th>Url</th>
+              <th class="col-xs-1">Order</th>
+              <th class="col-xs-1">active</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each menuItem.subMenu}}
+            <tr>
+              <td><i class="fa {{icon}}"></i></td>
+              <td>{{name}}</td>
+              <td>{{url}}</td>
+              <td>{{order}}</td>
+              <td>{{active}}</td>
+            </tr>
+            {{else}}
+            <tr>
+              <td colspan="5"><i class="fa fa-info-circle" aria-hidden="true"></i> No Menu Items</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
       </div>
     </div>
-
   {{/if}}
   </section>
 </template>

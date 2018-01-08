@@ -1,0 +1,102 @@
+<template name="CategoryView">
+  <section class="content">
+  {{> ContentHeader title="Category" subTitle="View"}}
+  {{#unless Template.subscriptionsReady}}{{> spinner}}{{/unless}}
+  {{#if Template.subscriptionsReady}}
+  <div id="alert"></div>
+  <br />
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">View</h3>
+      <div class="box-tools pull-right">
+        <a href="#" title="Back" class="btn btn-xs btn-danger category-delete"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
+        <a href="#" title="Back" class="btn btn-xs btn-warning category-edit"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+        <a href="#" title="Back" class="btn btn-xs btn-primary category-view"><i class="fa fa-reply" aria-hidden="true"></i> Back</a>
+      </div>
+    </div>
+    <div class="box-body">
+      <div class="row">
+        <div class="col-xs-12">
+          <p><b>Applications:</b> {{#each category.application}}{{name}},{{/each}}</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <p><b>Name:</b> {{category.name}}</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <p><b>Description:</b> {{category.description}}</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <p><b>Type:</b> {{category.type}}</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <p><b>Icon:</b> <i class="fa {{category.icon}}"></i></p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <p><b>Active:</b> {{category.active}}</p>
+        </div>
+      </div>
+
+      <h3>Meta Tags</h3>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <p><b>Meta Title:</b> {{category.metaTitle}}</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <p><b>Meta Description:</b> {{category.metaDescription}}</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <p><b>Keywords:</b> {{#each category.metaKeywords}}{{keyword}}, {{/each}}</p>
+        </div>
+      </div>
+
+
+      <h3>Sub Category</h3>
+      <table class="table table-hover table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Icon</th>
+            <th>Active</th>
+          </tr>
+        </thead>
+        <tbody>
+        {{#each category.subCategory}}
+          <tr>
+            <td>{{name}}</td>
+            <td><i class="fa {{icon}}" aria-hidden="true"></i></td>
+            <td>{{active}}</td>
+          </tr>
+        {{else}}
+          <tr>
+            <td colspan="3"><i class="fa fa-info-circle" aria-hidden="true"></i> No Sub Categories</td>
+          </tr>
+        {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {{/if}}
+  </section>
+</template>

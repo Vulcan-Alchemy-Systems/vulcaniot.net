@@ -73,13 +73,12 @@
         {{#if isInRole 'admin'}}
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-cogs" aria-hidden="true"></i> <span>Admin</span>
+            <i class="fa {{adminMenuItem.icon}}" aria-hidden="true"></i> <span>{{adminMenuItem.name}}</span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/admin" title="Admin Home"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
-            <li><a href="/admin/users" title="Users"><i class="fa fa-group" aria-hidden="true"></i> Users</a></li>
-            <li><a href="/admin/roles" title="Roles"><i class="fa fa-lock" aria-hidden="true"></i> Roles</a></li>
-            <li><a href="/admin/inventory-category" title="Inventory Categories"><i class="fa fa-list-alt" aria-hidden="true"></i> Inventory Categories</a></li>
+            {{#each adminMenuItem.subMenu}}
+            <li><a href="{{url}}" title="{{name}}"><i class="fa {{icon}}" aria-hidden="true"></i> {{name}}</a></li>
+            {{/each}}
           </ul>
         </li>
         {{/if}}

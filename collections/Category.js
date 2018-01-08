@@ -29,6 +29,26 @@ MetaKeywordSchema = new SimpleSchema({
   },
 });
 
+SubCategorySchema = new SimpleSchema({
+  // name
+  name: {
+    type: String,
+    label: "Name"
+  },
+
+  // icon
+  icon: {
+    type: String,
+    label: "Icon"
+  },
+
+  // active
+  active: {
+    type: Boolean,
+    label: "Active",
+  },
+});
+
 ApplicationSchema = new SimpleSchema({
   //
   name: {
@@ -88,10 +108,10 @@ CategorySchema = new SimpleSchema({
     }
   },
 
-  // image
-  image: {
+  // icon
+  icon: {
     type: String,
-    label: "image"
+    label: "Icon"
   },
 
   // active
@@ -135,6 +155,12 @@ CategorySchema = new SimpleSchema({
     type: Array,
   },
   'metaKeywords.$': MetaKeywordSchema,
+
+  // subCategory
+  subCategory: {
+    type: Array,
+  },
+  'subCategory.$': SubCategorySchema,
 
   // created
   created: {

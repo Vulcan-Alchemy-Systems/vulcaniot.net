@@ -39,6 +39,18 @@ Template.MenuList.events({
     Session.set('MenuNew', !Session.get('MenuNew'));
   },
 
+  // Edit
+  'click .menu-edit': function(event) {
+    event.preventDefault();
+    Session.set('MenuEdit', !Session.get('MenuEdit'));
+  },
+
+  // Delete
+  'click .menu-delete': function(event) {
+    event.preventDefault();
+    Session.set('MenuDelete', !Session.get('MenuDelete'));
+  },
+
   // view
   'click .menu-view': function(event) {
     event.preventDefault();

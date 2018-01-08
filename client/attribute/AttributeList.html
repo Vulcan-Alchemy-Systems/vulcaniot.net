@@ -1,0 +1,25 @@
+<template name="AttributeList">
+  {{#if $.Session.get 'AttributeNew'}}
+    {{> AttributeNew}}
+  {{else}}
+    {{#if $.Session.get 'AttributeEdit'}}
+      {{> AttributeEdit}}
+    {{else}}
+      {{#if $.Session.get 'AttributeDelete'}}
+        {{> AttributeDelete}}
+      {{else}}
+        {{#if $.Session.get 'AttributeView'}}
+          {{> AttributeView}}
+        {{else}}
+          {{> ContentHeader title="Attribute" subTitle="List"}}
+          <section class="content">
+          {{#unless Template.subscriptionsReady}}{{> spinner}}{{/unless}}
+          {{#if Template.subscriptionsReady}}
+
+          {{/if}}
+          </section>
+        {{/if}}
+      {{/if}}
+    {{/if}}
+  {{/if}}
+</template>
