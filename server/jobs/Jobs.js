@@ -42,3 +42,7 @@ Meteor.publish("allCustomerJobs", function(customerId, skipCount) {
 Meteor.publish("singleJob", function(id) {
   return Jobs.find({_id: id});
 });
+
+Meteor.publish('files.images.all', () => {
+  return images.collection.find({});
+});

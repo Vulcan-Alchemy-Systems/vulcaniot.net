@@ -26,5 +26,5 @@ Meteor.publish("applicationMenu", function(application, name, active) {
 
 // Single Menu
 Meteor.publish("singleMenu", function(menuId) {
-  return Category.find({_id: menuId});
+  return Menu.find({_id: menuId});
 });

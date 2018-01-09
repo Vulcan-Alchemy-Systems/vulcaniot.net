@@ -4,6 +4,7 @@ Template.JobView.onCreated(function() {
     var customerId = Session.get('customerId');
     this.subscribe('singleCustomer', customerId);
     this.subscribe('singleJob', jobId);
+    this.subscribe('files.images.all');
   });
 });
 
@@ -78,5 +79,9 @@ Template.JobView.events({
     event.preventDefault();
     Session.set('JobNoteNew', !Session.get('JobNoteNew'));
   },
-
+  // new product
+  'click .job-product-new': function(event) {
+    event.preventDefault();
+    Session.set('JobProductNew', !Session.get('JobProductNew'));
+  }
 });

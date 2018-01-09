@@ -16,3 +16,34 @@ Template.ProductList.events({
     Session.set('NewProduct', !Session.get('NewProduct'));
   }
 });
+
+// routes
+FlowRouter.route('/admin/products/:page', {
+  name: 'ProductListPage',
+  parent: 'admin',
+  title: 'Products',
+  triggersEnter: [function(context, redirect) {
+    if (!Roles.userIsInRole(Meteor.userId(), ['admin'])) {
+      //FlowRouter.go('signIn');
+    }
+  }],
+  // action
+  action: function() {
+    BlazeLayout.render('MainLayout', {main: 'ProductList'});
+  },
+});
+
+FlowRouter.route('/admin/products', {
+  name: 'ProductList',
+  parent: 'admin',
+  title: 'Products',
+  triggersEnter: [function(context, redirect) {
+    if (!Roles.userIsInRole(Meteor.userId(), ['admin'])) {
+      //FlowRouter.go('signIn');
+    }
+  }],
+  // action
+  action: function() {
+    BlazeLayout.render('MainLayout', {main: 'ProductList'});
+  },
+});

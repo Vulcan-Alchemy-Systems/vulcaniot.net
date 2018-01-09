@@ -75,30 +75,29 @@
                     {{/each}}
                     </tbody>
                   </table>
+
+                  <!-- Pagination -->
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <nav>
+                        <ul class="pager">
+                          <li class="{{prevPageClass}}">
+                            <a id="prevPage" href="{{prevPage}}" title="Previous">
+                              <span aria-hidden="true">&larr;</span> Previous
+                            </a>
+                          </li>
+                          <li class="{{nextPageClass}}">
+                            <a id="nextPage" href="{{nextPage}}" title="Next">
+                              Next <span aria-hidden="true">&rarr;</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </nav>
+                    </div>
+                  </div>
+                  <!-- Pagination -->
                 </div>
               </div>
-
-              <!-- Pagination -->
-              <div class="row">
-                <div class="col-xs-12">
-                  <nav>
-                    <ul class="pager">
-                      <li class="{{prevPageClass}}">
-                        <a id="prevPage" href="{{prevPage}}" title="Previous">
-                          <span aria-hidden="true">&larr;</span> Previous
-                        </a>
-                      </li>
-                      <li class="{{nextPageClass}}">
-                        <a id="nextPage" href="{{nextPage}}" title="Next">
-                          Next <span aria-hidden="true">&rarr;</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </nav>
-                </div>
-              </div>
-              <!-- Pagination -->
-
             {{/if}}
           </section>
         {{/if}}

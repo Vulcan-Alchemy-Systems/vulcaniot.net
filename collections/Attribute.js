@@ -22,7 +22,9 @@ Attribute.allow({
 
 //schemas
 AttributeSchema = new SimpleSchema(
-  
+  // name
+
+  // status
 );
 
 // attach

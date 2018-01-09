@@ -36,7 +36,7 @@ TimeSchema = new SimpleSchema({
   // created
   created: {
     type: Date,
-    label: "Created",
+    label: "Date",
     autoform: {
       type: "datetime-local",
     }

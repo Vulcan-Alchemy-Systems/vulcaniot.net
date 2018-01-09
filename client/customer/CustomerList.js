@@ -153,7 +153,7 @@ FlowRouter.route('/customers/:page', {
   title: 'Customers',
   triggersEnter: [function(context, redirect) {
     if (!Roles.userIsInRole(Meteor.userId(), ['employee'])) {
-      FlowRouter.go('signIn');
+      //FlowRouter.go('signIn');
     }
   }],
   action: function() {
@@ -168,7 +168,7 @@ FlowRouter.route('/customers', {
   title: 'Customers',
   triggersEnter: [function(context, redirect) {
     if (!Roles.userIsInRole(Meteor.userId(), ['employee'])) {
-      FlowRouter.go('signIn');
+      //FlowRouter.go('signIn');
     }
   }],
   action: function() {

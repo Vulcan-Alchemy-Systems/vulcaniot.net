@@ -41,9 +41,12 @@ perak:mqtt-collection
 check
 random
 email
+less
 stolinski:stylus-multi
 sacha:spin
 tmeasday:publish-counts
 ostrio:files
+ostrio:autoform-files
 chart:chart
 lfergon:exportcsv
+mdg:camera

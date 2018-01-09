@@ -20,11 +20,48 @@ Jobs.allow({
   },
 });
 
+SimpleSchema.setDefaultMessages({
+  initialLanguage: 'en',
+  messages: {
+    en: {
+      uploadError: '{{value}}', //File-upload
+    },
+  }
+});
+
+images = new FilesCollection({
+  storagePath: '/home/projects/vulcaniot.net/assets/app/uploads/images',
+  collectionName: 'images',
+  allowClientCode: true, // Required to let you remove uploaded file
+  onBeforeUpload(file) {
+    console.log(file);
+    // Allow upload files under 10MB, and only in png/jpg/jpeg formats
+    if (file.size <= 80485760 && /png|jpg|jpeg/i.test(file.ext)) {
+      return true;
+    } else {
+      return 'Please upload image, with size equal or less than 10MB';
+    }
+  }
+});
+
+
 JobProductsSchema = new SimpleSchema({
-  // ProductName
-  productName: {
+  // Image
+  image: {
     type: String,
-    label: "Product Name"
+    label: "Image",
+    autoform: {
+      type: "fileUpload",
+      collection: 'images',
+      insertConfig: { // <- Optional, .insert() method options, see: https://github.com/VeliovGroup/Meteor-Files/wiki/Insert-(Upload)
+          meta: {},
+          isBase64: false,
+          transport: 'ddp',
+          streams: 'dynamic',
+          chunkSize: 'dynamic',
+          allowWebWorkers: true
+        }
+    }
   },
 
   // PackageType
@@ -49,6 +86,10 @@ JobProductsSchema = new SimpleSchema({
         {
           label: "Shatter",
           value: "Shatter"
+        },
+        {
+          label: "Crude",
+          value: "Crude"
         },
         {
           label: "Hash Oil",
@@ -260,6 +301,14 @@ JobsSchema = new SimpleSchema({
   },
 
   'jobNotes.$': JobsNoteSchema,
+
+  // products
+  jobProducts: {
+    type: Array,
+    optional: true
+  },
+
+  'jobProducts.$': JobProductsSchema,
 });
 
 

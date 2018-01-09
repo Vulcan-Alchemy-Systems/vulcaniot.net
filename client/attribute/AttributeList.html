@@ -15,7 +15,90 @@
           <section class="content">
           {{#unless Template.subscriptionsReady}}{{> spinner}}{{/unless}}
           {{#if Template.subscriptionsReady}}
+            <!-- Search Form -->
+            <div class="row">
+              <div class="col-xs-12 col-sm-8">
+                <div class="form-group">
+                  <input type="text" class="form-control attribute-search" placeholder="Search for attribute" value="{{searchQuery}}">
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-4">
+                <div class="input-group">
+                  <select class="form-control">
+                    <option value="">All</option>
+                    <option value="VulcanAlchemy.biz">VulcanAlchemy.biz</option>
+                    <option value="VulcanAlchemyOnline.com">VulcanAlchemyOnline.com</option>
+                    <option value="VulcanAlchemy.org">VulcanAlchemy.org</option>
+                    <option value="VulcanIOT.com">VulcanIOT.com</option>
+                    <option value="VulcanIOT.net">VulcanIOT.net</option>
+                    <option value="VulcanMedical.org">VulcanMedical.org</option>
+                  </select>
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <!-- Search Form -->
 
+            <div class="box box-primary">
+              <div class="box-header with-border">
+                <h3 class="box-title">Attributes</h3>
+                <div class="box-tools pull-right">
+                  <a href="#" title="New Menu" class="btn btn-xs btn-success attribute-new"><i class="fa fa-plus" aria-hidden="true"></i> New</a>
+                </div>
+              </div>
+              <div class="box-body">
+                <!-- AttributeEdit List -->
+                <table class="table table-hover table-striped">
+                  <thead>
+                    <tr>
+                      <th>Application</th>
+                      <th>Name</th>
+                      <th class="col-xs-1">Active</th>
+                      <th class="col-xs-1">Order</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {{#each menuItems}}
+                  <tr>
+                    <td>{{#each application}}{{name}},{{/each}}</td>
+                    <td><a href="#" title="View {{name}}" class="menu-view">{{name}}</a></td>
+                    <td>{{active}}</td>
+                    <td>{{order}}</td>
+                  </tr>
+                  {{else}}
+                  <tr>
+                    <td colspan="4"><i class="fa fa-info-circle" aria-hidden="true"></i> No Attributes</td>
+                  </tr>
+                  {{/each}}
+                  </tbody>
+                </table>
+                <!-- AttributeEdit List -->
+
+                <!-- Pagination -->
+                <div class="row">
+                  <div class="col-xs-12">
+                    <nav>
+                      <ul class="pager">
+                        <li class="{{prevPageClass}}">
+                          <a id="prevPage" href="{{prevPage}}" title="Previous">
+                            <span aria-hidden="true">&larr;</span> Previous
+                          </a>
+                        </li>
+                        <li class="{{nextPageClass}}">
+                          <a id="nextPage" href="{{nextPage}}" title="Next">
+                            Next <span aria-hidden="true">&rarr;</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
+                <!-- Pagination -->
+                
+              </div>
+            </div>
           {{/if}}
           </section>
         {{/if}}
