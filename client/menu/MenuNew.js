@@ -20,10 +20,8 @@ Template.MenuNew.events({
     event.preventDefault();
 
     var formData = AutoForm.getFormValues('menuInsertForm');
-
     formData.insertDoc.created = new Date();
-    console.log(formData);
-    
+
     // call update
     Meteor.call('menuCreate',
       formData.insertDoc,

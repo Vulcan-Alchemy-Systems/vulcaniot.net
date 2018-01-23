@@ -12,8 +12,28 @@ Template.ProductList.helpers({
 
 // events
 Template.ProductList.events({
-  'click .new-product': function(event) {
-    Session.set('NewProduct', !Session.get('NewProduct'));
+  // new
+  'click .product-new': function(event) {
+    event.preventDefault();
+    Session.set('ProductNew', !Session.get('ProductNew'));
+  },
+
+  // edit
+  'click .product-edit': function(event) {
+    event.preventDefault();
+    Session.set('ProductEdit', !Session.get('ProductEdit'));
+  },
+
+  // delete
+  'click .product-delete': function(event) {
+    event.preventDefault();
+    Session.set('ProductDelete', !Session.get('ProductDelete'));
+  },
+
+  // view
+  'click .product-view': function(event) {
+    event.preventDefault();
+    Session.set('ProductView', !Session.get('ProductView'));
   }
 });
 

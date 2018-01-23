@@ -10,7 +10,7 @@ Template.AttributeList.onCreated(function() {
     var skipCount = (currentPage - 1) * Meteor.settings.public.recordsPerPage;
 
     // subscribe
-    this.subscribe('allAttribute', skipCount);
+    this.subscribe('allAttributes', skipCount);
   });
 });
 
@@ -27,13 +27,37 @@ Template.AttributeList.rendered = function(){
 // helpers
 Template.AttributeList.helpers({
   attributes: function() {
+    console.log(Attribute.find({}).fetch())
     return Attribute.find({}).fetch();
   }
 });
 
 // events
 Template.AttributeList.events({
+  // new
+  'click .attribute-new': function(event) {
+    event.preventDefault();
+    Session.set('AttributeNew', ! Session.get('AttributeNew'));
+  },
 
+  // view
+  'click .attribute-view': function(event) {
+    event.preventDefault();
+    Session.set('AttributeId', this._id);
+    Session.set('AttributeView', ! Session.get('AttributeView'));
+  },
+
+  // Edit
+  'click .attribute-edit': function(event) {
+    event.preventDefault();
+    Session.set('AttributeEdit', ! Session.get('AttributeEdit'));
+  },
+
+  // Delete
+  'click .attribute-delete': function(event) {
+    event.preventDefault();
+    Session.set('AttributeDelete', ! Session.get('AttributeDelete'));
+  }
 });
 
 // routes

@@ -1,0 +1,50 @@
+<template name="JobTransferNew">
+  <div class="row">
+    <div class="col-xs-12 col-sm-5">
+      <div class="form-group">
+        <label for="type">Product Type:</label>
+        <select class="form-control" name="type" id="type">
+          <option value="Immature Plant">Immature Plant</option>
+          <option value="Vegetative Plant">Vegetative Plant</option>
+          <option value="Flowering Plant">Flowering Plant</option>
+          <option value="Shatter">Shatter</option>
+          <option value="Crude">Crude</option>
+          <option value="Hash Oil">Hash Oil</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-4">
+      <div class="form-group">
+        <label for="quantity">Quantity:</label>
+        <input type="text" class="form-control" id="quantity" name="quantity">
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-3">
+      <div class="form-group">
+        <label for="unitOfMeasureName">Unit Of Measure:</label>
+        <select class="form-control" name="unitOfMeasureName" id="unitOfMeasureName">
+          <option value="Each">Each (ea)</option>
+          <option value="Ounces">Ounces (oz)</option>
+          <option value="Pounds">Pounds (lb)</option>
+          <option value="Grams">Grams (g)</option>
+          <option value="Milligrams">Milligrams (mg)</option>
+          <option value="Kilograms">Kilograms (kg)</option>
+          <option value="Metric Tons">Metric Tons (t)</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="pull-right">
+        <button type="cancel" class="btn btn-danger job-transfer-new" name="cancel" id="cancel"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancel</button>
+        <button type="button" class="btn btn-primary job-transfer-new-submit" name="submit" id="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+      </div>
+    </div>
+  </div>
+</template>

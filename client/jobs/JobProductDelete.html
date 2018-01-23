@@ -1,0 +1,35 @@
+<template name="JobProductDelete">
+  <div class="alert alert-info">
+    <p><i class="fa fa-warning" aria-hidden="true"></i> Are you sure you want to delete the following job product?</p>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <p><b>Type:</b> {{jobProduct.type}}</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <p><b>Weight:</b> {{jobProduct.quantity}}g</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <img src="{{jobProduct.image}}" class="img-responsive" alt="product image"/>
+    </div>
+  </div>
+
+  <br />
+
+  <!-- Buttons -->
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="pull-right">
+        <button type="cancel" class="btn btn-danger job-product-delete" name="cancel" id="cancel"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancel</button>
+        <button type="button" class="btn btn-primary job-product-delete-submit" name="submit" id="submit"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+      </div>
+    </div>
+  </div>
+</template>

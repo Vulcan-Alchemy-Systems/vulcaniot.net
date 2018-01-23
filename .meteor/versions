@@ -20,6 +20,7 @@ caching-html-compiler@1.1.2
 callback-hook@1.0.10
 chart:chart@1.0.1-beta.4
 check@1.2.5
+clinical:barcode@3.1.0
 dburles:collection-helpers@1.1.0
 ddp@1.4.0
 ddp-client@2.2.0

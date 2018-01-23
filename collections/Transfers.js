@@ -133,7 +133,7 @@ TransfersSchema = new SimpleSchema({
   },
 
   // CreatedDateTime
-  ReceivedPackageCount: {
+  CreatedDateTime: {
     type: Date,
     label: "Received Package Count",
     optional: true,

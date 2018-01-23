@@ -1,7 +1,33 @@
 <template name="JobProductNew">
   {{#if Template.subscriptionsReady}}
-  <a href="#" class="takePhoto">take photo</a>
-    <img class="photo img-responsive">
 
+    <div class="row">
+      <div class="col-xs-12 col-sm-6">
+        <img class="photo img-responsive img-thumbnail" style="height:225px; width:300px;">
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        <div class="form-group">
+          <label for="weight">Weight:</label>
+          <input type="text" class="form-control" id="weight" name="weight">
+        </div>
+        <div class="form-group">
+          <label for="weight">Type:</label>
+          <select class="form-control" name="type" id="type">
+            <option value="Crude">Crude</option>
+            <option value="Shatter">Shatter</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="pull-right">
+          <button type="button" class="btn btn-success takePhoto" name="capture"><i class="fa fa-file-image-o" aria-hidden="true"></i> Capture</button>
+          <button type="cancel" class="btn btn-danger job-product-new" name="cancel" id="cancel"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancel</button>
+          <button type="button" class="btn btn-primary job-product-new-submit" name="submit" id="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+        </div>
+      </div>
+    </div>
   {{/if}}
 </template>

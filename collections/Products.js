@@ -5,6 +5,15 @@ SimpleSchema.extendOptions(['autoform']);
 // debug
 SimpleSchema.debug = true;
 
+SimpleSchema.setDefaultMessages({
+  initialLanguage: 'en',
+  messages: {
+    en: {
+      uploadError: '{{value}}', //File-upload
+    },
+  }
+});
+
 Products = new Meteor.Collection("products");
 
 Products.allow({
@@ -19,26 +28,109 @@ Products.allow({
   },
 });
 
-ProductsSchema = new SimpleSchema({
-  // Label
-  label: {
-    type: String,
-    label: "Label"
-  },
+images = new FilesCollection({
+  storagePath: '/home/projects/vulcaniot.net/assets/app/uploads/images',
+  collectionName: 'images',
+  allowClientCode: true, // Required to let you remove uploaded file
+  onBeforeUpload(file) {
+    console.log(file);
+    // Allow upload files under 10MB, and only in png/jpg/jpeg formats
+    if (file.size <= 80485760 && /png|jpg|jpeg/i.test(file.ext)) {
+      return true;
+    } else {
+      return 'Please upload image, with size equal or less than 10MB';
+    }
+  }
+});
 
-  // jobId
-  jobId: {
+// Attribute
+AttributesSchema = new SimpleSchema({
+  // attribute
+
+  // value
+});
+
+// images
+ImageSchema = new SimpleSchema({
+  // image
+  image: {
     type: String,
-    label: "Job Id",
+    label: "Image",
     autoform: {
-      type: "hidden"
+      type: "fileUpload",
+      collection: 'images',
+      insertConfig: { // <- Optional, .insert() method options, see: https://github.com/VeliovGroup/Meteor-Files/wiki/Insert-(Upload)
+          meta: {},
+          isBase64: false,
+          transport: 'ddp',
+          streams: 'dynamic',
+          chunkSize: 'dynamic',
+          allowWebWorkers: true
+        }
     }
   },
 
-  // PackageType
-  packageType: {
+  // alt
+  alt: {
     type: String,
-    label: "Package Type",
+    label: "Alt"
+  },
+
+  // order
+  order: {
+    type: String,
+    label: "Order"
+  },
+});
+
+//schemas
+MetaKeywordSchema = new SimpleSchema({
+  // keyword
+  keyword: {
+    type: String,
+    label: "Keyword"
+  },
+});
+
+// Product
+ProductsSchema = new SimpleSchema({
+  category: {
+    type: String,
+    label: "Category",
+    autoform: {
+      type: "select",
+      options: []
+    }
+  },
+
+  subCategory: {
+    type: String,
+    label: "Sub Category",
+    autoform: {
+      type: "select",
+      options: []
+    }
+  },
+
+  // name
+  name: {
+    type: String,
+    label: "Name"
+  },
+
+  // description
+  description: {
+    type: String,
+    label: 'Description',
+    autoform: {
+      type: "textarea",
+    }
+  },
+
+  // type
+  type: {
+    type: String,
+    label: "Type",
     autoform: {
       type: "select",
       options: [
@@ -61,13 +153,13 @@ ProductsSchema = new SimpleSchema({
       ]
     }
   },
-  // SourceHarvestNames
 
   // Quantity
   quantity: {
     type: String,
     label: "Quantity"
   },
+
   // UnitOfMeasureName
   unitOfMeasureName: {
     type: String,
@@ -106,67 +198,84 @@ ProductsSchema = new SimpleSchema({
       ]
     }
   },
-  // ProductName
-  productName: {
+
+  // lowStock
+  lowStock: {
     type: String,
-    label: "Product Name"
-  },
-  // ProductCategoryName
-
-  // PackagedDate
-  PackagedDate: {
-    type: Date,
-    label: "Packaged Date",
+    label: "Low Stock"
   },
 
-  // InitialLabTestingState
-
-  // LabTestingState
-
-  // LabTestingStateName
-
-  // LabTestingStateDate
-
-  // IsProductionBatch
-
-  // ProductionBatchNumber
-
-  // IsTestingSample
-
-  // IsProcessValidationTestingSample
-
-  // ProductRequiresRemediation
-
-  // ContainsRemediatedProduct
-
-  // RemediationDate
-  remediationDate: {
-    type: Date,
-    label: "Remediation Date",
+  // status
+  status: {
+    type: String,
+    label: "Status",
+    autoform: {
+      type: "select",
+      options: [
+        {
+          label: "In Stock",
+          value: "In Stock"
+        },
+        {
+          label: "On Sale",
+          value: "On Sale"
+        },
+        {
+          label: "Out Of Stock",
+          value: "Out Of Stock"
+        },
+        {
+          label: "Back Ordered",
+          value: "Back Ordered"
+        },
+        {
+          label: "Discontinued",
+          value: "Discontinued"
+        },
+      ]
+    }
   },
-  // ReceivedFromManifestNumber
 
-  // ReceivedFromFacilityLicenseNumber
-
-  // ReceivedFromFacilityName
-
-  // ReceivedDate
-  receivedDate: {
-    type: Date,
-    label: "Received Date",
+  // price
+  price: {
+    type: String,
+    label: "Price"
   },
-  // IsOnHold
 
-  // ArchivedDate
-  archivedDate: {
-    type: Date,
-    label: "Archived Date",
+  salePrice: {
+    type: String,
+    label: "Sale Price"
   },
-  // FinishedDate
-  finishedDate: {
-    type: Date,
-    label: "Finished Date",
+
+  // attributes
+
+  // images
+  images: {
+    type: Array
   },
+  'images.$': ImageSchema,
+
+  // metaTitle
+  metaTitle: {
+    type: String,
+    label: "Meta Title"
+  },
+
+  // metaDescription
+  metaDescription: {
+    type: String,
+    label: "Meta Description",
+    autoform: {
+      type: "textarea",
+    }
+  },
+
+  // metaKeywords
+  metaKeywords: {
+    type: Array,
+  },
+  'metaKeywords.$': MetaKeywordSchema,
+
   // LastModified
   lastModified: {
     type: Date,
@@ -186,15 +295,15 @@ Products.attachSchema(ProductsSchema);
 // methods
 Meteor.methods({
   //update
-  'updateProducts': function(id, products) {
+  'productsUpdate': function(id, products) {
     Products.update(id, products);
   },
   // create
-  'createProducts': function(products) {
+  'productsCreate': function(products) {
       Products.insert(products);
   },
   // remove
-  'removeProducts': function(id) {
+  'productsRemove': function(id) {
     Products.remove({_id: id});
   }
 });

@@ -33,6 +33,7 @@
           <p><b>Completed:</b> {{#if job.jobCompleteDate}}{{longDateFormat job.jobCompleteDate}}{{else}}Not Completed{{/if}}</p>
         </div>
       </div>
+
       <div class="row">
         <div class="col-xs-12 col-sm-4">
           <p><b>Created By:</b> {{job.createdByName}}</p>
@@ -42,6 +43,12 @@
         </div>
         <div class="col-xs-12 col-sm-4">
           <p><b>External Reporting:</b> {{externalReporting job.externalReporting}}</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <p><b>Barcode:</b> <span class="barcode">*{{job._id}}*</span></p>
         </div>
       </div>
 
@@ -59,76 +66,164 @@
             {{#if $.Session.get 'JobNoteNew'}}
               {{> JobNoteNew}}
             {{else}}
-              <a href="#" title="New Note" class="btn btn-xs btn-success job-note-new pull-right" style="margin-top:-48px;"><i class="fa fa-plus" aria-hidden="true"></i> New</a>
-              {{#each job.jobNotes}}
-                {{#if isInRole 'employee'}}
-
-                <div class="panel panel-default">
-                  <div class="panel-body">
-                    <p>{{note}}</p>
-                    <p class="small text-muted">
-                      <i class="fa fa-user" aria-hidden="true"></i> {{createdByName}} <i class="fa fa-clock" aria-hidden="true"></i> {{longDateFormat createdAt}}
-                        {{#if customerView}}<span class="pull-right text-success"><i class="fa fa-check" aria-hidden="true"></i> Customer Can Read</span>{{else}}<span class="pull-right text-danger"><i class="fa fa-info-circle" aria-hidden="true"></i> Hidden From Customer</span>{{/if}}
-                    </p>
-                  </div>
-                </div>
+              {{#if $.Session.get 'JobNoteEdit'}}
+                {{> JobNoteEdit}}
+              {{else}}
+                {{#if $.Session.get 'JobNoteDelete'}}
+                  {{> JobNoteDelete}}
                 {{else}}
-                  {{#if customerView}}
-                    <div class="panel panel-default">
-                      <div class="panel-body">
-                        <p>{{note}}</p>
-                        <p class="small text-muted">
-                          <i class="fa fa-user" aria-hidden="true"></i> {{createdByName}} <i class="fa fa-clock" aria-hidden="true"></i> {{longDateFormat createdAt}}
-                            {{#if customerView}}<span class="pull-right text-success"><i class="fa fa-check" aria-hidden="true"></i> Customer Can Read</span>{{/if}}
-                        </p>
+                  <a href="#" title="New Note" class="btn btn-xs btn-success job-note-new pull-right" style="margin-top:-48px;"><i class="fa fa-plus" aria-hidden="true"></i> New</a>
+                  {{#each job.jobNotes}}
+                    {{#if deleted}}
+                    {{else}}
+                      {{#if isInRole 'employee'}}
+                      <div class="panel panel-default">
+                        <div class="panel-body">
+                          <span class="pull-right">
+                            <a href="#" title="Delete Note" class="btn btn-xs btn-danger job-note-delete"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            <a href="#" title="Edit Note" class="btn btn-xs btn-warning job-note-edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                          </span>
+                          <p>{{note}}</p>
+                          <p class="small text-muted">
+                            <i class="fa fa-user" aria-hidden="true"></i> {{createdByName}} <i class="fa fa-clock" aria-hidden="true"></i> {{longDateFormat createdAt}}
+                              {{#if customerView}}<span class="pull-right text-success"><i class="fa fa-check" aria-hidden="true"></i> Customer Can Read</span>{{else}}<span class="pull-right text-danger"><i class="fa fa-info-circle" aria-hidden="true"></i> Hidden From Customer</span>{{/if}}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                    {{/if}}
-                  {{/if}}
-                {{else}}
-                  <div class="alert alert-info">
-                    <p><i class="fa fa-info-circle" aria-hidden="true"></i> No Notes</p>
-                  </div>
-                {{/each}}
-            {{/if}}
+                      {{else}}
+                        {{#if customerView}}
+                          <div class="panel panel-default">
+                            <div class="panel-body">
+                              <p>{{note}}</p>
+                              <p class="small text-muted">
+                                <i class="fa fa-user" aria-hidden="true"></i> {{createdByName}} <i class="fa fa-clock" aria-hidden="true"></i> {{longDateFormat createdAt}}
+                              </p>
+                            </div>
+                          </div>
+                          {{/if}}
+                        {{/if}}
+                      {{/if}}
+                    {{else}}
+                      <div class="alert alert-info">
+                        <p><i class="fa fa-info-circle" aria-hidden="true"></i> No Notes</p>
+                      </div>
+                    {{/each}}
+                  {{/if}} <!-- JobNoteDelete -->
+              {{/if}} <!-- JobNoteEdit -->
+            {{/if}} <!-- JobNoteNew -->
           </div>
 
           <!-- Products -->
-          <div class="active tab-pane" id="products">
+          <div class="tab-pane" id="products">
             {{#if $.Session.get 'JobProductNew'}}
               {{> JobProductNew}}
             {{else}}
+              {{#if $.Session.get 'JobProductDelete'}}
+                {{> JobProductDelete}}
+              {{else}}
               <a href="#" title="New Product" class="btn btn-xs btn-success job-product-new pull-right" style="margin-top:-48px;"><i class="fa fa-plus" aria-hidden="true"></i> New</a>
+
               <table class="table table-hover table-striped">
                 <thead>
                   <tr>
-                    <th>Name</th>
+                    <th class="col-xs-2">Image</th>
                     <th>Type</th>
                     <th>Qty</th>
                     <th>Weight</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
+                  {{#each job.jobProducts}}
+                    {{#if deleted}}
+                    {{else}}
+                    <tr>
+                      <td><a href="#" title="View image" class="job-product-image"><img src="{{image}}" class="img-responsive" alt="{{type}}"/></a></td>
+                      <td>{{type}}</td>
+                      <td>{{quantity}}</td>
+                      <td>{{unitOfMeasureName}}</td>
+                      <td class="text-right">
+                        <a href="#" title="delete product" class="btn btn-xs btn-danger job-product-delete"><i class="fa fa-trash"></i></a>
+                      </td>
+                    </tr>
+                    {{/if}}
+                  {{else}}
                   <tr>
-                    <td colspan="4"><i class="fa fa-info-circle" aria-hidden="true"></i> No Products</td>
+                    <td colspan="5"><i class="fa fa-info-circle" aria-hidden="true"></i> No Products</td>
                   </tr>
+                  {{/each}}
                 </tbody>
               </table>
+              {{/if}}
             {{/if}}
           </div>
           <!-- Products -->
 
           <!-- transfer -->
-          <div class="active tab-pane" id="transfer">
+          <div class="tab-pane" id="transfer">
             {{#if $.Session.get 'JobTransferNew'}}
               {{> JobTransferNew}}
             {{else}}
-
-            {{/if}}
+              {{#if $.Session.get 'JobTransferEdit'}}
+                {{> JobTransferEdit}}
+              {{else}}
+                {{#if $.Session.get 'JobTransferDelete'}}
+                  {{> JobTransferDelete}}
+                {{else}}
+                  <a href="#" title="New Transfer" class="btn btn-xs btn-success job-transfer-new pull-right" style="margin-top:-48px;"><i class="fa fa-plus" aria-hidden="true"></i> New</a>
+                  <table class="table table-hover table-striped">
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Qty</th>
+                        <th>Weight</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {{#each job.jobTransfers}}
+                      {{#if deleted}}
+                      {{else}}
+                      <tr>
+                        <td>{{longDateFormat createdAt}}</td>
+                        <td>{{type}}</td>
+                        <td>{{quantity}}</td>
+                        <td>{{unitOfMeasureName}}</td>
+                        <td class="text-right">
+                          <a href="#" title="Delete Transfer" class="btn btn-xs btn-danger job-transfer-delete"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                          <a href="#" title="Delete Transfer" class="btn btn-xs btn-warning job-transfer-edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                        </td>
+                      </tr>
+                      {{/if}}
+                    {{else}}
+                    <tr>
+                      <td colspan="5"><i class="fa fa-info-circle" aria-hidden="true"></i> No Transfers</td>
+                    </tr>
+                    {{/each}}
+                    </tbody>
+                  </table>
+                {{/if}} <!-- JobTransferDelete -->
+              {{/if}} <!-- JobTransferEdit -->
+            {{/if}} <!-- JobTransferNew -->
           </div>
           <!-- transfer -->
         </div>
       </div>
 
+      <!-- View Image modal -->
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+              <img src="" alt="View image" id="jobProductImage" class="img-responsive"/>
+            </div>
+          </div>
+        </div>
+      </div>
   {{/if}}
 </template>

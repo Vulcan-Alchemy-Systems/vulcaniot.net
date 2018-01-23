@@ -1,0 +1,208 @@
+<template name="ProductNew">
+  <section class="content">
+  {{> ContentHeader title="Product" subTitle="New"}}
+  {{#unless Template.subscriptionsReady}}{{> spinner}}{{/unless}}
+  {{#if Template.subscriptionsReady}}
+    <div id="alert"></div>
+    <br />
+    <div class="row">
+      <div class="col-xs-12">
+        {{# autoForm collection="Products" id="productInsertForm" type="insert" class="product-new-form"}}
+
+        <div class="nav-tabs-custom">
+          <!-- List -->
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#details" data-toggle="tab">Details</a></li>
+            <li><a href="#images" data-toggle="tab">Images</a></li>
+            <li><a href="#attributes" data-toggle="tab">Attributes</a></li>
+            <li><a href="#meta" data-toggle="tab">Meta Tags</a></li>
+          </ul>
+
+          <!-- Content -->
+          <div class="tab-content">
+
+            <!-- Details -->
+            <div class="active tab-pane" id="details">
+              <div class="row">
+                <div class="col-xs-12">
+                  <div class="form-group {{#if afFieldIsInvalid name='name'}}has-error{{/if}}">
+                    <label class="control-label">{{afFieldLabelText name='name'}}</label>
+                    {{> afFieldInput name='name'}}
+                    {{#if afFieldIsInvalid name='name'}}
+                    <span class="help-block">{{{afFieldMessage name='name'}}}</span>
+                    {{/if}}
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xs-12">
+                  <div class="form-group {{#if afFieldIsInvalid name='description'}}has-error{{/if}}">
+                    <label class="control-label">{{afFieldLabelText name='description'}}</label>
+                    {{> afFieldInput name='description'}}
+                    {{#if afFieldIsInvalid name='description'}}
+                    <span class="help-block">{{{afFieldMessage name='description'}}}</span>
+                    {{/if}}
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                  <div class="form-group {{#if afFieldIsInvalid name='category'}}has-error{{/if}}">
+                    <label class="control-label">{{afFieldLabelText name='category'}}</label>
+                    {{> afFieldInput name='category'}}
+                    {{#if afFieldIsInvalid name='category'}}
+                    <span class="help-block">{{{afFieldMessage name='category'}}}</span>
+                    {{/if}}
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                  <div class="form-group {{#if afFieldIsInvalid name='subCategory'}}has-error{{/if}}">
+                    <label class="control-label">{{afFieldLabelText name='subCategory'}}</label>
+                    {{> afFieldInput name='subCategory'}}
+                    {{#if afFieldIsInvalid name='subCategory'}}
+                    <span class="help-block">{{{afFieldMessage name='subCategory'}}}</span>
+                    {{/if}}
+                  </div>
+                </div>
+              </div>
+
+              <hr />
+
+              <h3>Quantity</h3>
+              <div class="row">
+                <div class="col-xs-12 col-sm-4">
+                  <div class="form-group {{#if afFieldIsInvalid name='quantity'}}has-error{{/if}}">
+                    <label class="control-label">{{afFieldLabelText name='quantity'}}</label>
+                    {{> afFieldInput name='quantity'}}
+                    {{#if afFieldIsInvalid name='quantity'}}
+                    <span class="help-block">{{{afFieldMessage name='quantity'}}}</span>
+                    {{/if}}
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                  <div class="form-group {{#if afFieldIsInvalid name='unitOfMeasureName'}}has-error{{/if}}">
+                    <label class="control-label">{{afFieldLabelText name='unitOfMeasureName'}}</label>
+                    {{> afFieldInput name='unitOfMeasureName'}}
+                    {{#if afFieldIsInvalid name='unitOfMeasureName'}}
+                    <span class="help-block">{{{afFieldMessage name='unitOfMeasureName'}}}</span>
+                    {{/if}}
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                  <div class="form-group {{#if afFieldIsInvalid name='lowStock'}}has-error{{/if}}">
+                    <label class="control-label">{{afFieldLabelText name='lowStock'}}</label>
+                    {{> afFieldInput name='lowStock'}}
+                    {{#if afFieldIsInvalid name='lowStock'}}
+                    <span class="help-block">{{{afFieldMessage name='lowStock'}}}</span>
+                    {{/if}}
+                  </div>
+                </div>
+              </div>
+
+              <hr />
+              <h3>Pricing</h3>
+              <div class="row">
+                <div class="col-xs-12 col-sm-3">
+                  <div class="form-group {{#if afFieldIsInvalid name='price'}}has-error{{/if}}">
+                    <label class="control-label">{{afFieldLabelText name='price'}}</label>
+                    {{> afFieldInput name='price'}}
+                    {{#if afFieldIsInvalid name='price'}}
+                    <span class="help-block">{{{afFieldMessage name='price'}}}</span>
+                    {{/if}}
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-3">
+                  <div class="form-group {{#if afFieldIsInvalid name='salePrice'}}has-error{{/if}}">
+                    <label class="control-label">{{afFieldLabelText name='salePrice'}}</label>
+                    {{> afFieldInput name='salePrice'}}
+                    {{#if afFieldIsInvalid name='salePrice'}}
+                    <span class="help-block">{{{afFieldMessage name='salePrice'}}}</span>
+                    {{/if}}
+                  </div>
+                </div>
+              </div>
+
+              <hr />
+
+              <div class="row">
+                <div class="col-xs-12 col-sm-4">
+                  <div class="form-group {{#if afFieldIsInvalid name='type'}}has-error{{/if}}">
+                    <label class="control-label">{{afFieldLabelText name='type'}}</label>
+                    {{> afFieldInput name='type'}}
+                    {{#if afFieldIsInvalid name='type'}}
+                    <span class="help-block">{{{afFieldMessage name='type'}}}</span>
+                    {{/if}}
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xs-12 col-sm-4">
+                  <div class="form-group {{#if afFieldIsInvalid name='status'}}has-error{{/if}}">
+                    <label class="control-label">{{afFieldLabelText name='status'}}</label>
+                    {{> afFieldInput name='status'}}
+                    {{#if afFieldIsInvalid name='status'}}
+                    <span class="help-block">{{{afFieldMessage name='status'}}}</span>
+                    {{/if}}
+                  </div>
+                </div>
+              </div>
+
+              <div class="pull-right">
+                <button type="cancel" class="btn btn-danger product-new" name="cancel" id="cancel"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancel</button>
+                <button type="submit" class="btn btn-primary product-new-submit" name="submit" id="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+              </div>
+              <div class="clearfix"></div>
+
+            </div>
+            <!-- End Details -->
+
+            <!-- images -->
+            <div class="tab-pane" id="images">
+              {{> afQuickField name="images"}}
+              <img src="{{this.url}}" alt="Some image">
+            </div>
+
+            <!-- attributes -->
+            <div class="tab-pane" id="attributes">
+
+            </div>
+
+            <!-- meta -->
+            <div class="tab-pane" id="meta">
+              <div class="row">
+                <div class="col-xs-12">
+                  <div class="form-group {{#if afFieldIsInvalid name='metaTitle'}}has-error{{/if}}">
+                    <label class="control-label">{{afFieldLabelText name='metaTitle'}}</label>
+                    {{> afFieldInput name='metaTitle'}}
+                    {{#if afFieldIsInvalid name='metaTitle'}}
+                    <span class="help-block">{{{afFieldMessage name='metaTitle'}}}</span>
+                    {{/if}}
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xs-12">
+                  <div class="form-group {{#if afFieldIsInvalid name='metaDescription'}}has-error{{/if}}">
+                    <label class="control-label">{{afFieldLabelText name='metaDescription'}}</label>
+                    {{> afFieldInput name='metaDescription'}}
+                    {{#if afFieldIsInvalid name='metaDescription'}}
+                    <span class="help-block">{{{afFieldMessage name='metaDescription'}}}</span>
+                    {{/if}}
+                  </div>
+                </div>
+              </div>
+
+              {{> afQuickField name="metaKeywords"}}
+            </div>
+          </div>
+        </div>
+        {{/autoForm}}
+      </div>
+    </div>
+  {{/if}}
+</section>
+</template>

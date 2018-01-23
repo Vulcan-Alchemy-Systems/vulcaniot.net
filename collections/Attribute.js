@@ -21,11 +21,62 @@ Attribute.allow({
 });
 
 //schemas
-AttributeSchema = new SimpleSchema(
-  // name
+ValuesSchema = new SimpleSchema({
+  // keyword
+  value: {
+    type: String,
+    label: "Value"
+  },
+});
 
-  // status
-);
+//schemas
+AttributeSchema = new SimpleSchema({
+  // name
+  name: {
+    type: String,
+    label: "Name"
+  },
+
+  // active
+  active: {
+    type: Boolean,
+    label: "Active",
+  },
+
+  // order
+  order: {
+    type: String,
+    label: "Order"
+  },
+
+  // values
+  values: {
+    label:  "Values",
+    type: Array,
+  },
+  'values.$': ValuesSchema,
+
+  // created
+  created: {
+    type: Date,
+    label: "Created",
+    autoform: {
+      type: "hidden",
+    }
+  },
+
+  // lastModified
+  lastModified: {
+    type: Date,
+    label: "Last Modified",
+    autoValue: function () {
+      return new Date();
+    },
+    autoform: {
+      type: "hidden",
+    }
+  },
+});
 
 // attach
 Attribute.attachSchema(AttributeSchema);

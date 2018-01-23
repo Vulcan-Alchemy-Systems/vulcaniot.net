@@ -18,6 +18,24 @@ Template.JobsList.helpers({
     var results =  Jobs.find({customerId: customerId}).fetch();
     return results;
   },
+
+  prevPage: function() {
+    var previousPage = currentPage() === 1 ? 1 : currentPage() - 1;
+    Session.set('page', previousPage);
+  },
+
+  nextPage: function() {
+    var nextPage = hasMorePages() ? currentPage() + 1 : currentPage();
+    Session.set('page', nextPage);
+  },
+
+  prevPageClass: function() {
+    return currentPage() <= 1 ? "disabled" : "";
+  },
+
+  nextPageClass: function() {
+    return hasMorePages() ? "" : "disabled";
+  }
 });
 
 // events
@@ -46,4 +64,15 @@ Template.JobsList.events({
     event.preventDefault();
     Session.set('JobDelete', !Session.get('JobDelete'));
   },
+
 });
+
+var hasMorePages = function() {
+  var totalCustomers = Counts.get('customerCount');
+  return currentPage() * parseInt(10) < totalCustomers;
+}
+
+var currentPage = function() {
+  var page = Session.get('page');
+  return parseInt(page) || 1;
+}

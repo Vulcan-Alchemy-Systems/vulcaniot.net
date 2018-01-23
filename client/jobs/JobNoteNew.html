@@ -1,6 +1,28 @@
 <template name="JobNoteNew">
-  {{# autoForm collection="Jobs" id="updateJobForm" type="update"  class="new-job-form" validation="browser" doc=job}}
-  {{> afQuickField name='jobNotes'}}
+
+  <!-- note -->
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="form-group">
+        <label for="weight">Note:</label>
+        <textarea id="note"  class="form-control" required></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- customerView -->
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" id="customerView" name="customerView">
+          Customer Can View
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Buttons -->
   <div class="row">
     <div class="col-xs-12">
       <div class="pull-right">
@@ -9,5 +31,4 @@
       </div>
     </div>
   </div>
-  {{/autoForm}}
 </template>

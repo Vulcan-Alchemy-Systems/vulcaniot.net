@@ -1,0 +1,33 @@
+<template name="JobNoteEdit">
+  <!-- note -->
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="form-group">
+        <label for="weight">Note:</label>
+        <textarea id="note"  class="form-control" required>{{jobNote.note}}</textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- customerView -->
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" id="customerView" name="customerView" {{customerView}}>
+          Customer Can View
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Buttons -->
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="pull-right">
+        <button type="cancel" class="btn btn-danger job-note-edit" name="cancel" id="cancel"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancel</button>
+        <button type="button" class="btn btn-primary job-note-edit-submit" name="submit" id="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+      </div>
+    </div>
+  </div>
+</template>

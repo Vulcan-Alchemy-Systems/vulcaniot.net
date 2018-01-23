@@ -40,3 +40,34 @@ Template.InventoryList.events({
     Session.set('InventoryId', this._id);
   }
 });
+
+// routes
+FlowRouter.route('/admin/inventory/:page', {
+  name: 'InventoryListPage',
+  parent: 'admin',
+  title: 'Inventory',
+  triggersEnter: [function(context, redirect) {
+    if (!Roles.userIsInRole(Meteor.userId(), ['admin'])) {
+      //FlowRouter.go('signIn');
+    }
+  }],
+  // action
+  action: function() {
+    BlazeLayout.render('MainLayout', {main: 'InventoryList'});
+  },
+});
+
+FlowRouter.route('/admin/inventory', {
+  name: 'InventoryList',
+  parent: 'admin',
+  title: 'Inventory',
+  triggersEnter: [function(context, redirect) {
+    if (!Roles.userIsInRole(Meteor.userId(), ['admin'])) {
+      //FlowRouter.go('signIn');
+    }
+  }],
+  // action
+  action: function() {
+    BlazeLayout.render('MainLayout', {main: 'InventoryList'});
+  },
+});

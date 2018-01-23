@@ -12,6 +12,8 @@ Template.JobEdit.events({
     var formData = AutoForm.getFormValues('updateJobForm').updateDoc;
     var job = Session.get('Job');
 
+    console.log(formData);
+
     // call update
     Meteor.call('jobUpdate', job._id, formData, function(error) {
       if(error) {

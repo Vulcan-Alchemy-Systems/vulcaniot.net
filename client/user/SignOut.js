@@ -11,6 +11,9 @@ Template.SignOut.onRendered(function() {
   // do logout
   Meteor.logout();
 
+  // clear all session vars
+  Session.keys = {};
+
   // redirect back to sign-in
   FlowRouter.go("signIn");
 });

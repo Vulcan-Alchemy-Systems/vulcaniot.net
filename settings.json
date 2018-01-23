@@ -26,7 +26,7 @@
     },
     "user": {
       "register": {
-        "enabled": false,
+        "enabled": true,
         "facebook": false,
         "google": false
       },

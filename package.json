@@ -9,6 +9,7 @@
     "deploy": "npm run predeploy && (cd ../bundle && gcloud app deploy -q)"
   },
   "dependencies": {
+    "aws-iot-device-sdk": "^2.2.0",
     "babel-runtime": "^6.26.0",
     "bcrypt": "^1.0.3",
     "chart.js": "^2.7.1",

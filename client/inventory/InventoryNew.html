@@ -1,100 +1,102 @@
 <template name="InventoryNew">
-{{# autoForm collection="Inventory" id="insertInventoryForm" type="insert" class="new-inventory-form"}}
-<div class="row">
-  <div class="col-xs-12">
-    <div class="form-group {{#if afFieldIsInvalid name='name'}}has-error{{/if}}">
-      <label class="control-label"><i class="fa fa-asterisk text-danger" aria-hidden="true"></i> {{afFieldLabelText name='name'}}</label>
-      {{> afFieldInput name='name'}}
-      {{#if afFieldIsInvalid name='name'}}
-      <span class="help-block">{{{afFieldMessage name='name'}}}</span>
-      {{/if}}
-    </div>
-  </div>
-</div>
 
-<div class="row">
-  <div class="col-xs-12">
-    <div class="form-group {{#if afFieldIsInvalid name='description'}}has-error{{/if}}">
-      <label class="control-label">{{afFieldLabelText name='description'}}</label>
-      {{> afFieldInput name='description'}}
-      {{#if afFieldIsInvalid name='description'}}
-      <span class="help-block">{{{afFieldMessage name='description'}}}</span>
-      {{/if}}
-    </div>
-  </div>
-</div>
+        {{# autoForm collection="Inventory" id="insertInventoryForm" type="insert" class="new-inventory-form"}}
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="form-group {{#if afFieldIsInvalid name='name'}}has-error{{/if}}">
+              <label class="control-label"><i class="fa fa-asterisk text-danger" aria-hidden="true"></i> {{afFieldLabelText name='name'}}</label>
+              {{> afFieldInput name='name'}}
+              {{#if afFieldIsInvalid name='name'}}
+              <span class="help-block">{{{afFieldMessage name='name'}}}</span>
+              {{/if}}
+            </div>
+          </div>
+        </div>
 
-<div class="row">
-  <div class="col-xs-12">
-    <div class="form-group {{#if afFieldIsInvalid name='partNumber'}}has-error{{/if}}">
-      <label class="control-label"><i class="fa fa-asterisk text-danger" aria-hidden="true"></i> {{afFieldLabelText name='partNumber'}}</label>
-      {{> afFieldInput name='partNumber'}}
-      {{#if afFieldIsInvalid name='partNumber'}}
-      <span class="help-block">{{{afFieldMessage name='partNumber'}}}</span>
-      {{/if}}
-    </div>
-  </div>
-</div>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="form-group {{#if afFieldIsInvalid name='description'}}has-error{{/if}}">
+              <label class="control-label">{{afFieldLabelText name='description'}}</label>
+              {{> afFieldInput name='description'}}
+              {{#if afFieldIsInvalid name='description'}}
+              <span class="help-block">{{{afFieldMessage name='description'}}}</span>
+              {{/if}}
+            </div>
+          </div>
+        </div>
 
-<div class="row">
-  <div class="col-xs-12 col-sm-4">
-    <div class="form-group {{#if afFieldIsInvalid name='quantityInStock'}}has-error{{/if}}">
-      <label class="control-label"><i class="fa fa-asterisk text-danger" aria-hidden="true"></i> {{afFieldLabelText name='quantityInStock'}}</label>
-      {{> afFieldInput name='quantityInStock'}}
-      {{#if afFieldIsInvalid name='quantityInStock'}}
-      <span class="help-block">{{{afFieldMessage name='quantityInStock'}}}</span>
-      {{/if}}
-    </div>
-  </div>
-  <div class="col-xs-12 col-sm-4">
-    <div class="form-group {{#if afFieldIsInvalid name='unitOfMeasureName'}}has-error{{/if}}">
-      <label class="control-label"><i class="fa fa-asterisk text-danger" aria-hidden="true"></i> {{afFieldLabelText name='unitOfMeasureName'}}</label>
-      {{> afFieldInput name='unitOfMeasureName'}}
-      {{#if afFieldIsInvalid name='unitOfMeasureName'}}
-      <span class="help-block">{{{afFieldMessage name='unitOfMeasureName'}}}</span>
-      {{/if}}
-    </div>
-  </div>
-  <div class="col-xs-12 col-sm-4">
-    <div class="form-group {{#if afFieldIsInvalid name='lowStockAlert'}}has-error{{/if}}">
-      <label class="control-label"><i class="fa fa-asterisk text-danger" aria-hidden="true"></i> {{afFieldLabelText name='lowStockAlert'}}</label>
-      {{> afFieldInput name='lowStockAlert'}}
-      {{#if afFieldIsInvalid name='lowStockAlert'}}
-      <span class="help-block">{{{afFieldMessage name='lowStockAlert'}}}</span>
-      {{/if}}
-    </div>
-  </div>
-</div>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="form-group {{#if afFieldIsInvalid name='partNumber'}}has-error{{/if}}">
+              <label class="control-label"><i class="fa fa-asterisk text-danger" aria-hidden="true"></i> {{afFieldLabelText name='partNumber'}}</label>
+              {{> afFieldInput name='partNumber'}}
+              {{#if afFieldIsInvalid name='partNumber'}}
+              <span class="help-block">{{{afFieldMessage name='partNumber'}}}</span>
+              {{/if}}
+            </div>
+          </div>
+        </div>
 
-<div class="row">
-  <div class="col-xs-12 col-sm-4">
-    <div class="form-group {{#if afFieldIsInvalid name='category'}}has-error{{/if}}">
-      <label class="control-label"><i class="fa fa-asterisk text-danger" aria-hidden="true"></i> {{afFieldLabelText name='category'}}</label>
-      {{> afFieldInput name='category' options=inventoryCategories}}
-      {{#if afFieldIsInvalid name='category'}}
-      <span class="help-block">{{{afFieldMessage name='category'}}}</span>
-      {{/if}}
-    </div>
-  </div>
-  <div class="col-xs-12 col-sm-4">
-    <div class="form-group {{#if afFieldIsInvalid name='status'}}has-error{{/if}}">
-      <label class="control-label"><i class="fa fa-asterisk text-danger" aria-hidden="true"></i> {{afFieldLabelText name='status'}}</label>
-      {{> afFieldInput name='status'}}
-      {{#if afFieldIsInvalid name='status'}}
-      <span class="help-block">{{{afFieldMessage name='status'}}}</span>
-      {{/if}}
-    </div>
-  </div>
-</div>
+        <div class="row">
+          <div class="col-xs-12 col-sm-4">
+            <div class="form-group {{#if afFieldIsInvalid name='quantityInStock'}}has-error{{/if}}">
+              <label class="control-label"><i class="fa fa-asterisk text-danger" aria-hidden="true"></i> {{afFieldLabelText name='quantityInStock'}}</label>
+              {{> afFieldInput name='quantityInStock'}}
+              {{#if afFieldIsInvalid name='quantityInStock'}}
+              <span class="help-block">{{{afFieldMessage name='quantityInStock'}}}</span>
+              {{/if}}
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-4">
+            <div class="form-group {{#if afFieldIsInvalid name='unitOfMeasureName'}}has-error{{/if}}">
+              <label class="control-label"><i class="fa fa-asterisk text-danger" aria-hidden="true"></i> {{afFieldLabelText name='unitOfMeasureName'}}</label>
+              {{> afFieldInput name='unitOfMeasureName'}}
+              {{#if afFieldIsInvalid name='unitOfMeasureName'}}
+              <span class="help-block">{{{afFieldMessage name='unitOfMeasureName'}}}</span>
+              {{/if}}
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-4">
+            <div class="form-group {{#if afFieldIsInvalid name='lowStockAlert'}}has-error{{/if}}">
+              <label class="control-label"><i class="fa fa-asterisk text-danger" aria-hidden="true"></i> {{afFieldLabelText name='lowStockAlert'}}</label>
+              {{> afFieldInput name='lowStockAlert'}}
+              {{#if afFieldIsInvalid name='lowStockAlert'}}
+              <span class="help-block">{{{afFieldMessage name='lowStockAlert'}}}</span>
+              {{/if}}
+            </div>
+          </div>
+        </div>
 
-<div class="row">
-  <div class="col-xs-12">
-    <span class="text-small"><i class="fa fa-asterisk text-danger text-small" aria-hidden="true"></i> required</span>
-    <div class="pull-right">
-      <button type="cancel" class="btn btn-danger inventory-new" name="cancel" id="cancel"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancel</button>
-      <button type="submit" class="btn btn-primary inventory-new-submit" name="submit" id="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
-    </div>
-  </div>
-</div>
-{{/autoForm}}
+        <div class="row">
+          <div class="col-xs-12 col-sm-4">
+            <div class="form-group {{#if afFieldIsInvalid name='category'}}has-error{{/if}}">
+              <label class="control-label"><i class="fa fa-asterisk text-danger" aria-hidden="true"></i> {{afFieldLabelText name='category'}}</label>
+              {{> afFieldInput name='category' options=inventoryCategories}}
+              {{#if afFieldIsInvalid name='category'}}
+              <span class="help-block">{{{afFieldMessage name='category'}}}</span>
+              {{/if}}
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-4">
+            <div class="form-group {{#if afFieldIsInvalid name='status'}}has-error{{/if}}">
+              <label class="control-label"><i class="fa fa-asterisk text-danger" aria-hidden="true"></i> {{afFieldLabelText name='status'}}</label>
+              {{> afFieldInput name='status'}}
+              {{#if afFieldIsInvalid name='status'}}
+              <span class="help-block">{{{afFieldMessage name='status'}}}</span>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <span class="text-small"><i class="fa fa-asterisk text-danger text-small" aria-hidden="true"></i> required</span>
+            <div class="pull-right">
+              <button type="cancel" class="btn btn-danger inventory-new" name="cancel" id="cancel"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancel</button>
+              <button type="submit" class="btn btn-primary inventory-new-submit" name="submit" id="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+            </div>
+          </div>
+        </div>
+        {{/autoForm}}
+      
 </template>

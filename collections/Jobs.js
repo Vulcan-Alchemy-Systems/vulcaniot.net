@@ -20,52 +20,19 @@ Jobs.allow({
   },
 });
 
-SimpleSchema.setDefaultMessages({
-  initialLanguage: 'en',
-  messages: {
-    en: {
-      uploadError: '{{value}}', //File-upload
-    },
-  }
-});
-
-images = new FilesCollection({
-  storagePath: '/home/projects/vulcaniot.net/assets/app/uploads/images',
-  collectionName: 'images',
-  allowClientCode: true, // Required to let you remove uploaded file
-  onBeforeUpload(file) {
-    console.log(file);
-    // Allow upload files under 10MB, and only in png/jpg/jpeg formats
-    if (file.size <= 80485760 && /png|jpg|jpeg/i.test(file.ext)) {
-      return true;
-    } else {
-      return 'Please upload image, with size equal or less than 10MB';
-    }
-  }
-});
-
-
-JobProductsSchema = new SimpleSchema({
-  // Image
-  image: {
+// transfer
+JobTransferSchema = new SimpleSchema({
+  // id
+  _id: {
     type: String,
-    label: "Image",
-    autoform: {
-      type: "fileUpload",
-      collection: 'images',
-      insertConfig: { // <- Optional, .insert() method options, see: https://github.com/VeliovGroup/Meteor-Files/wiki/Insert-(Upload)
-          meta: {},
-          isBase64: false,
-          transport: 'ddp',
-          streams: 'dynamic',
-          chunkSize: 'dynamic',
-          allowWebWorkers: true
-        }
+    label: "ID",
+    autoValue: function() {
+        return Random.id();
     }
   },
 
-  // PackageType
-  packageType: {
+  // type
+  type: {
     type: String,
     label: "Product Type",
     autoform: {
@@ -142,10 +109,201 @@ JobProductsSchema = new SimpleSchema({
         },
       ]
     }
-  }
+  },
+
+  // createdAt
+  createdAt: {
+    type: Date,
+    label: "Created",
+    autoValue: function () {
+      return new Date();
+    },
+    autoform: {
+      type: "hidden",
+    }
+  },
+
+  // createdBy
+  createdBy: {
+    type: String,
+    label: "Created By",
+    autoValue: function () {
+      return Meteor.userId();
+    },
+    autoform: {
+      type: "hidden",
+    }
+  },
+
+  // createdByName
+  createdByName: {
+    type: String,
+    label: "Created By Name",
+    autoform: {
+      type: "hidden",
+    },
+    autoValue: function () {
+      return Meteor.user().profile.name;
+    },
+  },
+
+  deleted: {
+    type: Boolean,
+    optional: true,
+    label: "Deleted",
+  },
 });
 
+// product
+JobProductsSchema = new SimpleSchema({
+  // id
+  _id: {
+    type: String,
+    label: "ID",
+    autoValue: function() {
+        return Random.id();
+    }
+  },
+
+  image: {
+    type: String,
+    label: "Image"
+  },
+
+  // PackageType
+  type: {
+    type: String,
+    label: "Product Type",
+    autoform: {
+      type: "select",
+      options: [
+        {
+          label: "Other",
+          value: "Other"
+        },
+        {
+          label: "Immature Plant",
+          value: "Immature Plant"
+        },
+        {
+          label: "Vegetative Plant",
+          value: "Vegetative Plant"
+        },
+        {
+          label: "Shatter",
+          value: "Shatter"
+        },
+        {
+          label: "Crude",
+          value: "Crude"
+        },
+        {
+          label: "Hash Oil",
+          value: "Hash Oil"
+        },
+      ]
+    }
+  },
+
+  // Quantity
+  quantity: {
+    type: String,
+    label: "Quantity"
+  },
+
+  // UnitOfMeasureName
+  unitOfMeasureName: {
+    type: String,
+    label: "Unit Of Measure",
+    autoform: {
+      type: "select",
+      options: [
+        {
+          label: "Each (ea)",
+          value: "Each"
+        },
+        {
+          label: "Ounces (oz)",
+          value: "Ounces"
+        },
+        {
+          label: "Pounds (lb)",
+          value: "Pounds"
+        },
+        {
+          label: "Grams (g)",
+          value: "Grams"
+        },
+        {
+          label: "Milligrams (mg)",
+          value: "Milligrams"
+        },
+        {
+          label: "Kilograms (kg)",
+          value: "Kilograms"
+        },
+        {
+          label: "Metric Tons (t)",
+          value: "Metric Tons"
+        },
+      ]
+    }
+  },
+
+  // createdAt
+  createdAt: {
+    type: Date,
+    label: "Created",
+    autoValue: function () {
+      return new Date();
+    },
+    autoform: {
+      type: "hidden",
+    }
+  },
+
+  // createdBy
+  createdBy: {
+    type: String,
+    label: "Created By",
+    autoValue: function () {
+      return Meteor.userId();
+    },
+    autoform: {
+      type: "hidden",
+    }
+  },
+
+  // createdByName
+  createdByName: {
+    type: String,
+    label: "Created By Name",
+    autoform: {
+      type: "hidden",
+    },
+    autoValue: function () {
+      return Meteor.user().profile.name;
+    },
+  },
+
+  deleted: {
+    type: Boolean,
+    optional: true,
+    label: "Deleted",
+  },
+});
+
+// Notes
 JobsNoteSchema = new SimpleSchema({
+  // id
+  _id: {
+    type: String,
+    label: "ID",
+    autoValue: function() {
+        return Random.id();
+    }
+  },
+
   // note
   note: {
     type: String,
@@ -195,6 +353,12 @@ JobsNoteSchema = new SimpleSchema({
     autoValue: function () {
       return Meteor.user().profile.name;
     },
+  },
+
+  deleted: {
+    type: Boolean,
+    optional: true,
+    label: "Deleted",
   },
 });
 
@@ -309,6 +473,14 @@ JobsSchema = new SimpleSchema({
   },
 
   'jobProducts.$': JobProductsSchema,
+
+  // Transfers
+  jobTransfers: {
+    type: Array,
+    optional: true
+  },
+
+  'jobTransfers.$': JobTransferSchema,
 });
 
 
@@ -342,5 +514,134 @@ Meteor.methods({
     }
 
     Jobs.remove({_id: jobId});
+  },
+
+  // jobNoteCreate
+  jobNoteCreate: function(jobId, note, customerView) {
+    if (! Meteor.userId()) {
+      throw new Meteor.Error(403, "You must be logged in");
+    }
+
+    var job = Jobs.findOne({_id: jobId});
+
+    // check if we have an array of notes if not create it.
+    if(! job.jobNotes) {
+      var jobNotes = [];
+    } else {
+      var jobNotes =job.jobNotes;
+    }
+
+    // create new note
+    var note = {
+      note: note,
+      customerView: customerView,
+      deleted: false,
+    }
+
+    // push into the array
+    jobNotes.push(note);
+
+    return Jobs.update({_id: jobId}, {$set: {jobNotes: jobNotes}});
+  },
+
+  // jobNote update
+  jobNoteUpdate: function(jobId, jobNoteId, note, customerView) {
+    if (! Meteor.userId()) {
+      throw new Meteor.Error(403, "You must be logged in");
+    }
+
+    return Jobs.update({_id: jobId, 'jobNotes._id': jobNoteId}, {$set: {'jobNotes.$._id': jobNoteId, 'jobNotes.$.note':note, 'jobNotes.$.customerView': customerView, 'jobNotes.$.deleted':false}});
+  },
+
+  // jobNoteDelete
+  jobNoteDelete: function(jobId, jobNoteId) {
+    if (! Meteor.userId()) {
+      throw new Meteor.Error(403, "You must be logged in");
+    }
+
+    return Jobs.update({_id: jobId, 'jobNotes._id': jobNoteId}, {$set: {'jobNotes.$.deleted': true}});
+  },
+
+  // jobProductCreate
+  jobProductCreate: function(jobId, image, quantity, unitOfMeasureName, type) {
+    if (! Meteor.userId()) {
+      throw new Meteor.Error(403, "You must be logged in");
+    }
+
+    // get job
+    var job = Jobs.findOne({_id: jobId});
+
+    // if we have no product then create an empty array
+    if(! job.jobProducts) {
+      var jobProducts = [];
+    } else  {
+      var jobProducts = job.jobProducts;
+    }
+
+    var product = {
+      image: image,
+      quantity: quantity,
+      unitOfMeasureName: unitOfMeasureName,
+      type: type
+    };
+
+    jobProducts.push(product);
+
+    return Jobs.update({_id: jobId}, {$set: {jobProducts: jobProducts}});
+  },
+
+  // jobProductDelete
+  jobProductDelete: function(jobId, jobProductId) {
+    if (! Meteor.userId()) {
+      throw new Meteor.Error(403, "You must be logged in");
+    }
+
+    return Jobs.update({_id: jobId, 'jobProducts._id': jobProductId}, {$set: {'jobProducts.$.deleted': true}});
+  },
+
+  // jobTransferCreate
+  jobTransferCreate: function(jobId, type, quantity, unitOfMeasureName) {
+    if (! Meteor.userId()) {
+      throw new Meteor.Error(403, "You must be logged in");
+    }
+
+    // get job
+    var job = Jobs.findOne({_id: jobId});
+
+    // if we have no product then create an empty array
+    if(! job.jobTransfers) {
+      var jobTransfers = [];
+    } else  {
+      var jobTransfers = job.jobTransfers;
+    }
+
+    var transfer = {
+      type: type,
+      quantity: quantity,
+      unitOfMeasureName: unitOfMeasureName,
+      deleted: false,
+    }
+
+    jobTransfers.push(transfer);
+
+    return Jobs.update({_id: jobId}, {$set: {jobTransfers: jobTransfers}});
+  },
+
+  // jobTransferEdit
+  jobTransferEdit: function(jobId, jobTransferId, type, quantity, unitOfMeasureName) {
+    if (! Meteor.userId()) {
+      throw new Meteor.Error(403, "You must be logged in");
+    }
+
+    return Jobs.update({_id: jobId, 'jobTransfers._id': jobTransferId}, {$set: {'jobTransfers.$._id': jobTransferId, 'jobTransfers.$.type':type, 'jobTransfers.$.quantity': quantity,  'jobTransfers.$.unitOfMeasureName': unitOfMeasureName, 'jobTransfers.$.deleted':false}});
+  },
+
+  // jobTransferDelete
+  jobTransferDelete: function(jobId, jobTransferId) {
+    if (! Meteor.userId()) {
+      throw new Meteor.Error(403, "You must be logged in");
+    }
+
+    return Jobs.update({_id: jobId, 'jobTransfers._id': jobTransferId}, {$set: {'jobTransfers.$.deleted': true}});
   }
 });

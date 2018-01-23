@@ -111,7 +111,7 @@ Template.Sidebar.helpers({
     }
   },
   adminMenuItem: function() {
-    var menuItem = Menu.findOne({'application.name': 'VulcanIOT.net'});
+    var menuItem = Menu.findOne({'application.name': 'VulcanIOT.net'}, { $sort: {'subMenu.order': -1} });
     return menuItem;
   }
 });

@@ -15,6 +15,7 @@
           <section class="content">
           {{#unless Template.subscriptionsReady}}{{> spinner}}{{/unless}}
           {{#if Template.subscriptionsReady}}
+          <div id="alert"></div>
             <!-- Search Form -->
             <div class="row">
               <div class="col-xs-12 col-sm-8">
@@ -49,21 +50,20 @@
                 </div>
               </div>
               <div class="box-body">
+
                 <!-- AttributeEdit List -->
                 <table class="table table-hover table-striped">
                   <thead>
                     <tr>
-                      <th>Application</th>
                       <th>Name</th>
                       <th class="col-xs-1">Active</th>
                       <th class="col-xs-1">Order</th>
                     </tr>
                   </thead>
                   <tbody>
-                  {{#each menuItems}}
+                  {{#each attributes}}
                   <tr>
-                    <td>{{#each application}}{{name}},{{/each}}</td>
-                    <td><a href="#" title="View {{name}}" class="menu-view">{{name}}</a></td>
+                    <td><a href="#" title="View {{name}}" class="attribute-view">{{name}}</a></td>
                     <td>{{active}}</td>
                     <td>{{order}}</td>
                   </tr>
@@ -96,7 +96,7 @@
                   </div>
                 </div>
                 <!-- Pagination -->
-                
+
               </div>
             </div>
           {{/if}}

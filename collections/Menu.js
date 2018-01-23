@@ -170,7 +170,9 @@ Meteor.methods({
       throw new Meteor.Error(403, "You must be logged in");
     }
 
-    return Menu.update({_id: menuId}, menuEntity);
+    Menu.update({_id: menuId}, menuEntity);
+
+    return Menu.update( {}, {$push : {'subMenu' :{$each  : [] , $sort : {order : 1}}}})
   },
 
   // delete
