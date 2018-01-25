@@ -114,10 +114,12 @@ Meteor.methods({
 
     return result;
   },
+
   // get user times
   getUserTimes: function(userId) {
-    return Time.find({userId: Meteor.userId()},  {"sort" : [['created', 'desc']]}).fetch();
+    return Time.find({userId: userId},  {"sort" : [['created', 'desc']]}).fetch();
   },
+  
   // create new time
   createTime: function(data) {
     // if we are not signed in
@@ -127,6 +129,7 @@ Meteor.methods({
 
     return Time.insert(data);
   },
+
   // update time
   updateTime: function(id, data) {
     // if we are not signed in
@@ -136,6 +139,7 @@ Meteor.methods({
 
     return Time.update({_id:id}, {data});
   },
+
   // delete time
   deleteTime: function(data) {
     // if we are not signed in
@@ -144,15 +148,26 @@ Meteor.methods({
     }
     Time.remove({_id:data.id});
   },
+
   // download
-  download: function(userId) {
-    console.log(userId);
-    var collection = Time.find({userId: userId}).fetch();
-    console.log(collection);
+  download: function(userId, startDate, endDate,) {
+    if(startDate && endDate) {
+        var collection = Time.find({userId: userId, created: {$gte: new Date(startDate), $lt: new Date(endDate)}}, {"sort" : [['created', 'desc']]}).fetch();
+    } else {
+        var collection = Time.find({userId: userId}, {"sort" : [['created', 'desc']]}).fetch();
+    }
+
     var heading = true; // Optional, defaults to true
     var delimiter = "," // Optional, defaults to ",";
+
     return exportcsv.exportToCSV(collection, heading, delimiter);
-  }
+  },
+
+  // searchDate
+  timeSearchDate: function(startDate, endDate, userId) {
+    result = Time.find({userId: userId, created: {$gte: new Date(startDate), $lt: new Date(endDate)}}, {"sort" : [['created', 'desc']]}).fetch();
+    return result;
+  },
 });
 
 // attach

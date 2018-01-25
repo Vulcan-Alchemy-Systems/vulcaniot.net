@@ -1,0 +1,62 @@
+<template name="TimePrint">
+  {{#unless Template.subscriptionsReady}}{{> spinner}}{{/unless}}
+  {{#if Template.subscriptionsReady}}
+  <section class="invoice">
+    <div class="row">
+      <div class="col-xs-12">
+        <h2 class="page-header">
+          <i class="fa fa-globe"></i> {{siteName}}
+          <small class="pull-right">Date: {{date}}</small>
+        </h2>
+      </div>
+      <!-- /.col -->
+    </div>
+
+    <div class="row invoice-info">
+     <div class="col-sm-6 invoice-col">
+       <address>
+         <strong>{{siteName}}</strong><br>
+         {{addressStreet}}<br>
+         {{addressCity}}, {{addressState}} {{addressPostal}}<br>
+         Phone: (804) 123-5432<br>
+         Email: info@almasaeedstudio.com
+       </address>
+     </div>
+     <div class="col-sm-6 invoice-col">
+        <address>
+          <strong>{{user.profile.name}}</strong><br>
+        {{streetAddress user.profile.address}}<br>
+          {{city user.profile.address}}, {{state user.profile.address}} {{postal user.profile.address}}<br>
+          Phone: {{phone user.profile.phones}}<br>
+          Email: john.doe@example.com
+        </address>
+      </div>
+   </div>
+   <!-- Table row -->
+   <div class="row">
+     <div class="col-xs-12 table-responsive">
+       <table class="table table-striped">
+         <thead>
+           <tr>
+             <th>Date</th>
+             <th>Status</th>
+           </tr>
+           </thead>
+           <tbody>
+          {{#each times}}
+            <tr>
+              <td>{{dateFormatLong created}}</td>
+              <td>{{action}}</td>
+            </tr>
+          {{else}}
+          <tr>
+            <td colspan="2"><i class="fa fa-info-circle"></i> No Times</td>
+          </tr>
+          {{/each}}
+           </tbody>
+       </table>
+     </div>
+   </div>
+  </section>
+  {{/if}}
+</template>

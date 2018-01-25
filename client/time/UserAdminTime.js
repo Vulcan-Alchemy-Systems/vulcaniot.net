@@ -9,6 +9,17 @@ Template.UserAdminTime.onCreated(function() {
 Template.UserAdminTime.rendered = function(){
   var userId = FlowRouter.getParam('id');
 
+  Meteor.call('getUserTimes', userId, function(error, result) {
+    if(error) {
+        console.log(error.message);
+        $("#alert").html('<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><i class="fa fa-warning"></i> Error ' + error.message + '</div>');
+    } else {
+      console.log(result);
+      Session.set('UserTimes', result);
+    }
+  });
+
+
   // record history
   Meteor.call('createHistory', {
     userId: Meteor.userId(),
@@ -16,12 +27,17 @@ Template.UserAdminTime.rendered = function(){
   });
 };
 
+
+Template.UserAdminTime.onRendered(function() {
+    this.$('.datetimepicker').datetimepicker();
+});
+
+
 // helpers
 Template.UserAdminTime.helpers({
   // get user Time
   getUserTimes: function() {
-    var userId = FlowRouter.getParam('id');
-    return Time.find({userId: userId},  {"sort" : [['created', 'desc']]}).fetch();
+    return Session.get('UserTimes');
   },
 
   // date
@@ -41,16 +57,31 @@ Template.UserAdminTime.helpers({
 
 // events
 Template.UserAdminTime.events({
-  'click .edit-time': function(event) {
+
+  // time-edit
+  'click .time-edit': function(event) {
+      event.preventDefault();
       Session.set('TimeData', this);
       Session.set('EditTime', !Session.get('EditTime'));
   },
-  'click .create-time': function(event) {
+
+  // time-create
+  'click .time-create': function(event) {
+    event.preventDefault();
     Session.set('CreateTime', !Session.get('CreateTime'));
-    console.log(Session.get('CreateTime'));
   },
-  // open modal
-  'click .delete-time': function(event) {
+
+  // time-print
+  'click .time-print': function(event) {
+    event.preventDefault();
+    var userId = FlowRouter.getParam('id');
+    var startDate = Session.get('startDate');
+    var endDate = Session.get('endDate');
+     window.open(FlowRouter.url('timePrint', {userId: userId}, {startDate: startDate, endDate: endDate}), '_blank');
+  },
+
+  // time-delete
+  'click .time-delete': function(event) {
     event.preventDefault();
     $('#timeEntry').html(moment(this.created).format(Meteor.settings.public.longDate));
     $('#timeId').val(this._id);
@@ -85,11 +116,55 @@ Template.UserAdminTime.events({
     });
   },
 
+  // time-report
+  'click .time-report': function(event, instance) {
+    event.preventDefault();
+
+    $('#timeSearchModal').modal('toggle');
+  },
+
+  // time-do-search
+  'click .time-do-search': function(event, instance) {
+    event.preventDefault();
+
+    var startDate = instance.$('#startDate').val();
+    var endDate = instance.$('#endDate').val();
+    var userId = instance.$('#userId').val();
+
+    // set session for export and printing.
+    Session.set('startDate',startDate);
+    Session.set('endDate', endDate);
+
+    userId = Meteor.userId();
+
+    Meteor.call('timeSearchDate', startDate, endDate, userId, function(error, result) {
+
+      if(error) {
+        $("#alert").html('<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><i class="fa fa-warning"></i> Error ' + error.message + '</div>');
+      } else {
+          console.log(result);
+          Session.set('UserTimes', result);
+          $('#timeSearchModal').modal('toggle');
+      }
+    });
+
+    // scrollTop
+    $('body').scrollTop(0);
+
+    // auto dismiss
+    $("#alert").fadeTo(2000, 500).slideUp(500, function(){
+      $("#alert").slideUp(500);
+    });
+  },
+
   // export
-  'click .export-time': function(event) {
+  'click .time-export': function(event) {
     var userId = FlowRouter.getParam('id');
+    var startDate = Session.get('startDate');
+    var endDate = Session.get('endDate');
     var nameFile = 'fileDownloaded.csv';
-    Meteor.call('download', userId, function(err, fileContent) {
+
+    Meteor.call('download', userId, startDate, endDate, function(err, fileContent) {
       if(fileContent){
         var blob = new Blob([fileContent], {type: "text/plain;charset=utf-8"});
         saveAs(blob, nameFile);
