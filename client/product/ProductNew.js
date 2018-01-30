@@ -4,6 +4,7 @@ Template.MenuList.onCreated(function() {
   this.autorun(() => {
     // subscribe
     this.subscribe('files.images.all');
+    
   });
 });
 

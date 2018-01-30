@@ -1,8 +1,22 @@
+Template.JobProductNew.onCreated(function() {
+  this.autorun(() => {
+    this.subscribe('scaleSensor');
+  });
+});
+
+// helpers
 Template.JobProductNew.helpers({
   job: function() {
     return Session.get('Job');
-  }
+  },
+
 });
+
+// rendered
+Template.JobProductNew.rendered = function(){
+
+};
+
 
 // events
 Template.JobProductNew.events({
@@ -50,8 +64,6 @@ Template.JobProductNew.events({
             height: 600
         };
 
-        // fetch weight from the cloud
-        $('#weight').val(12.65);
 
         MeteorCamera.getPicture(cameraOptions, function (error, data) {
            if (!error) {

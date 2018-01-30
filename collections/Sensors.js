@@ -172,5 +172,10 @@ Meteor.methods({
   },
   updateSensor: function(id, sensor) {
     Sensors.update(id, sensor);
+  },
+  getScale: function() {
+    
+    return json;
   }
+
 });

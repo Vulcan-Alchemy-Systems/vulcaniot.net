@@ -36,6 +36,23 @@ SubCategorySchema = new SimpleSchema({
     label: "Name"
   },
 
+  // slug
+  slug: {
+    type: String,
+    label: "Slug",
+    autoform: {
+      type: "hidden",
+    }
+  },
+
+  categorySlug: {
+    type: String,
+    label: "Category Slug",
+    autoform: {
+      type: "hidden",
+    }
+  },
+
   // icon
   icon: {
     type: String,
@@ -50,7 +67,7 @@ SubCategorySchema = new SimpleSchema({
 });
 
 ApplicationSchema = new SimpleSchema({
-  //
+  // name
   name: {
     type: String,
     label: "Name",
@@ -97,6 +114,15 @@ CategorySchema = new SimpleSchema({
   name: {
     type: String,
     label: "Name"
+  },
+
+  // slug
+  slug: {
+    type: String,
+    label: "Slug",
+    autoform: {
+      type: "hidden",
+    }
   },
 
   // description

@@ -25,3 +25,7 @@ Meteor.publish("allLocationSensors", function(locationId) {
 Meteor.publish("singleSensors", function(id) {
   return Sensors.find({_id: id});
 });
+
+Meteor.publish("scaleSensor", function() {
+  
+});

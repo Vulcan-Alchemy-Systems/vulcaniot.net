@@ -10,10 +10,14 @@
   },
   "dependencies": {
     "aws-iot-device-sdk": "^2.2.0",
+    "aws-mqtt-client": "0.0.5",
+    "aws-sdk": "^2.186.0",
     "babel-runtime": "^6.26.0",
     "bcrypt": "^1.0.3",
+    "bufferutil": "^3.0.3",
     "chart.js": "^2.7.1",
     "meteor-node-stubs": "^0.3.2",
-    "simpl-schema": "^0.2.3"
+    "simpl-schema": "^0.2.3",
+    "utf-8-validate": "^4.0.0"
   }
 }

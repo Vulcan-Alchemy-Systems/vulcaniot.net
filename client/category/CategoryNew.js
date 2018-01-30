@@ -20,6 +20,13 @@ Template.CategoryNew.events({
     var formData = AutoForm.getFormValues('categoryInsertForm');
     formData.insertDoc.created = new Date();
 
+    formData.insertDoc.slug = getSlug(formData.insertDoc.name);
+
+    $.each(formData.insertDoc.subCategory, function( i, val ){
+      formData.insertDoc.subCategory[i].slug = getSlug(val.name);
+      formData.insertDoc.subCategory[i].categorySlug = getSlug(formData.insertDoc.name);
+    });
+
     // call update
     Meteor.call('categoryCreate',
       formData.insertDoc,
@@ -49,3 +56,11 @@ Template.CategoryNew.events({
     );
   }
 });
+
+function getSlug(text) {
+  return text.toString().toLowerCase().trim()
+    .replace(/\s+/g, '-')           // Replace spaces with -
+    .replace(/&/g, '-and-')         // Replace & with 'and'
+    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+    .replace(/\-\-+/g, '-');        // Replace multiple - with single -
+}

@@ -34,6 +34,12 @@ Template.CategoryEdit.events({
 
     var categoryId = Session.get('CategoryId');
     var formData = AutoForm.getFormValues('categoryUpdateForm');
+    formData.updateDoc.$set.slug = getSlug(formData.updateDoc.$set.name);
+
+    $.each(formData.updateDoc.$set.subCategory, function( i, val ){
+      formData.updateDoc.$set.subCategory[i].slug = getSlug(val.name);
+      formData.updateDoc.$set.subCategory[i].categorySlug = getSlug(formData.updateDoc.$set.name);
+    });
 
     // call update
     Meteor.call('categoryUpdate',
@@ -64,3 +70,11 @@ Template.CategoryEdit.events({
     );
   }
 });
+
+function getSlug(text) {
+  return text.toString().toLowerCase().trim()
+    .replace(/\s+/g, '-')           // Replace spaces with -
+    .replace(/&/g, '-and-')         // Replace & with 'and'
+    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+    .replace(/\-\-+/g, '-');        // Replace multiple - with single -
+}

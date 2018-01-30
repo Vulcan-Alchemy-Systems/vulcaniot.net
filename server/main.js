@@ -3,25 +3,32 @@ import { Meteor } from 'meteor/meteor';
 Meteor.startup(() => {
 
 });
+var awsIot = require('aws-iot-device-sdk');
 
-let server = Meteor.settings.private.mqttHost;
+var json = {};
 
-Events.mqttConnect(server, "events", {insert: true});
-
-Events.before.insert(function (userId, doc) {
-  doc.event = doc.message.event;
-  doc.deviceId = doc.message.deviceId;
-  doc.state = doc.message.state;
-  doc.createdAt = Date.now();
+var device = awsIot.device({
+  keyPath: '/home/projects/vulcaniot.net/certs/weight_sensor.private.key',
+  certPath: '/home/projects/vulcaniot.net/certs/weight_sensor.cert.pem',
+  caPath: '/home/projects/vulcaniot.net/certs/root-CA.crt',
+  clientId: 'weight_sensor',
+  host: 'a2b48gn42hre1b.iot.us-west-2.amazonaws.com',
+  debug: true
 });
 
-Events.after.insert(function(userId, doc) {
-  var state = doc.message.state;
-  var deviceId = doc.message.deviceId;
+// conect
+device.on('connect', function() {
+  console.log('connect');
+  device.subscribe('weight');
+});
 
-  if(state == "OK") {
-    Sensors.update({_id: deviceId}, {$set: {"status": "OK"}});
-  } else {
-    Sensors.update({_id: deviceId}, {$set: {"status": "Alert"}});
-  }
+device.on('close', function() {
+  console.log('close');
+});
+
+// message
+device.on('message', function(topic, payload) {
+    let json = JSON.parse(payload.toString('utf8'));
+    console.log(json);
+
 });
