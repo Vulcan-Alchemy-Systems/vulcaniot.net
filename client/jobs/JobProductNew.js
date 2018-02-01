@@ -1,6 +1,7 @@
 Template.JobProductNew.onCreated(function() {
   this.autorun(() => {
-    this.subscribe('scaleSensor');
+      this.subscribe('weightEvent', '/vulcan/scale/weight', 1);
+      this.subscribe('gasEvent', '/vulcan/scale/gas', 1);
   });
 });
 
@@ -9,7 +10,15 @@ Template.JobProductNew.helpers({
   job: function() {
     return Session.get('Job');
   },
-
+  scaleWeight: function() {
+    var entity = Events.findOne({topic: '/vulcan/scale/weight'}, {sort:{created: -1 }}); //.sort({ 'sequence': 1 });
+    return entity.weight;
+  },
+  scaleGas: function() {
+    var entity = Events.findOne({topic: '/vulcan/scale/gas'}, {sort:{created: -1 }});
+    console.log(entity);
+    return entity.gas;
+  }
 });
 
 // rendered
@@ -63,7 +72,6 @@ Template.JobProductNew.events({
             width: 800,
             height: 600
         };
-
 
         MeteorCamera.getPicture(cameraOptions, function (error, data) {
            if (!error) {

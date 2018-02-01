@@ -18,8 +18,6 @@ Template.CustomerEdit.helpers({
 
 // events
 Template.CustomerView.events({
-  
-
   // submit
   'click .edit-customer-submit': function(event) {
     var formData = AutoForm.getFormValues('updateCustomerForm');

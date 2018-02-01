@@ -8,7 +8,11 @@
       <div class="col-xs-12 col-sm-6">
         <div class="form-group">
           <label for="weight">Weight:</label>
-          <input type="text" class="form-control" id="weight" name="weight" value="{{weight}}">
+          <input type="text" class="form-control" id="weight" name="weight" value="{{scaleWeight}}">
+        </div>
+        <div class="form-group">
+          <label for="weight">Gas:</label>
+          <input type="text" class="form-control" id="gas" name="gas" value="{{scaleGas}}">
         </div>
         <div class="form-group">
           <label for="weight">Type:</label>
@@ -29,5 +33,7 @@
         </div>
       </div>
     </div>
+  {{else}}
+  Please wait fetching data from scale
   {{/if}}
 </template>

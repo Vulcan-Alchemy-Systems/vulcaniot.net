@@ -1,0 +1,101 @@
+<template name="ExpenseList">
+  {{#if $.Session.get 'ExpenseCreate'}}
+    {{> ExpenseCreate}}
+  {{else}}
+    {{#if $.Session.get 'ExpenseUpdate'}}
+      {{> ExpenseUpdate}}
+    {{else}}
+      {{#if $.Session.get 'ExpenseDelete'}}
+        {{> ExpenseDelete}}
+      {{else}}
+        {{#if $.Session.get 'ExpenseView'}}
+          {{> ExpenseView}}
+        {{else}}
+        {{> ContentHeader title="Expense" subTitle="List"}}
+        <section class="content">
+          {{#unless Template.subscriptionsReady}}{{> spinner}}{{/unless}}
+          {{#if Template.subscriptionsReady}}
+          <div id="alert"></div>
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Expenses</h3>
+                  <div class="box-tools">
+                    <form class="form-inline pull-left">
+                      <div class="form-group">
+                        <label for="exampleInputName2">Start</label>
+                        <input type="text" class="form-control input-sm" id="startDate">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputName2">End</label>
+                        <input type="text" class="form-control input-sm" id="endDate">
+                      </div>
+                      <button type="submit" class="btn btn-sm btn-default expense-search"><i class="fa fa-search" aria-hidden="true"></i>  Search</button>
+                    </form>
+                    &nbsp;
+                    <button class="btn btn-sm btn-success expense-create"><i class="fa fa-plus" aria-hidden="true"></i> New</button>
+                    <button class="btn btn-sm btn-primary expense-export"><i class="fa fa-download" aria-hidden="true"></i> Export</button>
+                    <button class="btn btn-sm btn-primary expense-print"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
+                  </div>
+                </div>
+                <div class="box-body no-padding">
+                  <table class="table table-hover table-striped">
+                    <thead>
+                      <tr>
+                        <th class="col-sm-1">Date</th>
+                        <th class="col-sm-1">Type</th>
+                        <th>Description</th>
+                        <th class="col-sm-1">Amount</th>
+                        <th class="col-sm-1">Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {{#each expenses}}
+                    <tr>
+                      <td>{{dateFormatShort date}}</td>
+                      <td>{{type}}</td>
+                      <td><a href="#" title="View Expense" class="expense-view">{{description}}</a> {{{milageDisplay type milageStart milageEnd}}}</td>
+                      <td class="text-right">{{amountDisplay type amount}}</td>
+                      <td class="text-right">{{formateMoney total}}</td>
+                    </tr>
+                    {{else}}
+                    <tr>
+                      <td colspan="4"><i class="fa fa-info-circle" aria-hidden="true"></i> No Expenses</td>
+                    </tr>
+                    {{/each}}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Pagination -->
+          <div class="row">
+            <div class="col-xs-12">
+              <nav>
+                <ul class="pager">
+                  <li class="{{prevPageClass}}">
+                    <a id="prevPage" href="{{prevPage}}" title="Previous">
+                      <span aria-hidden="true">&larr;</span> Previous
+                    </a>
+                  </li>
+                  <li class="{{nextPageClass}}">
+                    <a id="nextPage" href="{{nextPage}}" title="Next">
+                      Next <span aria-hidden="true">&rarr;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+          <!-- Pagination -->
+          {{/if}}
+        </section>
+        {{/if}}
+      {{/if}}
+    {{/if}}
+  {{/if}}
+</template>

@@ -1,0 +1,69 @@
+<template name="ExpensePrint">
+  {{#unless Template.subscriptionsReady}}{{> spinner}}{{/unless}}
+  {{#if Template.subscriptionsReady}}
+  <section class="invoice">
+    <div class="row">
+      <div class="col-xs-12">
+        <h2 class="page-header">
+          <i class="fa fa-globe"></i> {{siteName}}
+          <small class="pull-right">Date: {{date}}</small>
+        </h2>
+      </div>
+    </div>
+
+    <div class="row invoice-info">
+     <div class="col-sm-6 invoice-col">
+       <address>
+         <strong>{{siteName}}</strong><br>
+         {{addressStreet}}<br>
+         {{addressCity}}, {{addressState}} {{addressPostal}}<br>
+         Phone: (804) 123-5432<br>
+         Email: info@almasaeedstudio.com
+       </address>
+     </div>
+     <div class="col-sm-6 invoice-col">
+        <address>
+          <strong>{{user.profile.name}}</strong><br>
+        {{streetAddress user.profile.address}}<br>
+          {{city user.profile.address}}, {{state user.profile.address}} {{postal user.profile.address}}<br>
+          Phone: {{phone user.profile.phones}}<br>
+          Email: john.doe@example.com
+        </address>
+      </div>
+   </div>
+
+   <div class="row">
+     <div class="col-xs-12 table-responsive">
+       <table class="table table-borderd">
+         <thead>
+           <th class="col-sm-1">Date</th>
+           <th class="col-sm-1">Type</th>
+           <th>Description</th>
+           <th class="col-sm-1 text-right">Amount</th>
+           <th class="col-sm-1 text-right">Total</th>
+         </thead>
+         <tbody>
+           {{#each expenses}}
+           <tr>
+             <td>{{dateFormatShort date}}</td>
+             <td>{{type}}</td>
+             <td>{{description}} {{{milageDisplay type milageStart milageEnd}}}</td>
+             <td class="text-right">{{amountDisplay type amount}}</td>
+             <td class="text-right">{{formateMoney total}}</td>
+           </tr>
+           {{else}}
+           <tr>
+             <td colspan="5"><i class="fa fa-info-circle" aria-hidden="true"></i> No Expenses</td>
+           </tr>
+           {{/each}}
+         </tbody>
+         <tfoot>
+            <th colspan="4" class="text-right">Total</th>
+            <th class="text-right">{{formateMoney total}}</th>
+         </tfoot>
+       </table>
+     </div>
+   </div>
+  </section>
+  {{/if}}
+</template>

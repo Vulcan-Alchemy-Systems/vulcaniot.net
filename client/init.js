@@ -59,3 +59,8 @@ Template.registerHelper( 'addressState', () => {
 Template.registerHelper( 'addressPostal', () => {
   return Meteor.settings.public.address.city;
 });
+
+Template.registerHelper( 'formateMoney', (value) => {
+  var value = parseFloat(value);
+  return '$' + value.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+});
