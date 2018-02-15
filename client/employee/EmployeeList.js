@@ -72,6 +72,11 @@ Template.EmployeeList.helpers({
 
 // events
 Template.EmployeeList.events({
+  // employee-new
+  'click .employee-new': function(event) {
+    event.preventDefault();
+    Session.set('EmployeeNew', !Session.get('EmployeeNew'));
+  },
   // clicked the message user
   'click .message-user': function(event) {
     Session.set('composeMessage', true);
@@ -93,6 +98,7 @@ FlowRouter.route('/employees', {
     BlazeLayout.render('MainLayout', {main: 'EmployeeList'});
   },
 });
+
 FlowRouter.route('/employees/:page', {
   name: 'employeeListPage',
   parent: 'dashboard',

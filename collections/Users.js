@@ -347,14 +347,12 @@ Meteor.methods({
   // create user
   usersCreate:function(user) {
     var userId = Meteor.users.insert(user);
-    Roles.addUsersToRoles(userId, 'user');
     return userId;
   },
 
   // vendor user
   userVendorCreate: function(user) {
     var userId = Meteor.users.insert(user);
-    Roles.addUsersToRoles(userId, 'user');
     Roles.addUsersToRoles(userId, 'vendor');
     Roles.addUsersToRoles(userId, 'messages');
     return userId;
@@ -363,12 +361,20 @@ Meteor.methods({
   // customer user
   userCustomerCreate: function(user) {
     var userId = Meteor.users.insert(user);
-    Roles.addUsersToRoles(userId, 'user');
     Roles.addUsersToRoles(userId, 'customer');
     Roles.addUsersToRoles(userId, 'messages');
     return userId;
   },
 
+  // employee create
+  employeeCreate: function(user) {
+    var userId = Meteor.users.insert(user);
+    Roles.addUsersToRoles(userId, 'notices');
+    Roles.addUsersToRoles(userId, 'messages');
+    Roles.addUsersToRoles(userId, 'tasks');
+    Roles.addUsersToRoles(userId, 'timeclock');
+    Roles.addUsersToRoles(userId, 'employee');
+  },
   // reset users password
   userResetPassword: function(userId, password) {
     if (Meteor.isServer) {

@@ -1,0 +1,18 @@
+{
+  "roles": [
+    { "_id" : "hF65xZXgmRtCf2wyJ", "name" : "admin" },
+    { "_id" : "rKGpEAWa8C9tcnCjY", "name" : "employee" },
+    { "_id" : "8iNStt92hBt2jEZpg", "name" : "manager" },
+    { "_id" : "7aZPbsRgFNSDZu9xB", "name" : "customer" },
+    { "_id" : "Any6MJnEXc9wWwoK2", "name" : "product" },
+    { "_id" : "qKeHcWC3axNB4qRwA", "name" : "location" },
+    { "_id" : "rX6XjZmW6sNYp47Po", "name" : "sensor" },
+    { "_id" : "6mTFuoiNjdasuHZqR", "name" : "timeclock" },
+    { "_id" : "YPiFtGLLey24E8iWW", "name" : "vendor" },
+    { "_id" : "KJcmXxu8pRoKpPqBx", "name" : "user" },
+    { "_id" : "6A5sxmGSosYMxTJoH", "name" : "test" },
+    { "_id" : "LT2EbummriGzMf39A", "name" : "tasks" },
+    { "_id" : "PrBFcDp8nw4a9eGCa", "name" : "messages" },
+    { "_id" : "5WdGtsFKqft9ttX4y", "name" : "notices" }
+  ]
+}

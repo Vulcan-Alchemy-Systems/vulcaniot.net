@@ -73,3 +73,17 @@ Template.Home.events({
     });
   },
 });
+
+// routes
+FlowRouter.route('/', {
+  name: 'dashboard',
+  title: 'Dashboard',
+  triggersEnter: [function(context, redirect) {
+    if (! Meteor.userId()) {
+      redirect('/sign-in');
+    }
+  }],
+  action: function() {
+    BlazeLayout.render('MainLayout', {main: 'Home'});
+  },
+});

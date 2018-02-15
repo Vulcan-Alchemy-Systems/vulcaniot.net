@@ -8,56 +8,6 @@ Template.DashboardEmployee.onCreated(function() {
 
 // rendered
 Template.DashboardEmployee.rendered = function() {
-  Meteor.setInterval(function() {
-    var entity = Events.find({
-      topic: '/vulcan/scale/gas'
-    }, {
-      limit: 60,
-      sort: {
-        created: -1
-      }
-    }).fetch();
-
-    // get chart default settings
-    var options = Meteor.settings.public.chartJs;
-    var ctx = document.getElementById("myChart").getContext("2d");
-
-    // labels
-    var labels = entity.map(function(doc) {
-      return doc.created;
-    });
-
-    for (var i in labels) {
-      var date = moment(labels[i]).format("HH:mm:ss");
-      labels[i] = date;
-    }
-
-    // get values into an array
-    var data = entity.map(function (doc) {
-      console.log(doc.gas);
-      return doc.gas;
-    });
-
-    var chartData = {
-      labels  : labels.reverse(),
-      datasets: [
-        {
-          label: 'Gas',
-          data: data.reverse()
-        },
-      ]
-    }
-
-    // set chart data
-    var myLineChart = new Chart(ctx, {
-        type: 'line',
-        data: chartData,
-        options: options
-    });
-
-
-    console.log(data);
-  }, 2000);
 
 
 };
@@ -80,7 +30,7 @@ Template.DashboardEmployee.helpers({
 // events
 Template.DashboardEmployee.events({
   // clock user in
-  'click .clock-user-in-btn': function(event) {
+  'click .clock-employee-in-btn': function(event) {
     event.preventDefault();
     var userId = Meteor.userId();
     var created = Date();
@@ -110,7 +60,7 @@ Template.DashboardEmployee.events({
   },
 
   // clock user out
-  'click .clock-user-out-btn': function(event) {
+  'click .clock-employee-out-btn': function(event) {
     event.preventDefault();
     var created = Date();
     var userId = Meteor.userId();

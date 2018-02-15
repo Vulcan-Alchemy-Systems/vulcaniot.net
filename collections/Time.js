@@ -119,7 +119,7 @@ Meteor.methods({
   getUserTimes: function(userId) {
     return Time.find({userId: userId},  {"sort" : [['created', 'desc']]}).fetch();
   },
-  
+
   // create new time
   createTime: function(data) {
     // if we are not signed in

@@ -1,5 +1,6 @@
 import { Roles } from 'meteor/alanning:roles';
 
+
 // methods
 Meteor.methods({
   // create role
@@ -10,6 +11,4 @@ Meteor.methods({
   deleteRole: function(role) {
     Roles.deleteRole(role.name);
   },
-  // add user to role
-
 });

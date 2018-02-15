@@ -1,0 +1,84 @@
+<template name="EmployeeNew">
+  {{> ContentHeader title="Employee" subTitle="New"}}
+  <section class="content">
+    {{#unless Template.subscriptionsReady}}{{> spinner}}{{/unless}}
+    {{#if Template.subscriptionsReady}}
+    {{# autoForm collection="Meteor.users" id="insertUserForm" type="insert"  class="new-user-form" validation="browser"}}
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="form-group {{#if afFieldIsInvalid name='profile.name'}}has-error{{/if}}">
+          <label class="control-label">{{afFieldLabelText name='profile.name'}}</label>
+          {{> afFieldInput name='profile.name'}}
+          {{#if afFieldIsInvalid name='profile.name'}}
+          <span class="help-block">{{{afFieldMessage name='profile.name'}}}</span>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-4">
+        <div class="form-group {{#if afFieldIsInvalid name='profile.gender'}}has-error{{/if}}">
+          <label class="control-label">{{afFieldLabelText name='profile.gender'}}</label>
+          {{> afFieldInput name='profile.gender'}}
+          {{#if afFieldIsInvalid name='profile.gender'}}
+          <span class="help-block">{{{afFieldMessage name='profile.gender'}}}</span>
+          {{/if}}
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-4">
+        <div class="form-group {{#if afFieldIsInvalid name='profile.birthday'}}has-error{{/if}}">
+          <label class="control-label">{{afFieldLabelText name='profile.birthday'}}</label>
+          {{> afFieldInput name='profile.birthday'}}
+          {{#if afFieldIsInvalid name='profile.birthday'}}
+          <span class="help-block">{{{afFieldMessage name='profile.birthday'}}}</span>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-4">
+        <div class="form-group {{#if afFieldIsInvalid name='profile.status'}}has-error{{/if}}">
+          <label class="control-label">{{afFieldLabelText name='profile.status'}}</label>
+          {{> afFieldInput name='profile.status'}}
+          {{#if afFieldIsInvalid name='profile.status'}}
+          <span class="help-block">{{{afFieldMessage name='profile.status'}}}</span>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="form-group {{#if afFieldIsInvalid name='profile.position'}}has-error{{/if}}">
+          <label class="control-label">{{afFieldLabelText name='profile.position'}}</label>
+          {{> afFieldInput name='profile.position'}}
+          {{#if afFieldIsInvalid name='profile.position'}}
+          <span class="help-block">{{{afFieldMessage name='profile.position'}}}</span>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+
+    {{> afQuickField name="emails"}}
+
+    {{> afQuickField name="profile.phones"}}
+
+    {{> afQuickField name='profile.createdAt'}}
+
+    {{> afQuickField name='profile.clockedIn'}}
+
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="pull-right">
+          <button type="cancel" class="btn btn-danger employee-new" name="cancel" id="cancel"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancel</button>
+          <button type="submit" class="btn btn-primary employee-new-submit" name="submit" id="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+        </div>
+      </div>
+    </div>
+    {{/autoForm}}
+    {{/if}}
+  </section>
+</template>

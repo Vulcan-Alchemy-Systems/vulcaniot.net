@@ -6,9 +6,14 @@ Template.SignUp.events({
   'submit form': function(event){
       event.preventDefault();
 
-      var name = $('[name=name]').val();
-      var email = $('[name=email]').val();
-      var password = $('[name=password]').val();
+      // Trim Helper
+       var trimInput = function(val) {
+           return val.replace(/^\s*|\s*$/g, "");
+       }
+
+      var name = trimInput($('[name=name]').val());
+      var email = trimInput($('[name=email]').val());
+      var password = trimInput($('[name=password]').val());
 
       Accounts.createUser({
         email: email,
@@ -17,7 +22,6 @@ Template.SignUp.events({
           name: name,
           image: "/images/user2-160x160.jpg",
           position: "None",
-          createdAt: new Date(),
           status: 'Active',
         }
       }, function(error){
@@ -25,7 +29,6 @@ Template.SignUp.events({
           $('#alert').html('<div class="alert alert-danger"><p>' + error.reason + '</p></div>');
           console.log(error.reason); // Output error if registration fails
         } else {
-
           FlowRouter.go("dashboard"); // Redirect user if registration succeeds
         }
       });

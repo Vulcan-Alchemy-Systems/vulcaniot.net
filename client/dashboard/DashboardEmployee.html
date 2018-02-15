@@ -1,9 +1,9 @@
 <template name="DashboardEmployee">
   <div class="col-md-3 col-sm-6 col-xs-12">
     {{#if isClockedIn}}
-      <button class="btn btn-lg btn-danger btn-block clock-user-out-btn"><i class="fa fa-clock-o" aria-hidden="true"></i> Clock Out</button>
+      <button class="btn btn-lg btn-danger btn-block clock-employee-out-btn"><i class="fa fa-clock-o" aria-hidden="true"></i> Clock Out</button>
     {{else}}
-      <button class="btn btn-lg btn-success btn-block clock-user-in-btn"><i class="fa fa-clock-o" aria-hidden="true"></i> Clock In</button>
+      <button class="btn btn-lg btn-success btn-block clock-employee-in-btn"><i class="fa fa-clock-o" aria-hidden="true"></i> Clock In</button>
     {{/if}}
       <br />
       <a href="/employees" class="btn btn-lg btn-primary btn-block" title="View All Employees"><i class="fa fa-user" aria-hidden="true"></i> Employees</a>
@@ -18,14 +18,5 @@
       <br />
       <a href="/profile/expense" class="btn btn-lg btn-primary btn-block" title="View Expenses"><i class="fa fa-money" aria-hidden="true"></i> Expenses</a>
   </div>
-  <div class="col-xs-12 col-sm-6">
-    <div class="box box-primary">
-      <div class="box-header with-border">
-        <h3 class="box-title">Butane Gas</h3>
-      </div>
-      <div class="box-body">
-        <canvas id="myChart"> Chart</canvas>
-      </div>
-    </div>
-  </div>
+
 </template>

@@ -76,6 +76,11 @@ FlowRouter.route('/profile', {
   name: 'profile',
   parent: 'dashboard',
   title: 'My Profile',
+  triggersEnter: [function(context, redirect) {
+    if (! Meteor.userId()) {
+      redirect('/sign-in');
+    }
+  }],
   action: function() {
     BlazeLayout.render('MainLayout', {main: 'Profile'});
   },
