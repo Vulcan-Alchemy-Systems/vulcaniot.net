@@ -13,7 +13,6 @@
           <!-- List -->
           <ul class="nav nav-tabs">
             <li class="active"><a href="#details" data-toggle="tab">Details</a></li>
-            <li><a href="#images" data-toggle="tab">Images</a></li>
             <li><a href="#attributes" data-toggle="tab">Attributes</a></li>
             <li><a href="#meta" data-toggle="tab">Meta Tags</a></li>
           </ul>
@@ -51,7 +50,7 @@
                 <div class="col-xs-12 col-sm-6">
                   <div class="form-group {{#if afFieldIsInvalid name='category'}}has-error{{/if}}">
                     <label class="control-label">{{afFieldLabelText name='category'}}</label>
-                    {{> afFieldInput name='category'}}
+                    {{> afFieldInput name='category' id='category' options=productCategories}}
                     {{#if afFieldIsInvalid name='category'}}
                     <span class="help-block">{{{afFieldMessage name='category'}}}</span>
                     {{/if}}
@@ -60,7 +59,7 @@
                 <div class="col-xs-12 col-sm-6">
                   <div class="form-group {{#if afFieldIsInvalid name='subCategory'}}has-error{{/if}}">
                     <label class="control-label">{{afFieldLabelText name='subCategory'}}</label>
-                    {{> afFieldInput name='subCategory'}}
+                    {{> afFieldInput name='subCategory' id='subCategory' options=productSubCategories}}
                     {{#if afFieldIsInvalid name='subCategory'}}
                     <span class="help-block">{{{afFieldMessage name='subCategory'}}}</span>
                     {{/if}}

@@ -11,7 +11,7 @@
   "dependencies": {
     "aws-iot-device-sdk": "^2.2.0",
     "aws-mqtt-client": "0.0.5",
-    "aws-sdk": "^2.186.0",
+    "aws-sdk": "^2.188.0",
     "babel-runtime": "^6.26.0",
     "bcrypt": "^1.0.3",
     "bufferutil": "^3.0.3",

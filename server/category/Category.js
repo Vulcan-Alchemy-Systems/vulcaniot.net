@@ -28,3 +28,7 @@ Meteor.publish("applicationCategory", function(application) {
 Meteor.publish("singleCategory", function(categoryId) {
   return Category.find({_id: categoryId});
 });
+
+Meteor.publish("rootCategory", function() {
+  return Category.find({});
+});

@@ -1,6 +1,12 @@
 {
   "private": {
-    "mqttHost": "mqtt://localhost:1883"
+    "mqttHost": "mqtt://localhost:1883",
+    "s3": {
+      "key": "AWSKEY",
+      "secret": "AWSSECRET",
+      "bucket": "vulcan-products",
+      "region": "us-west-2"
+    }
   },
   "public": {
     "ga": {
@@ -69,8 +75,8 @@
       "strokeColor": "rgba(210, 214, 222, 1)",
       "pointColor": "rgba(210, 214, 222, 1)",
       "pointStrokeColor": "#c1c7d1",
-      "pointHighlightFill"  : "#fff",
+      "pointHighlightFill": "#fff",
       "pointHighlightStroke": "rgba(220,220,220,1)"
-      }
+    }
   }
 }
