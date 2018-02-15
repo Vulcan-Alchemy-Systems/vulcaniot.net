@@ -202,6 +202,7 @@ UserProfileSchema = new SimpleSchema({
   },
   // gender
   gender: {
+    optional: true,
     type: String,
     label: "Gender",
     autoform: {
