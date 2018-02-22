@@ -1,0 +1,14 @@
+<template name="EmployeeTime">
+  {{> ContentHeader title="Employee" subTitle="Time"}}
+  {{#unless Template.subscriptionsReady}}{{> spinner}}{{/unless}}
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12 col-sm-4">
+        {{> EmployeeCard}}
+      </div>
+      <div class="col-xs-12 col-sm-8">
+        {{> UserTimeWidget getUser._id}}
+      </div>
+    </div>
+  </section>
+</template>

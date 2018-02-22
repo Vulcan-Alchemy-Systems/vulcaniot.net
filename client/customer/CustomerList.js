@@ -86,7 +86,7 @@ Template.CustomerList.helpers({
     var pathDef = "/customers/:page";
     var params = {page: previousPage};
     var path = FlowRouter.path(pathDef, params);
-    return path;;
+    return path;
   },
 
   nextPage: function() {
@@ -112,13 +112,6 @@ Template.CustomerList.events({
   'click .customer-new': function(event) {
     event.preventDefault();
     Session.set('CustomerNew', !Session.get('CustomerNew'));
-  },
-
-  // customer-view
-  'click .customer-view': function(event) {
-    event.preventDefault();
-    Session.set('CustomerId', this._id);
-    Session.set('CustomerView', !Session.get('CustomerView'));
   },
 
   // customer edit

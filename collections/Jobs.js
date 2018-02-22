@@ -165,6 +165,13 @@ JobProductsSchema = new SimpleSchema({
     }
   },
 
+  // barCode
+  barCode: {
+    type: String,
+    label: "Bar Code"
+  },
+
+
   image: {
     type: String,
     label: "Image"
@@ -362,12 +369,106 @@ JobsNoteSchema = new SimpleSchema({
   },
 });
 
+JobMaterialSchema = new SimpleSchema({
+  // id
+  _id: {
+    type: String,
+    label: "ID",
+    autoform: {
+      type: "hidden",
+    },
+    autoValue: function() {
+        return Random.id();
+    }
+  },
+
+  // barCode
+  barCode: {
+    type: String,
+    label: "Bar Code"
+  },
+
+  type: {
+    type: String,
+    label: "Product Type",
+    autoform: {
+      type: "select",
+      options: [
+        {
+          label: "Flower",
+          value: "Flower"
+        },
+        {
+          label: "Trim",
+          value: "Trim"
+        },
+        {
+          label: "Mixed",
+          value: "Mixed"
+        },
+      ]
+    }
+  },
+
+  // Quantity
+  quantity: {
+    type: String,
+    label: "Quantity"
+  },
+
+  // UnitOfMeasureName
+  unitOfMeasureName: {
+    type: String,
+    label: "Unit Of Measure",
+    autoform: {
+      type: "select",
+      options: [
+        {
+          label: "Each (ea)",
+          value: "Each"
+        },
+        {
+          label: "Ounces (oz)",
+          value: "Ounces"
+        },
+        {
+          label: "Pounds (lb)",
+          value: "Pounds"
+        },
+        {
+          label: "Grams (g)",
+          value: "Grams"
+        },
+        {
+          label: "Milligrams (mg)",
+          value: "Milligrams"
+        },
+        {
+          label: "Kilograms (kg)",
+          value: "Kilograms"
+        },
+        {
+          label: "Metric Tons (t)",
+          value: "Metric Tons"
+        },
+      ]
+    }
+  },
+});
+
 // schema
 JobsSchema = new SimpleSchema({
   // customerId
   customerId: {
     type: String,
-    label: "Customer",
+    label: "Customer ID",
+    autoform: {
+      type: "hidden",
+    }
+  },
+  customerName: {
+    type: String,
+    label: "Customer Name",
     autoform: {
       type: "hidden",
     }
@@ -481,6 +582,13 @@ JobsSchema = new SimpleSchema({
   },
 
   'jobTransfers.$': JobTransferSchema,
+
+  // JobMaterial
+  JobMaterials: {
+      label: "Raw Materials",
+      type: Array,
+  },
+  'JobMaterials.$': JobMaterialSchema,
 });
 
 
@@ -563,7 +671,7 @@ Meteor.methods({
   },
 
   // jobProductCreate
-  jobProductCreate: function(jobId, image, quantity, unitOfMeasureName, type) {
+  jobProductCreate: function(jobId, barCode, image, quantity, unitOfMeasureName, type) {
     if (! Meteor.userId()) {
       throw new Meteor.Error(403, "You must be logged in");
     }
@@ -579,6 +687,7 @@ Meteor.methods({
     }
 
     var product = {
+      barCode: barCode,
       image: image,
       quantity: quantity,
       unitOfMeasureName: unitOfMeasureName,

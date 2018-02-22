@@ -1,20 +1,36 @@
-// helpers
-Template.NewTime.helpers({
+// onCreated
+Template.UserTimeWidget.onCreated(function() {
+  this.autorun(() => {
+    var userId = Session.get('UserId');
+    if(! userId) {
+      throw new Meteor.Error('user-id-not-found', "User id not found.");
+    }
+  });
+});
 
+// onRendered
+Template.TimeNew.onRendered(function() {
+    this.$('.datetimepicker').datetimepicker();
 });
 
 // events
-Template.NewTime.events({
-  'click .create-time-submit': function(event) {
+Template.TimeNew.events({
+  // time-new-submit
+  'click .time-new-submit': function(event) {
     var formData = AutoForm.getFormValues('insertTimeForm');
-    var userId = FlowRouter.getParam('id');
+    var userId = Session.get('UserId');
+
+    if(! userId) {
+      throw new Meteor.Error('user-id-not-found', "User id not found.");
+    }
 
     formData.insertDoc.userId = userId;
+    formData.insertDoc.created = $('#created').val();
 
     // call update
     Meteor.call('createTime',
       formData.insertDoc,
-      function (error) {
+      function (error, result) {
         if(error) {
           $("#alert").html('<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><i class="fa fa-warning"></i> Error ' + error.message + '</div>');
         } else {
@@ -33,7 +49,9 @@ Template.NewTime.events({
           $("#alert").fadeTo(2000, 500).slideUp(500, function(){
             $("#alert").slideUp(500);
           });
-          template.find("form").reset();
+
+          // clear Session
+          Session.set('TimeNew', false);
         }
       });
 

@@ -55,8 +55,22 @@
   </div>
 
   <div class="row">
+    <div class="col-xs-12 col-sm-4">
+      <div class="form-group {{#if afFieldIsInvalid name='jobBarCode'}}has-error{{/if}}">
+        <label class="control-label">{{afFieldLabelText name='jobBarCode'}}</label>
+        {{> afFieldInput name='jobBarCode'}}
+        {{#if afFieldIsInvalid name='jobBarCode'}}
+        <span class="help-block">{{{afFieldMessage name='jobBarCode'}}}</span>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+
+  {{> afQuickField name='JobMaterials'}}
+
+  <div class="row">
     <div class="col-xs-12">
-      <div class="form-group {{#if afFieldIsInvalid name='jobDescription'}}has-error{{/if}}">
+      <div class="form-group {{#if afFieldIsInvalid name='externalReporting'}}has-error{{/if}}">
         <label class="control-label">{{afFieldLabelText name='externalReporting'}}</label>
         {{> afFieldInput name='externalReporting'}}
         {{#if afFieldIsInvalid name='externalReporting'}}

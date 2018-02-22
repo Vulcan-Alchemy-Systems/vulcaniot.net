@@ -1,0 +1,16 @@
+<template name="ProfileTime">
+  {{> ContentHeader title="My Profile" subTitle="Time Clock"}}
+  <section class="content">
+    {{#unless Template.subscriptionsReady}}{{> spinner}}{{/unless}}
+    {{#if Template.subscriptionsReady}}
+    <div class="row">
+      <div class="col-xs-12 col-sm-4">
+        {{> ProfileWidget}}
+      </div>
+      <div class="col-xs-12 col-sm-8">
+        {{> UserTimeWidget}}
+      </div>
+    </div>
+    {{/if}}
+  </section>
+</template>

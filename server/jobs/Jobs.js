@@ -19,6 +19,13 @@ Meteor.publish("allJobs", function(skipCount) {
   });
 });
 
+Meteor.publish("allJobsLimit", function(limit) {
+  // return
+  return Jobs.find({}, {
+    limit: limit
+  });
+});
+
 Meteor.publish("allCustomerJobs", function(customerId, skipCount) {
   var positiveIntegerCheck = Match.Where(function(x) {
     check(x, Match.Integer);

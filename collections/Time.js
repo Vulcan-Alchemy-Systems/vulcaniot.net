@@ -137,7 +137,7 @@ Meteor.methods({
       throw new Meteor.Error(403, "You must be logged in");
     }
 
-    return Time.update({_id:id}, {data});
+    return Time.update({_id:id}, data);
   },
 
   // delete time

@@ -2,12 +2,23 @@
 Template.JobNew.helpers({
 });
 
+Template.JobNew.onRendered(function() {
+    this.$('.datetimepicker').datetimepicker();
+});
+
 // events
 Template.JobNew.events({
   'click .job-new-submit': function(event) {
     event.preventDefault();
+    
     var formData = AutoForm.getFormValues('insertJobForm').insertDoc;
+    var jobStartDate = $('#jobStartDate').val();
+    var jobExpectedCompleteDate = $('#jobExpectedCompleteDate').val();
+    var jobCompleteDate = $('#jobCompleteDate').val();
 
+    formData.jobStartDate = jobStartDate;
+    formData.jobExpectedCompleteDate = jobExpectedCompleteDate;
+    formData.jobCompleteDate = jobCompleteDate;
     formData.createdBy = Meteor.userId();
     formData.createdByName = Meteor.user().profile.name;
     formData.createdAt = new Date();

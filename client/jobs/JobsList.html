@@ -2,15 +2,7 @@
   {{#if $.Session.get 'JobNew'}}
     {{> JobNew}}
   {{else}}
-    {{#if $.Session.get 'JobEdit'}}
-      {{> JobEdit}}
-    {{else}}
-      {{#if $.Session.get 'JobDelete'}}
-        {{> JobDelete}}
-      {{else}}
-        {{#if $.Session.get 'JobView'}}
-          {{> JobView}}
-        {{else}}
+
           {{#unless Template.subscriptionsReady}}
             {{> spinner}}
           {{/unless}}
@@ -31,7 +23,7 @@
               <tbody>
                 {{#each jobs}}
                 <tr>
-                  <td><a href="#" class="job-view" title="View job {{jobName}}">{{jobName}}</a></td>
+                  <td><a href="/customers/{{customerId}}/job/{{_id}}" class="" title="View job {{jobName}}">{{jobName}}</a></td>
                   <td>{{dateFormatLong jobStartDate}}</td>
                   <td>{{dateFormatLong jobExpectedCompleteDate}}</td>
                   <td>{{createdByName}}</td>
@@ -46,7 +38,4 @@
 
           {{/if}}
         {{/if}}
-      {{/if}}
-    {{/if}}
-  {{/if}}
 </template>

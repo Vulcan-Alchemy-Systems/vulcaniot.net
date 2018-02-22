@@ -29,7 +29,10 @@
     <div class="col-xs-12 col-sm-4">
       <div class="form-group {{#if afFieldIsInvalid name='jobStartDate'}}has-error{{/if}}">
         <label class="control-label">{{afFieldLabelText name='jobStartDate'}}</label>
-        {{> afFieldInput name='jobStartDate'}}
+        <div class="input-group datetimepicker">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+          <input class="set-due-date form-control" type="text" id="jobStartDate" name="jobStartDate" />
+        </div>
         {{#if afFieldIsInvalid name='jobStartDate'}}
         <span class="help-block">{{{afFieldMessage name='jobStartDate'}}}</span>
         {{/if}}
@@ -38,7 +41,10 @@
     <div class="col-xs-12 col-sm-4">
       <div class="form-group {{#if afFieldIsInvalid name='jobExpectedCompleteDate'}}has-error{{/if}}">
         <label class="control-label">{{afFieldLabelText name='jobExpectedCompleteDate'}}</label>
-        {{> afFieldInput name='jobExpectedCompleteDate'}}
+        <div class="input-group datetimepicker">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+          <input class="set-due-date form-control" type="text" id="jobExpectedCompleteDate" name="jobExpectedCompleteDate" />
+        </div>
         {{#if afFieldIsInvalid name='jobExpectedCompleteDate'}}
         <span class="help-block">{{{afFieldMessage name='jobExpectedCompleteDate'}}}</span>
         {{/if}}
@@ -47,13 +53,30 @@
     <div class="col-xs-12 col-sm-4">
       <div class="form-group {{#if afFieldIsInvalid name='jobCompleteDate'}}has-error{{/if}}">
         <label class="control-label">{{afFieldLabelText name='jobCompleteDate'}}</label>
-        {{> afFieldInput name='jobCompleteDate'}}
+        <div class="input-group datetimepicker">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+          <input class="set-due-date form-control" type="text" id="jobCompleteDate" name="jobCompleteDate" />
+        </div>
         {{#if afFieldIsInvalid name='jobCompleteDate'}}
         <span class="help-block">{{{afFieldMessage name='jobCompleteDate'}}}</span>
         {{/if}}
       </div>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-4">
+      <div class="form-group {{#if afFieldIsInvalid name='jobBarCode'}}has-error{{/if}}">
+        <label class="control-label">{{afFieldLabelText name='jobBarCode'}}</label>
+        {{> afFieldInput name='jobBarCode'}}
+        {{#if afFieldIsInvalid name='jobBarCode'}}
+        <span class="help-block">{{{afFieldMessage name='jobBarCode'}}}</span>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+
+  {{> afQuickField name='JobMaterials'}}
 
   <div class="row">
     <div class="col-xs-12">
@@ -66,7 +89,6 @@
       </div>
     </div>
   </div>
-
 
   {{> afQuickField name='customerId'}}
 

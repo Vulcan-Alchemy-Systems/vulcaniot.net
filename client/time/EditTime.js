@@ -11,7 +11,7 @@ Template.EditTime.events({
   'click .edit-time-submit': function(event) {
     var formData = AutoForm.getFormValues('updateTimeForm');
     var time = Session.get('TimeData');
-
+    
     // call update
     Meteor.call('updateTime',
       time._id, formData.updateDoc,

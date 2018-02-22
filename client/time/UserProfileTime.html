@@ -26,37 +26,7 @@
       </div>
     </div>
     <div class="col-md-9">
-      <div class="box box-primary">
-        <div class="box-header with-border">
-          <h3 class="box-title">Time Entry</h3>
-        </div>
-        <div class="box-body no-padding">
-          <table class="table table-hover table-striped">
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-            {{#each getUserTimes}}
-              <tr class="{{rowClass action}}">
-                <td>{{dateLongFormat created}}</td>
-                <td>{{action}}</td>
-              </tr>
-            {{else}}
-              <tr>
-                <td colspan="2">
-                  <div class="alert alert-info">
-                    <p><i class="fa fa-info-circle"></i> No Times</p>
-                  </div>
-                </td>
-              </tr>
-            {{/each}}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      {{> UserTimeWidget}}
     </div>
   </div>
 </template>

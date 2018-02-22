@@ -18,7 +18,18 @@ Template.UserProfileTime.rendered = function(){
 Template.UserProfileTime.helpers({
   // get user Time
   getUserTimes: function() {
-    return Time.find({userId: Meteor.userId()},  {"sort" : [['created', 'desc']]}).fetch();
+    // try and fetch users time
+    try {
+      return Time.find({userId: Meteor.userId()},  {"sort" : [['created', 'desc']]}).fetch();
+    } catch (error) {
+      Meteor.call('recordError', 'vulcaniot.net', 'danger', 'Falied to fetch user times', 'Falied to fetch user times', null, function (error, result) {
+        if(error) {
+
+        } else {
+
+        }
+      });
+    }
   },
 
   // is clocked in

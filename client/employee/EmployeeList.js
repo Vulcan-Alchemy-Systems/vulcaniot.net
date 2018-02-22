@@ -25,6 +25,22 @@ Template.EmployeeList.searchResults = function () {
 }
 
 // helpers
+Template.registerHelper( 'employeeIsActive', (profile) => {
+  if(profile.status == 'Active') {
+    return 'bg-aqua-active';
+  } else {
+    return 'bg-red';
+  }
+});
+
+Template.registerHelper( 'isOnline', (profile) => {
+  if(profile.clockedIn) {
+    return '<span class="pull-right badge bg-green">online</span></a>';
+  } else {
+    return '<span class="pull-right badge bg-red">offline</span></a>';
+  }
+});
+
 Template.EmployeeList.helpers({
   searchQuery: function() {
     return Session.get("search-query");
@@ -32,21 +48,6 @@ Template.EmployeeList.helpers({
   // get user primary address
   userPrimaryEmail: function(emails) {
     return emails[0].address;
-  },
-  // test if user is active
-  isUserActive: function(profile) {
-    if(profile.status == 'Active') {
-      return 'bg-aqua-active';
-    } else {
-      return 'bg-red';
-    }
-  },
-  isOnline: function(profile) {
-    if(profile.clockedIn) {
-      return '<span class="pull-right badge bg-green">online</span></a>';
-    } else {
-      return '<span class="pull-right badge bg-red">offline</span></a>';
-    }
   },
   prevPage: function() {
     var previousPage = currentPage() === 1 ? 1 : currentPage() - 1;
@@ -94,6 +95,16 @@ FlowRouter.route('/employees', {
   name: 'employeeList',
   parent: 'dashboard',
   title: 'Employees',
+  triggersEnter: [function(context, redirect) {
+    // if no user id
+    if (! Meteor.userId()) {
+      FlowRouter.go('signIn');
+    }
+    // if we are not manager role piss off
+    if (! Roles.userIsInRole(Meteor.userId(), ['manager'])) {
+      FlowRouter.go('accessDenied');
+    }
+  }],
   action: function() {
     BlazeLayout.render('MainLayout', {main: 'EmployeeList'});
   },
@@ -103,6 +114,16 @@ FlowRouter.route('/employees/:page', {
   name: 'employeeListPage',
   parent: 'dashboard',
   title: 'Employees',
+  triggersEnter: [function(context, redirect) {
+    // if no user id
+    if (! Meteor.userId()) {
+      FlowRouter.go('signIn');
+    }
+    // if we are not manager role piss off
+    if (! Roles.userIsInRole(Meteor.userId(), ['manager'])) {
+      FlowRouter.go('accessDenied');
+    }
+  }],
   action: function() {
     BlazeLayout.render('MainLayout', {main: 'EmployeeList'});
   },

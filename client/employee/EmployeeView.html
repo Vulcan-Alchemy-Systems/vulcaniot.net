@@ -1,44 +1,67 @@
 <template name="EmployeeView">
-    {{> ContentHeader title="Employee" subTitle="View"}}
-    <section class="content">
-      {{#if getUser}}
-      <div class="row">
-        <div class="col-xs-12 col-sm-4">
-          <div class="box box-widget widget-user-2">
-            <div class="widget-user-header {{isUserActive getUser.profile}}">
-              <div class="widget-user-image">
-                <img class="img-circle" src="/images/user7-128x128.jpg" alt="User Avatar">
-              </div>
-              <h3 class="widget-user-username"><a href="/employees/{{getUser._id}}/view" title="View " style="color:white">{{getUser.profile.name}}</a></h3>
-              <h5 class="widget-user-desc">{{getUser.profile.position}}</h5>
-            </div>
-            <div class="box-footer no-padding">
-              <ul class="nav nav-stacked">
-                <li><a href="#">&nbsp; {{{isOnline getUser.profile}}}</a></li>
-                <li><a href="#"><i class="fa fa-phone" aria-hidden="true"></i> Phone <span class="pull-right">{{getUser.profile.phone}}</span></a></li>
-                <li><a href="#" title="Message User" class="message-user"><i class="fa fa-envelope-o" aria-hidden="true"></i> Email <span class="pull-right">{{userPrimaryEmail getUser.emails}}</span></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="col-xs-12 col-sm-8">
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">{{getUser.profile.name}}</h3>
-              <div class="box-tools pull-right">
-                <div class="has-feedback">
-                  <a href="#" title="Delete Employee" class="btn btn-xs btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
-                  <a href="#" title="Reset Password" class="btn btn-xs btn-primary"><i class="fa fa-lock" aria-hidden="true"></i> Password</a>
-                  <a href="#" title="Edit Employee" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+  {{#if $.Session.get 'EmployeeEdit'}}
+    {{> EmployeeEdit}}
+  {{else}}
+    {{#if $.Session.get 'EmployeePassword'}}
+      {{> EmployeePassword}}
+    {{else}}
+      {{#if $.Session.get 'EmployeeDelete'}}
+        {{> EmployeeDelete}}
+      {{else}}
+        {{#if $.Session.get 'EmployeeJobs'}}
+          {{> EmployeeJobs}}
+        {{else}}
+          {{#if $.Session.get 'EmployeeTime'}}
+            {{> EmployeeTime}}
+          {{else}}
+            {{#if Template.subscriptionsReady}}
+              {{> ContentHeader title="Employee" subTitle="View"}}
+              <section class="content">
+                <div class="row">
+                  <div class="col-xs-12 col-sm-4">
+                    {{> EmployeeCard}}
+                  </div>
+                  <div class="col-xs-12 col-sm-8">
+                    <div class="box box-primary">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">{{getUser.profile.name}}</h3>
+                        <div class="box-tools pull-right">
+                          <div class="has-feedback">
+                            {{> EmployeeButtons}}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="box-body">
+                        <div class="row">
+                          <div class="col-xs-12">
+                            <p><b>Full Name:</b> {{getUser.profile.name}}</p>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-xs-12">
+                            <p><b>Position:</b> {{getUser.profile.position}}</p>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-xs-12 col-sm-4">
+                            <p><b>Status:</b> {{getUser.profile.status}}</p>
+                          </div>
+                          <div class="col-xs-12 col-sm-4">
+                            <p><b>Gender:</b> {{getUser.profile.gender}}</p>
+                          </div>
+                          <div class="col-xs-12 col-sm-4">
+                            <p><b>Birthday:</b> {{dateFormatShort getUser.profile.birthday}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div class="box-body">
-
-            </div>
-          </div>
-        </div>
-      </div>
+              </section>
+            {{/if}}
+          {{/if}}
+        {{/if}}
       {{/if}}
-    </section>
+    {{/if}}
+  {{/if}}
 </template>

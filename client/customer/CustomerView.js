@@ -1,14 +1,14 @@
 // created
 Template.CustomerView.onCreated(function() {
   this.autorun(() => {
-    var customerId = Session.get('CustomerId');
+    var customerId = FlowRouter.getParam('customerId');
     this.subscribe('singleCustomer', customerId);
   });
 });
 
 // rendered
 Template.CustomerView.rendered = function(){
-  var customerId = Session.get('CustomerId');
+  var customerId = FlowRouter.getParam('customerId');
   var customer =  Customers.findOne({_id: customerId});
 
   if(customer) {
@@ -23,8 +23,23 @@ Template.CustomerView.rendered = function(){
 Template.CustomerView.helpers({
   // customer
   customer: function() {
-    var customerId = Session.get('CustomerId');
+    var customerId = FlowRouter.getParam('customerId');
     var result =  Customers.findOne({_id: customerId});
     return result;
+  },
+});
+
+// route
+FlowRouter.route('/customers/:customerId/view', {
+  name: 'customerView',
+  parent: 'customerList',
+  title: 'View',
+  triggersEnter: [function(context, redirect) {
+    if (!Roles.userIsInRole(Meteor.userId(), ['employee'])) {
+      //FlowRouter.go('signIn');
+    }
+  }],
+  action: function() {
+    BlazeLayout.render('MainLayout', {main: 'CustomerView'});
   },
 });

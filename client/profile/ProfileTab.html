@@ -1,0 +1,9 @@
+<template name="ProfileTab">
+  <a href="/profile" title="My Profile" class="btn btn-xs btn-primary"><i class="fa fa-dashboard" aria-hidden="true"></i> <span class="hidden-xs">Profile</span></a>
+  {{#if isInRole 'employee'}}
+    <a href="/profile/time-clock" title="Time Clock" class="btn btn-xs btn-primary"><i class="fa fa-clock-o" aria-hidden="true"></i> <span class="hidden-xs">Time</span></a>
+    <a href="/profile/expense" title="Expenses" class="btn btn-xs btn-primary"><i class="fa fa-dollar" aria-hidden="true"></i> <span class="hidden-xs">Expenses</span></a>
+  {{/if}}
+  <a href="#history" data-toggle="tab" class="btn btn-xs btn-primary"> <span class="hidden-xs">History</span></a>
+  <a href="#settings" data-toggle="tab" class="btn btn-xs btn-primary"><i class="fa fa-cogs" aria-hidden="true"></i> <span class="hidden-xs">Settings</span></a>
+</template>

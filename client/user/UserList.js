@@ -20,6 +20,12 @@ Template.UserList.rendered = function(){
 };
 
 // helpers
+Template.registerHelper( 'userPrimaryEmail', (emails) => {
+  if(emails) {
+    return emails[0].address;
+  }
+});
+
 Template.UserList.helpers({
   // gets all users
   userList: function() {
@@ -28,11 +34,7 @@ Template.UserList.helpers({
       return users;
     }
   },
-  userPrimaryEmail: function(emails) {
-    if(emails) {
-      return emails[0].address;
-    }
-  },
+
   dateFormat: function(dateTime) {
     return moment(dateTime).format(Meteor.settings.public.shortDate);
   },
@@ -90,7 +92,6 @@ var adminRoutes = FlowRouter.group({
   prefix: '/admin',
   name: 'adminUsers',
   triggersEnter: [function(context, redirect) {
-    console.log('running group triggers');
     if (!Roles.userIsInRole(Meteor.userId(), ['admin'])) {
       FlowRouter.go('signIn');
     }

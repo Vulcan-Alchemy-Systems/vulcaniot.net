@@ -1,126 +1,16 @@
 <template name="UserAdminTime">
   <section id="alert"></section>
-  <br />
   <div class="row">
     <div class="col-xs-12">
       {{#if $.Session.get 'EditTime'}}
         {{> EditTime}}
       {{else}}
         {{#if $.Session.get 'TimeNew'}}
-
+          {{> TimeNew}}
         {{else}}
-        <div class="box box-primary">
-          <div class="box-header with-border">
-            <h3 class="box-title">Time Entry</h3>
-            <div class="box-tools">
-              <button class="btn btn-xs btn-success time-create"><i class="fa fa-plus" aria-hidden="true"></i> New</button>
-              <button class="btn btn-xs btn-primary time-report"><i class="fa fa-calculator" aria-hidden="true"></i> Report</button>
-              <button class="btn btn-xs btn-primary time-export"><i class="fa fa-download" aria-hidden="true"></i> Export</button>
-              <button class="btn btn-xs btn-primary time-print"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
-
-            </div>
-          </div>
-          <div class="box-body no-padding">
-            <table class="table table-hover table-striped">
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Action</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {{#each getUserTimes}}
-                  <tr class="{{rowClass action}}">
-                    <td>{{dateLongFormat created}}</td>
-                    <td>{{action}}</td>
-                    <td class="text-right">
-                      {{#if isInRole 'manager'}}
-                      <button class="btn btn-xs btn-danger delete-time"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                      <button class="btn btn-xs btn-warning edit-time"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-                      {{/if}}
-                    </td>
-                  </tr>
-                {{else}}
-                  <tr>
-                    <td colspan="3">
-                      <div class="alert alert-info">
-                        <p><i class="fa fa-info-circle" aria-hidden="true"></i> No Times</p>
-                      </div>
-                    </td>
-                  </tr>
-                {{/each}}
-              </tbody>
-            </table>
-          </div>
-        </div>
+          {{> UserTimeWidget}}
         {{/if}}
       {{/if}}
     </div>
   </div>
-  <!-- Delete Modal -->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Remove Time</h4>
-      </div>
-      <div class="modal-body">
-        <div class="alert alert-info">
-            <p><i class="fa fa-info-circle"></i> Are you sure you want to delete the time entry<br />
-              <b><i><span id="timeEntry"></span></i></b>
-            </p>
-        </div>
-      </div>
-      <input type="hidden" name="timeId" id="timeId" value="" />
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-danger do-delete-time">Delete Time</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Search Modal -->
-<div class="modal fade" id="timeSearchModal" tabindex="-1" role="dialog" aria-labelledby="timeSearchModalLabel">
-<div class="modal-dialog" role="document">
-  <div class="modal-content">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <h4 class="modal-title" id="timeSearchModalLabel">Report</h4>
-    </div>
-    <div class="modal-body">
-      <form>
-        <div class="row">
-          <div class="col-xs-12">
-            <label class="sr-only" for="exampleInputPassword3">Start Date:</label>
-            <div class="input-group datetimepicker">
-              <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-              <input class="set-due-date form-control" type="text" id="startDate" placeholder="Start Date"/>
-            </div>
-          </div>
-        </div>
-
-        <br />
-
-        <div class="row">
-          <div class="col-xs-12">
-            <label class="sr-only" for="exampleInputPassword3">End Date:</label>
-            <div class="input-group datetimepicker">
-              <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-              <input class="set-due-date form-control" type="text" id="endDate" placeholder="End Date"/>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
-    <input type="hidden" name="timeId" id="timeId" value="" />
-    <div class="modal-footer">
-      <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle-o" aria-hidden="true"></i> Close</button>
-      <button type="button" class="btn btn-primary time-do-search"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
-    </div>
-  </div>
-</div>
-</div>
 </template>

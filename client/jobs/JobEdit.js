@@ -1,3 +1,10 @@
+Template.JobsList.onCreated(function() {
+  this.autorun(() => {
+    var customerId = FlowRouter.getParam('customerId');
+    this.subscribe('singleCustomer', customerId);
+  });
+});
+
 Template.JobEdit.helpers({
   job: function() {
     return Session.get('Job');
@@ -8,8 +15,12 @@ Template.JobEdit.helpers({
 Template.JobEdit.events({
   'click .job-edit-submit': function(event) {
     event.preventDefault();
-
+    var customerId = FlowRouter.getParam('customerId');
+    var customer = Customers.findOne({_id: customerId});
     var formData = AutoForm.getFormValues('updateJobForm').updateDoc;
+
+    formData.$set.customerName = customer.name;
+
     var job = Session.get('Job');
 
     console.log(formData);

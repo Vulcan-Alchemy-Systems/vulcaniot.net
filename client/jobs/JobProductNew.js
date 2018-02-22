@@ -38,9 +38,10 @@ Template.JobProductNew.events({
     var quantity = instance.$('#weight').val();
     var unitOfMeasureName = 'Grams';
     var type = instance.$('#type').val();
+    var barCode = instance.$("#barCode").val();
 
     // call update
-    Meteor.call('jobProductCreate', job._id, image, quantity, unitOfMeasureName, type, function(error) {
+    Meteor.call('jobProductCreate', job._id, barCode, image, quantity, unitOfMeasureName, type, function(error) {
       if(error) {
         $("#alert").html('<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><i class="fa fa-warning"></i> Error ' + error.message + '</div>');
       } else {
