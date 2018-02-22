@@ -1,3 +1,11 @@
+// created
+Template.JobNew.onCreated(function() {
+  this.autorun(() => {
+    var customerId = FlowRouter.getParam('customerId');
+    this.subscribe('singleCustomer', customerId);
+  });
+});
+
 // helpers
 Template.JobNew.helpers({
 });
@@ -10,8 +18,13 @@ Template.JobNew.onRendered(function() {
 Template.JobNew.events({
   'click .job-new-submit': function(event) {
     event.preventDefault();
-    
+    var customerId = FlowRouter.getParam('customerId');
+    var customer = Customers.findOne({_id: customerId});
+
+
+    // set up form
     var formData = AutoForm.getFormValues('insertJobForm').insertDoc;
+
     var jobStartDate = $('#jobStartDate').val();
     var jobExpectedCompleteDate = $('#jobExpectedCompleteDate').val();
     var jobCompleteDate = $('#jobCompleteDate').val();
@@ -22,12 +35,14 @@ Template.JobNew.events({
     formData.createdBy = Meteor.userId();
     formData.createdByName = Meteor.user().profile.name;
     formData.createdAt = new Date();
-    formData.customerId = Session.get('CustomerId');
-
+    formData.customerId = customerId;
+    formData.customerName = customer.name;
+    
     // call update
     Meteor.call('jobCreate', formData, function(error, result) {
       if(error) {
         $("#alert").html('<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><i class="fa fa-warning"></i> Error ' + error.message + '</div>');
+        $('body').scrollTop(0);
       } else {
         $("#alert").html('<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Job has been saved.</div>');
 

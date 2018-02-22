@@ -29,6 +29,15 @@ Template.CustomerView.helpers({
   },
 });
 
+// events
+Template.CustomerView.events({
+  // customer-edit
+  'click .customer-edit': function() {
+    event.preventDefault();
+    Session.set('CustomerEdit', !Session.get('CustomerEdit'));
+  }
+});
+
 // route
 FlowRouter.route('/customers/:customerId/view', {
   name: 'customerView',

@@ -4,7 +4,9 @@ Template.JobsList.onCreated(function() {
     var page = FlowRouter.getParam('page');
     var currentPage = parseInt(page) || 1;
     var skipCount = (currentPage - 1) * Meteor.settings.public.recordsPerPage;
+
     this.subscribe('allCustomerJobs', customerId, skipCount);
+    this.subscribe('singleCustomer', customerId);
     Session.set("search-query", "");
   });
 });
@@ -18,6 +20,25 @@ Template.JobsList.helpers({
     var results =  Jobs.find({customerId: customerId}).fetch();
     return results;
   },
+
+  // customer
+  customer: function() {
+    var customerId = FlowRouter.getParam('customerId');
+    var result =  Customers.findOne({_id: customerId});
+    return result;
+  },
+
+  // customerIsActive
+  customerIsActive: function() {
+    var customerId = FlowRouter.getParam('customerId');
+    var result =  Customers.findOne({_id: customerId});
+    if(result.status == "Active") {
+      return true;
+    } else {
+      return false;
+    }
+  },
+
 
   prevPage: function() {
     var previousPage = currentPage() === 1 ? 1 : currentPage() - 1;
@@ -47,7 +68,7 @@ Template.JobsList.events({
     Session.set('JobNew', !Session.get('JobNew'));
   },
 
-  
+
 
 });
 

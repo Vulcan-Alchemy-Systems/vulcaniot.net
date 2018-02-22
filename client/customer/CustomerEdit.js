@@ -1,7 +1,7 @@
 // created
 Template.CustomerEdit.onCreated(function() {
   this.autorun(() => {
-    var customerId = Session.get('CustomerId');
+    var customerId = FlowRouter.getParam('customerId');
     this.subscribe('singleCustomer', customerId);
   });
 });
@@ -10,7 +10,7 @@ Template.CustomerEdit.onCreated(function() {
 Template.CustomerEdit.helpers({
   // customer
   customer: function() {
-    var customerId = Session.get('CustomerId');
+    var customerId = FlowRouter.getParam('customerId');
     var result =  Customers.findOne({_id: customerId});
     return result;
   },
@@ -20,12 +20,15 @@ Template.CustomerEdit.helpers({
 Template.CustomerView.events({
   // submit
   'click .edit-customer-submit': function(event) {
+    event.preventDefault();
     var formData = AutoForm.getFormValues('updateCustomerForm');
-    var customer = Session.get('customerData');
+    var customerId = FlowRouter.getParam('customerId');
+
+    console.log(customerId);
 
     // call update
     Meteor.call('customerUpdate',
-      customer._id, formData.updateDoc, function (error, result) {
+      customerId, formData.updateDoc, function (error, result) {
         if(error) {
           $("#alert").html('<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><i class="fa fa-warning"></i> Error ' + error.message + '</div>');
         } else {
@@ -34,7 +37,7 @@ Template.CustomerView.events({
           // record history
           Meteor.call('createHistory', {
             userId: Meteor.userId(),
-            message: 'Updated customer ' + customer.name
+            message: 'Updated customer ' + customerId
           });
 
           // auto dismis

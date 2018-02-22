@@ -15,7 +15,9 @@
           </div>
           <!-- Right Column -->
           <div class="col-md-9">
-
+          {{#if $.Session.get 'CustomerNew'}}
+            {{> CustomerNew}}
+          {{else}}
             <!-- Customer Search -->
             <div class="row">
               <div class="col-xs-12">
@@ -81,7 +83,7 @@
               </div>
             </div>
             <!-- Pagination -->
-
+          {{/if}}
           </div>
         </div>
       {{/if}}

@@ -1,6 +1,7 @@
 // events
 Template.CustomerNew.events({
   'click .customer-new-submit': function(event) {
+    event.preventDefault();
     var formData = AutoForm.getFormValues('insertCustomerForm');
 
     // call update
