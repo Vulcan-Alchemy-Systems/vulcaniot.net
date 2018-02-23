@@ -9,23 +9,23 @@
           <a href="#" title="New Job" class="btn btn-xs btn-success pull-right job-new" style="margin-top:-42px;"><i class="fa fa-plus" aria-hidden="true"></i> New</a>
         {{/if}}
       {{/if}}
-
       <table class="table table-hover table-striped">
         <thead>
           <tr>
             <th>Name</th>
+            <th>Status</th>
             <th>Start</th>
             <th>Expected Completion</th>
-            <th>Created By</th>
+
           </tr>
         </thead>
         <tbody>
           {{#each jobs}}
           <tr>
             <td><a href="/customers/{{customerId}}/job/{{_id}}" class="" title="View job {{jobName}}">{{jobName}}</a></td>
+            <td>{{jobStatus}}</td>
             <td>{{dateFormatLong jobStartDate}}</td>
             <td>{{dateFormatLong jobExpectedCompleteDate}}</td>
-            <td>{{createdByName}}</td>
           </tr>
           {{else}}
           <tr>

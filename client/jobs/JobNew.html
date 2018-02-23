@@ -1,30 +1,23 @@
 <template name="JobNew">
-  {{#if isInRole 'manager'}}
   {{# autoForm collection="Jobs" id="insertJobForm" type="insert"  class="new-job-form" validation="browser"}}
   <div class="row">
     <div class="col-xs-12">
-      <div class="form-group {{#if afFieldIsInvalid name='jobName'}}has-error{{/if}}">
-        <label class="control-label">{{afFieldLabelText name='jobName'}}</label>
-        {{> afFieldInput name='jobName'}}
-        {{#if afFieldIsInvalid name='jobName'}}
-        <span class="help-block">{{{afFieldMessage name='jobName'}}}</span>
-        {{/if}}
-      </div>
+      {{> afQuickField name='jobName'}}
     </div>
   </div>
 
   <div class="row">
     <div class="col-xs-12">
-      <div class="form-group {{#if afFieldIsInvalid name='jobDescription'}}has-error{{/if}}">
-        <label class="control-label">{{afFieldLabelText name='jobDescription'}}</label>
-        {{> afFieldInput name='jobDescription'}}
-        {{#if afFieldIsInvalid name='jobDescription'}}
-        <span class="help-block">{{{afFieldMessage name='jobDescription'}}}</span>
-        {{/if}}
-      </div>
+      {{> afQuickField name='jobDescription'}}
     </div>
   </div>
 
+  <div class="row">
+    <div class="col-xs-12">
+      {{> afQuickField name='jobTerms'}}
+    </div>
+  </div>
+  
   <div class="row">
     <div class="col-xs-12 col-sm-4">
       <div class="form-group {{#if afFieldIsInvalid name='jobStartDate'}}has-error{{/if}}">
@@ -66,27 +59,13 @@
 
   <div class="row">
     <div class="col-xs-12 col-sm-4">
-      <div class="form-group {{#if afFieldIsInvalid name='jobBarCode'}}has-error{{/if}}">
-        <label class="control-label">{{afFieldLabelText name='jobBarCode'}}</label>
-        {{> afFieldInput name='jobBarCode'}}
-        {{#if afFieldIsInvalid name='jobBarCode'}}
-        <span class="help-block">{{{afFieldMessage name='jobBarCode'}}}</span>
-        {{/if}}
-      </div>
+      {{> afQuickField name='jobStatus' options=jobStatus}}
     </div>
   </div>
 
-  {{> afQuickField name='JobMaterials'}}
-
   <div class="row">
     <div class="col-xs-12">
-      <div class="form-group {{#if afFieldIsInvalid name='jobDescription'}}has-error{{/if}}">
-        <label class="control-label">{{afFieldLabelText name='externalReporting'}}</label>
-        {{> afFieldInput name='externalReporting'}}
-        {{#if afFieldIsInvalid name='externalReporting'}}
-        <span class="help-block">{{{afFieldMessage name='externalReporting'}}}</span>
-        {{/if}}
-      </div>
+      {{> afQuickField name='externalReporting'}}
     </div>
   </div>
 
@@ -105,9 +84,4 @@
     </div>
   </div>
   {{/autoForm}}
-  {{else}}
-    <div class="alert alert-danger">
-      <p><i class="fa fa-warning" aria-hidden="true"></i> Not Authorized</p>
-    </div>
-  {{/if}}
 </template>

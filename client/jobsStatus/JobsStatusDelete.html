@@ -1,0 +1,36 @@
+<template name="JobsStatusDelete">
+  {{> ContentHeader title="Admin" subTitle="Job Status Delete"}}
+  {{#unless Template.subscriptionsReady}}{{> spinner}}{{/unless}}
+  {{#if Template.subscriptionsReady}}
+  <section class="content">
+    <div id="alert"></div>
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">Delete Job Status</h3>
+        <div class="box-tools pull-right">
+          <a href="#" title="Back" class="btn btn-xs btn-primary jobs-status-delete"><i class="fa fa-reply" aria-hidden="true"></i> <span class="hidden-xs">Back</span></a>
+        </div>
+      </div>
+      <div class="box-body">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="alert alert-info">
+              <i class="fa fa-warning"></i> Are you sure you want to delete the following Job Status?<br />
+              <b><i>{{jobStatus.title}}</i></b>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="pull-right">
+              <button type="cancel" class="btn btn-danger jobs-status-delete" name="cancel" id="cancel"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancel</button>
+              <button type="submit" class="btn btn-primary jobs-status-delete-submit" name="submit" id="submit"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  {{/if}}
+</template>

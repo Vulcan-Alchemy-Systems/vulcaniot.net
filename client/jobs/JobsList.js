@@ -61,15 +61,11 @@ Template.JobsList.helpers({
 
 // events
 Template.JobsList.events({
-
   // New Job
   'click .job-new': function(event) {
     event.preventDefault();
     Session.set('JobNew', !Session.get('JobNew'));
   },
-
-
-
 });
 
 var hasMorePages = function() {

@@ -20,140 +20,6 @@ Jobs.allow({
   },
 });
 
-// transfer
-JobTransferSchema = new SimpleSchema({
-  // id
-  _id: {
-    type: String,
-    label: "ID",
-    autoValue: function() {
-        return Random.id();
-    }
-  },
-
-  // type
-  type: {
-    type: String,
-    label: "Product Type",
-    autoform: {
-      type: "select",
-      options: [
-        {
-          label: "Other",
-          value: "Other"
-        },
-        {
-          label: "Immature Plant",
-          value: "Immature Plant"
-        },
-        {
-          label: "Vegetative Plant",
-          value: "Vegetative Plant"
-        },
-        {
-          label: "Shatter",
-          value: "Shatter"
-        },
-        {
-          label: "Crude",
-          value: "Crude"
-        },
-        {
-          label: "Hash Oil",
-          value: "Hash Oil"
-        },
-      ]
-    }
-  },
-
-  // Quantity
-  quantity: {
-    type: String,
-    label: "Quantity"
-  },
-
-  // UnitOfMeasureName
-  unitOfMeasureName: {
-    type: String,
-    label: "Unit Of Measure",
-    autoform: {
-      type: "select",
-      options: [
-        {
-          label: "Each (ea)",
-          value: "Each"
-        },
-        {
-          label: "Ounces (oz)",
-          value: "Ounces"
-        },
-        {
-          label: "Pounds (lb)",
-          value: "Pounds"
-        },
-        {
-          label: "Grams (g)",
-          value: "Grams"
-        },
-        {
-          label: "Milligrams (mg)",
-          value: "Milligrams"
-        },
-        {
-          label: "Kilograms (kg)",
-          value: "Kilograms"
-        },
-        {
-          label: "Metric Tons (t)",
-          value: "Metric Tons"
-        },
-      ]
-    }
-  },
-
-  // createdAt
-  createdAt: {
-    type: Date,
-    label: "Created",
-    autoValue: function () {
-      return new Date();
-    },
-    autoform: {
-      type: "hidden",
-    }
-  },
-
-  // createdBy
-  createdBy: {
-    type: String,
-    label: "Created By",
-    autoValue: function () {
-      return Meteor.userId();
-    },
-    autoform: {
-      type: "hidden",
-    }
-  },
-
-  // createdByName
-  createdByName: {
-    type: String,
-    label: "Created By Name",
-    autoform: {
-      type: "hidden",
-    },
-    autoValue: function () {
-      return Meteor.user().profile.name;
-    },
-  },
-
-  deleted: {
-    type: Boolean,
-    optional: true,
-    label: "Deleted",
-  },
-});
-
 // product
 JobProductsSchema = new SimpleSchema({
   // id
@@ -171,7 +37,7 @@ JobProductsSchema = new SimpleSchema({
     label: "Bar Code"
   },
 
-
+  // image
   image: {
     type: String,
     label: "Image"
@@ -369,93 +235,6 @@ JobsNoteSchema = new SimpleSchema({
   },
 });
 
-JobMaterialSchema = new SimpleSchema({
-  // id
-  _id: {
-    type: String,
-    label: "ID",
-    autoform: {
-      type: "hidden",
-    },
-    autoValue: function() {
-        return Random.id();
-    }
-  },
-
-  // barCode
-  barCode: {
-    type: String,
-    label: "Bar Code"
-  },
-
-  type: {
-    type: String,
-    label: "Product Type",
-    autoform: {
-      type: "select",
-      options: [
-        {
-          label: "Flower",
-          value: "Flower"
-        },
-        {
-          label: "Trim",
-          value: "Trim"
-        },
-        {
-          label: "Mixed",
-          value: "Mixed"
-        },
-      ]
-    }
-  },
-
-  // Quantity
-  quantity: {
-    type: String,
-    label: "Quantity"
-  },
-
-  // UnitOfMeasureName
-  unitOfMeasureName: {
-    type: String,
-    label: "Unit Of Measure",
-    autoform: {
-      type: "select",
-      options: [
-        {
-          label: "Each (ea)",
-          value: "Each"
-        },
-        {
-          label: "Ounces (oz)",
-          value: "Ounces"
-        },
-        {
-          label: "Pounds (lb)",
-          value: "Pounds"
-        },
-        {
-          label: "Grams (g)",
-          value: "Grams"
-        },
-        {
-          label: "Milligrams (mg)",
-          value: "Milligrams"
-        },
-        {
-          label: "Kilograms (kg)",
-          value: "Kilograms"
-        },
-        {
-          label: "Metric Tons (t)",
-          value: "Metric Tons"
-        },
-      ]
-    }
-  },
-});
-
 // schema
 JobsSchema = new SimpleSchema({
   // customerId
@@ -466,11 +245,22 @@ JobsSchema = new SimpleSchema({
       type: "hidden",
     }
   },
+
+  // customerName
   customerName: {
     type: String,
     label: "Customer Name",
     autoform: {
       type: "hidden",
+    }
+  },
+
+  // jobStatus
+  jobStatus: {
+    type: String,
+    label: "Status",
+    autoform: {
+      type: "select",
     }
   },
 
@@ -512,6 +302,15 @@ JobsSchema = new SimpleSchema({
   jobDescription: {
     type: String,
     label: "Job Description",
+    autoform: {
+      type: "textarea",
+    }
+  },
+
+  // jobTerms
+  jobTerms: {
+    type: String,
+    label: "Payment Terms",
     autoform: {
       type: "textarea",
     }
@@ -574,21 +373,6 @@ JobsSchema = new SimpleSchema({
   },
 
   'jobProducts.$': JobProductsSchema,
-
-  // Transfers
-  jobTransfers: {
-    type: Array,
-    optional: true
-  },
-
-  'jobTransfers.$': JobTransferSchema,
-
-  // JobMaterial
-  JobMaterials: {
-      label: "Raw Materials",
-      type: Array,
-  },
-  'JobMaterials.$': JobMaterialSchema,
 });
 
 

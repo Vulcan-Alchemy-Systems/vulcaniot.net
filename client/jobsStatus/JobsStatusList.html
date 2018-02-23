@@ -1,0 +1,60 @@
+<template name="JobsStatusList">
+  {{#if $.Session.get 'JobsStatusNew'}}
+    {{> JobsStatusNew}}
+  {{else}}
+    {{#if $.Session.get 'JobsStatusEdit'}}
+      {{> JobsStatusEdit}}
+    {{else}}
+      {{#if $.Session.get 'JobsStatusDelete'}}
+        {{> JobsStatusDelete}}
+      {{else}}
+        {{> ContentHeader title="Admin" subTitle="Job Status"}}
+        {{#unless Template.subscriptionsReady}}{{> spinner}}{{/unless}}
+        {{#if Template.subscriptionsReady}}
+        <section class="content">
+          <div id="alert"></div>
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Job Status</h3>
+                  <div class="box-tools pull-right">
+                    <a href="#" title="New Job Status" class="btn btn-xs btn-success jobs-status-new"><i class="fa fa-plus" aria-hidden="true"></i> <span class="hidden-xs">New</span></a>
+                  </div>
+                </div>
+                <div class="box-body">
+                  <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                      <thead>
+                        <th>Title</th>
+                        <th>Value</th>
+                        <th></th>
+                      </thead>
+                      <tbody>
+                      {{#each jobStatus}}
+                        <tr>
+                          <td>{{title}}</td>
+                          <td>{{value}}</td>
+                          <td class="text-right">
+                            <a href="#" title="Delete Job Status" class="btn btn-xs btn-danger jobs-status-delete"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            <a href="#" title="Edit Job Status" class="btn btn-xs btn-warning jobs-status-edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                          </td>
+                        </tr>
+                      {{else}}
+                        <tr>
+                          <td colspan="3"><i class="fa fa-info-circle" aria-hidden="true"></i> No Job Status Items</td>
+                        </tr>
+                      {{/each}}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        {{/if}}
+      {{/if}}
+    {{/if}}
+  {{/if}}
+</template>

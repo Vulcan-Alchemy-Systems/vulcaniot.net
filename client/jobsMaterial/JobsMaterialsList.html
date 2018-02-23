@@ -1,0 +1,52 @@
+<template name="JobsMaterialsList">
+  {{#unless Template.subscriptionsReady}}{{> spinner}}{{/unless}}
+  {{#if $.Session.get 'JobsMaterialsEdit'}}
+    {{> JobsMaterialsEdit}}
+  {{else}}
+    {{#if $.Session.get 'JobsMaterialsDelete'}}
+      {{> JobsMaterialsDelete}}
+    {{else}}
+      {{#if $.Session.get 'JobsMaterialsNew'}}
+        {{> JobsMaterialsNew}}
+      {{else}}
+        {{#if Template.subscriptionsReady}}
+        <a href="#" title="New Material" class="btn btn-xs btn-success jobs-materials-new pull-right" style="margin-top:-48px;"><i class="fa fa-plus" aria-hidden="true"></i> <span class="hidden-xs">New</span></a>
+        <div class="table-responsive">
+          <table class="table table-hover table-striped">
+            <thead>
+              <tr>
+                <th>Tracking</th>
+                <th>Quantity</th>
+                <th>Mesurement</th>
+                <th>Type</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+            {{#each JobMaterials}}
+            <tr>
+              <td>
+                <span class="barcode">*{{barCode}}*</span><br />
+                <span class="text-small text-muted">{{barCode}}</span>
+              </td>
+              <td>{{quantity}}</td>
+              <td>{{unitOfMeasureName}}</td>
+              <td>{{type}}</td>
+              <td class="text-right">
+                <a href="#" class="btn btn-xs btn-danger jobs-materials-delete" title="Delete Material"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                <a href="#" class="btn btn-xs btn-warning jobs-materials-edit" title="Edit Material"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+              </td>
+            </tr>
+            {{else}}
+            <tr>
+              <td colspan="5"><i class="fa fa-info-circle" aria-hidden="true"></i> No Materials</td>
+            </tr>
+            {{/each}}
+            </tbody>
+          </table>
+        </div>
+        {{/if}}
+      {{/if}}
+    {{/if}}
+  {{/if}}
+</template>

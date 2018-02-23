@@ -70,6 +70,13 @@
         "url": "/admin/attribute",
         "order": "9",
         "active": true
+      },
+      {
+        "name": "Job Status",
+        "icon": "fa-cogs",
+        "url": "/admin/jobs/status",
+        "order": "10",
+        "active": true
       }
     ],
     "created": "2018-01-05T18:36:54Z",

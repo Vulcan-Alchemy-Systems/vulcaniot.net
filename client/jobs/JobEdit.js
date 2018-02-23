@@ -1,13 +1,26 @@
-Template.JobsList.onCreated(function() {
+// onCreated
+Template.JobEdit.onCreated(function() {
   this.autorun(() => {
     var customerId = FlowRouter.getParam('customerId');
     this.subscribe('singleCustomer', customerId);
+    this.subscribe('jobsStatus');
   });
 });
 
+// helpers
 Template.JobEdit.helpers({
+  // job
   job: function() {
     return Session.get('Job');
+  },
+  // jobStatus
+  jobStatus: function() {
+    return JobsStatus.find().map(function(values) {
+      return {
+        label: values.title,
+        value: values.value
+      };
+    });
   }
 });
 
@@ -22,8 +35,6 @@ Template.JobEdit.events({
     formData.$set.customerName = customer.name;
 
     var job = Session.get('Job');
-
-    console.log(formData);
 
     // call update
     Meteor.call('jobUpdate', job._id, formData, function(error) {
