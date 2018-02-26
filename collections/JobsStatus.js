@@ -35,7 +35,6 @@ JobStatusSchema = new SimpleSchema({
   },
 });
 
-
 // attach
 JobsStatus.attachSchema(JobStatusSchema);
 

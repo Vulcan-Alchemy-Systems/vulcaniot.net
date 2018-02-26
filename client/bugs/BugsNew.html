@@ -1,0 +1,50 @@
+<template name="BugsNew">
+  {{> ContentHeader title="Bugs" subTitle="New"}}
+  {{#unless Template.subscriptionsReady}}{{> spinner}}{{/unless}}
+  {{#if Template.subscriptionsReady}}
+  <section class="content">
+    {{#autoForm collection="Bugs" id="bugsInsertForm" type="insert" class="bugs-new-form"}}
+    <div id="alert"></div>
+    <br />
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">New Bug</h3>
+        <div class="box-tools pull-right">
+          <a href="#" title="Back" class="btn btn-xs btn-primary bugs-new"><i class="fa fa-reply" aria-hidden="true"></i> <span class="hidden-xs">Back</span></a>
+        </div>
+      </div>
+      <div class="box-body">
+        <div class="row">
+          <div class="col-xs-12">
+            {{> afQuickField name='title'}}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            {{> afQuickField name='description'}}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-4">
+            {{> afQuickField name='priority'}}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-4">
+            {{> afQuickField name='severity'}}
+          </div>
+        </div>
+
+        <div class="pull-right">
+          <button type="cancel" class="btn btn-danger bugs-new" name="cancel" id="cancel"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancel</button>
+          <button type="submit" class="btn btn-primary bugs-new-submit" name="submit" id="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+        </div>
+      </div>
+    </div>
+    {{/autoForm}}
+  </section>
+  {{/if}}
+</template>
