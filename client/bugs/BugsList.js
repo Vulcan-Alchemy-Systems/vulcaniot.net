@@ -44,7 +44,8 @@ Template.BugsList.events({
     Session.set('Bug', this);
     Session.set('BugsEdit', false);
     Session.set('BugsNew', false);
-  }
+  },
+  
 });
 
 // router

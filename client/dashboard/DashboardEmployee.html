@@ -17,12 +17,21 @@
       <a href="/profile/expense" class="btn btn-lg btn-primary btn-block" title="View Expenses"><i class="fa fa-money" aria-hidden="true"></i> Expenses</a>
       <br />
       <a href="/print-bar-code" class="btn btn-lg btn-primary btn-block" title="Print Bar Codes"><i class="fa fa-print" aria-hidden="true"></i> Print Bar Codes</a>
+      <br />
+      <a href="/bugs" class="btn btn-lg btn-primary btn-block" title="View Bugs"><i class="fa fa-bug" aria-hidden="true"></i> Bugs</a>
   </div>
   <div class="col-xs-12 col-md-9 col-sm-6">
     <div class="row">
-      <div class="col-xs-12 col-md-6">
+      <div class="col-xs-12">
       {{> JobListWidget}}
       </div>
     </div>
+    {{#if isInRole 'bug'}}
+    <div class="row">
+      <div class="col-xs-12">
+        {{> BugListWidget}}
+      </div>
+    </div>
+    {{/if}}
   </div>
 </template>

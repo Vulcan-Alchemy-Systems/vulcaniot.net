@@ -3,26 +3,32 @@
   <div class="box box-info">
     <div class="box-header with-border">
       <h3 class="box-title">Active Jobs</h3>
-      <div class="box-tools pull-right"></div>
+      <div class="box-tools pull-right">
+        
+      </div>
     </div>
     <div class="box-body">
       <div class="table-responsive">
         <table class="table no-margin">
           <thead>
             <tr>
+              <th>Status</th>
               <th>Customer</th>
               <th>Job</th>
+              <th>Date Due</th>
             </tr>
           </thead>
           <tbody>
             {{#each jobs}}
             <tr>
+              <td>{{jobStatus}}</td>
               <td><a href="/customers/{{customerId}}/view" title="View Customer">{{customerName}}</a></td>
               <td><a href="/customers/{{customerId}}/job/{{_id}}" class="job-view" title="View job {{jobName}}">{{jobName}}</a></td>
+              <td>{{dateFormatLong jobExpectedCompleteDate}}</td>
             </tr>
             {{else}}
             <tr>
-              <td colspan="2"><i class="fa fa-info-circle" aria-hidden="true"></i> No Jobs</td>
+              <td colspan="4"><i class="fa fa-info-circle" aria-hidden="true"></i> No Jobs</td>
             </tr>
             {{/each}}
           </tbody>

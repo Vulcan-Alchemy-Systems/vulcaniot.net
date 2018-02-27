@@ -2,23 +2,16 @@
 Template.UserTimeWidget.onCreated(function() {
   this.autorun(() => {
     var userId = Session.get('UserId');
+    // if no session id then get it from the param
+    if(! userId) {
+      var userId = FlowRouter.getParam('id');
+    }
     this.subscribe('singleUserTime', userId);
   });
 });
 
 // onRendered
 Template.UserTimeWidget.onRendered(function() {
-  var userId = Session.get('UserId');
-  if (userId) {
-    var UserTimes = Time.find({
-      userId: userId
-    }, {
-      "sort": [
-        ['created', 'desc']
-      ]
-    }).fetch();
-    Session.set('UserTimes', UserTimes);
-  }
   this.$('.datetimepicker').datetimepicker();
 });
 
@@ -31,7 +24,26 @@ Template.UserTimeWidget.rendered = function() {
 Template.UserTimeWidget.helpers({
   // get user Time
   getUserTimes: function() {
-    return Session.get('UserTimes');
+    var userId = Session.get('UserId');
+    // if no session id then get it from the param
+    if(! userId) {
+      var userId = FlowRouter.getParam('id');
+    }
+
+    var result = Session.get('UserTimes');
+
+    // if no results from session then fetch from DB
+    if(! result || result.length == 0) {
+      var result = Time.find({
+        userId: userId
+      }, {
+        "sort": [
+          ['created', 'desc']
+        ]
+      }).fetch();
+    }
+
+    return result;
   },
 
   // rowClass
@@ -174,6 +186,11 @@ Template.UserTimeWidget.events({
     var startDate = instance.$('#startDate').val();
     var endDate = instance.$('#endDate').val();
     var userId = Session.get('UserId');
+
+    // if no session id then get it from the param
+    if(! userId) {
+      var userId = FlowRouter.getParam('id');
+    }
 
     // set session for export and printing.
     Session.set('startDate', startDate);

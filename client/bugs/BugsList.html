@@ -30,23 +30,18 @@
                         <th>Status</th>
                         <th>priority</th>
                         <th>Date</th>
-                        <th></th>
                       </thead>
                       <tbody>
                       {{#each bugs}}
                         <tr>
-                          <td>{{title}}</td>
+                          <td><a href="/bugs/{{_id}}/view" title="View Bug">{{title}}</a></td>
                           <td>{{status}}</td>
                           <td>{{priority}}</td>
-                          <td>{{created}}</td>
-                          <td class="text-right">
-                            <a href="#" title="Delete Job Status" class="btn btn-xs btn-danger bugs-delete"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                            <a href="#" title="Edit Job Status" class="btn btn-xs btn-warning bugs-edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                          </td>
+                          <td>{{dateFormatShort created}}</td>
                         </tr>
                       {{else}}
                         <tr>
-                          <td colspan="5"><i class="fa fa-info-circle" aria-hidden="true"></i> No Bugs</td>
+                          <td colspan="4"><i class="fa fa-info-circle" aria-hidden="true"></i> No Bugs</td>
                         </tr>
                       {{/each}}
                       </tbody>

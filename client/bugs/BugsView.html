@@ -1,0 +1,89 @@
+<template name="BugsView">
+  <section class="content">
+    <div id="alert"></div>
+  {{#if $.Session.get 'BugsEdit'}}
+    {{> BugsEdit}}
+  {{else}}
+    {{#if $.Session.get 'BugsDelete'}}
+      {{> BugsDelete}}
+    {{else}}
+      {{> ContentHeader title="Bugs" subTitle="View"}}
+      {{#unless Template.subscriptionsReady}}{{> spinner}}{{/unless}}
+      {{#if Template.subscriptionsReady}}
+        <br />
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="box box-primary">
+              <div class="box-header with-border">
+                <h3 class="box-title">Bug {{bug.title}}</h3>
+                <div class="box-tools pull-right">
+                  <a href="#" class="btn btn-xs btn-danger bugs-delete" title="Delete Bug"><i class="fa fa-trash" aria-hidden="true"></i> <span class="hidden-xs">Delete</span></a>
+                  <a href="#" class="btn btn-xs btn-warning bugs-edit" title="Edit Bug"><i class="fa fa-pencil" aria-hidden="true"></i> <span class="hidden-xs">Edit</span></a>
+                </div>
+              </div>
+              <div class="box-body">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <p><b>Title:</b> {{bug.title}}</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <p><b>Description:</b><br />{{bug.description}}</p>
+                  </div>
+                </div>
+                {{#if bug.resolution}}
+                <div class="row">
+                  <div class="col-xs-12">
+                    <p><b>Resolution:</b><br />{{bug.resolution}}</p>
+                  </div>
+                </div>
+                {{/if}}
+                <div class="row">
+                  <div class="col-xs-12 col-sm-4">
+                    <p><b>Status:</b> {{bug.status}}</p>
+                  </div>
+                  <div class="col-xs-12 col-sm-4">
+                    <p><b>Priority:</b> {{bug.priority}}</p>
+                  </div>
+                  <div class="col-xs-12 col-sm-4">
+                    <p><b>Severity:</b> {{bug.severity}}</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12 col-sm-4">
+                    <p><b>Created By:</b> {{bug.createdByName}}</p>
+                  </div>
+                  <div class="col-xs-12 col-sm-4">
+                    <p><b>Created:</b>{{dateFormatLong bug.created}}</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <p><b>Assigned To:</b> Not Assigned</p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Notes -->
+        {{#if $.Session.get 'BugsNotesNew'}}
+          {{> BugsNotesNew}}
+        {{else}}
+          {{#if $.Session.get 'BugsNotesEdit'}}
+            {{> BugsNotesEdit}}
+          {{else}}
+            {{#if $.Session.get 'BugsNotesDelete'}}
+              {{> BugsNotesDelete}}
+            {{else}}
+              {{> BugsNotesList}}
+            {{/if}}
+          {{/if}}
+        {{/if}}
+      {{/if}}
+    {{/if}}
+  {{/if}}
+  </section>
+</template>

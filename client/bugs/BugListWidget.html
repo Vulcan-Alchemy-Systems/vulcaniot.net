@@ -1,0 +1,37 @@
+<template name="BugListWidget">
+  {{#unless Template.subscriptionsReady}}{{> spinner}}{{/unless}}
+  {{#if Template.subscriptionsReady}}
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Open Bugs</h3>
+      <div class="box-tools pull-right"></div>
+    </div>
+    <div class="box-body">
+      <div class="table-responsive">
+        <table class="table table-hover table-striped">
+          <thead>
+            <th>Title</th>
+            <th>Status</th>
+            <th>priority</th>
+            <th>Date</th>
+          </thead>
+          <tbody>
+          {{#each bugs}}
+            <tr>
+              <td><a href="/bugs/{{_id}}/view" title="View Bug">{{title}}</a></td>
+              <td>{{status}}</td>
+              <td>{{priority}}</td>
+              <td>{{dateFormatShort created}}</td>
+            </tr>
+          {{else}}
+            <tr>
+              <td colspan="4"><i class="fa fa-info-circle" aria-hidden="true"></i> No Bugs</td>
+            </tr>
+          {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  {{/if}}
+</template>

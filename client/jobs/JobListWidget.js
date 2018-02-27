@@ -7,7 +7,7 @@ Template.JobListWidget.onCreated(function() {
 // helpers
 Template.JobListWidget.helpers({
   jobs: function() {
-    var results =  Jobs.find({}).fetch();
+    var results =  Jobs.find({jobStatus: {$ne: 'Completed'}}).fetch();
     return results;
   },
 });

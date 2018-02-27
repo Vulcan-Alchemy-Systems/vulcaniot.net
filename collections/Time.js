@@ -120,14 +120,16 @@ Meteor.methods({
     return Time.find({userId: userId},  {"sort" : [['created', 'desc']]}).fetch();
   },
 
-  // create new time
-  createTime: function(data) {
-    // if we are not signed in
-    if (! Meteor.userId()) {
-      throw new Meteor.Error(403, "You must be logged in");
-    }
+  // createTime
+  createTime: function(userId, created, action) {
+    // save time
+    var result = Time.insert({
+      userId: userId ,
+      created: created,
+      action: action
+    });
 
-    return Time.insert(data);
+    return result;
   },
 
   // update time

@@ -11,6 +11,9 @@ Notices.allow({
   insert: function (userId, doc) {
     return true;
   },
+  update: function (userId, doc) {
+    return true;
+  },
 });
 
 // schema
@@ -64,6 +67,16 @@ NoticesSchema = new SimpleSchema({
 
 // methods
 Meteor.methods({
+  // noticesCreate
+  noticesCreate: function(topic, event, message) {
+    var result = Notices.insert({
+      topic: topic,
+      event: event,
+      message: message
+    });
+
+    return result;
+  },
   'notices.reset'() {
     Notices.remove({});
   },

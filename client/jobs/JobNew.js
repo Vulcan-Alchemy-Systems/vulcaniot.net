@@ -69,9 +69,6 @@ Template.JobNew.events({
           message: 'Created job #'
         });
 
-        // map bar
-
-
         // reset session
         Session.set('JobNew', false);
       }

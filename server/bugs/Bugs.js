@@ -1,3 +1,4 @@
+// allBugs
 Meteor.publish("allBugs", function(skipCount) {
   var positiveIntegerCheck = Match.Where(function(x) {
     check(x, Match.Integer);
@@ -17,6 +18,8 @@ Meteor.publish("allBugs", function(skipCount) {
     limit: Meteor.settings.public.recordsPerPage, skip: skipCount
   });
 });
+
+
 
 Meteor.publish("singleBug", function(id) {
   return Bugs.find({_id: id});

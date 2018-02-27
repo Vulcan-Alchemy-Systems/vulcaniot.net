@@ -188,15 +188,34 @@ Bugs.attachSchema(BugsSchema);
 // methods
 Meteor.methods({
   // bugsCreate
-  bugsCreate: function(title, description, resolution, status, priority, severity, created, createdBy, createdByName) {
+  bugsCreate: function(title, description, resolution, status, priority, severity) {
+    var result = Bugs.insert({
+      title: title,
+      description: description,
+      resolution: resolution,
+      status: status,
+      priority: priority,
+      severity: severity
+    });
 
+    return result;
   },
   // bugsUpdate
-  bugsUpdate: function(id, description, resolution, status, priority, severity, created, createdBy, createdByName) {
+  bugsUpdate: function(id, title, description, resolution, status, priority, severity) {
+    var result = Bugs.update(id, {$set: {
+      title: title,
+      description: description,
+      resolution: resolution,
+      status: status,
+      priority: priority,
+      severity: severity
+    }});
 
+    return result;
   },
   // bugsDelete
   bugsDelete: function(id) {
-
+    console.log(id);
+    Bugs.remove({_id:id});
   }
 });
