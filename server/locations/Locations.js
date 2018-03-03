@@ -20,24 +20,9 @@ Meteor.publish("allLocations", function(skipCount) {
 });
 
 // Active Only
-Meteor.publish("allActiveLocations", function(skipCount) {
-  var positiveIntegerCheck = Match.Where(function(x) {
-    check(x, Match.Integer);
-    return x >= 0;
-  });
+Meteor.publish("allActiveLocations", function() {
 
-  // check
-  check(skipCount, positiveIntegerCheck);
-
-  // publish counts
-  Counts.publish(this, 'LocationCount', Locations.find({status: 'Active'}), {
-    noReady: true
-  });
-
-  // return
-  return Locations.find({status: 'Active'}, {
-    limit: Meteor.settings.public.recordsPerPage, skip: skipCount
-  });
+  return Locations.find({status: 'Active'});
 });
 
 // Single Location

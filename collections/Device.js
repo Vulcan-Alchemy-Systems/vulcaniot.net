@@ -64,6 +64,16 @@ DeviceSchema = new SimpleSchema({
     }
   },
 
+  // location
+  location: {
+    type: String,
+    label: "Location",
+    optional: false,
+    autoform: {
+      type: "select",
+    }
+  },
+
   // installed
   installed: {
     type: Date,
@@ -138,9 +148,9 @@ DeviceSchema = new SimpleSchema({
   },
 
   // type
-  vendor: {
+  type: {
     type: String,
-    label: "Vendor",
+    label: "Type",
     optional: false,
     autoform: {
       type: "select",
@@ -165,13 +175,52 @@ Device.attachSchema(DeviceSchema);
 
 // methods
 Meteor.methods({
-  createDevice: function(name) {
+  createDevice: function(name, manufacture, model, serialNumber, website, vendor, location, installed, lastMaintenance, maintenanceScheduale, status, type) {
 
-  },
-  updateDevice: function(id, name) {
+    var result = Device.insert({
+      name: name,
+      manufacture: manufacture,
+      model: model,
+      serialNumber: serialNumber,
+      website: website,
+      vendor: vendor,
+      location: location,
+      installed: installed,
+      lastMaintenance: lastMaintenance,
+      maintenanceScheduale: maintenanceScheduale,
+      status: status,
+      type: type
+    });
 
+    return result;
   },
+
+  // updateDevice
+  updateDevice: function(id, name, manufacture, model, serialNumber, website, vendor, location, installed, lastMaintenance, maintenanceScheduale, status, type) {
+
+    var result = Device.update(id, {$set: {
+      name: name,
+      manufacture: manufacture,
+      model: model,
+      serialNumber: serialNumber,
+      website: website,
+      vendor: vendor,
+      location: location,
+      installed: installed,
+      lastMaintenance: lastMaintenance,
+      maintenanceScheduale: maintenanceScheduale,
+      status: status,
+      type: type
+    }});
+
+    return result;
+  },
+
+  // deleteDevice
   deleteDevice: function(id) {
 
+    var result = Device.remove({_id: id});
+
+    return result;
   }
 });

@@ -54,7 +54,6 @@ Template.JobNew.events({
     Meteor.call('jobCreate', formData, function(error, result) {
       if (error) {
         $("#alert").html('<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><i class="fa fa-warning"></i> Error ' + error.message + '</div>');
-        $('body').scrollTop(0);
       } else {
         $("#alert").html('<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Job has been saved.</div>');
 
@@ -73,5 +72,6 @@ Template.JobNew.events({
         Session.set('JobNew', false);
       }
     });
+    $('body').scrollTop(0);
   }
 });

@@ -19,6 +19,11 @@ Meteor.publish("allVendors", function(skipCount) {
   });
 });
 
+// allActiveVendors
+Meteor.publish("allActiveVendors", function() {
+  return Vendors.find({status: "Active"});
+});
+
 // Single Vendor
 Meteor.publish("singleVendor", function(id) {
   return Vendors.find({_id: id});
