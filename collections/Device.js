@@ -31,13 +31,15 @@ DeviceSchema = new SimpleSchema({
   // manufacture
   manufacture: {
     type: String,
-    label: "Manufacture"
+    label: "Manufacture",
+    optional: true,
   },
 
   // model
   model: {
     type: String,
-    label: "Model"
+    label: "Model",
+    optional: true,
   },
 
   // serialNumber
@@ -58,7 +60,7 @@ DeviceSchema = new SimpleSchema({
   vendor: {
     type: String,
     label: "Vendor",
-    optional: false,
+    optional: true,
     autoform: {
       type: "select",
     }
@@ -78,6 +80,7 @@ DeviceSchema = new SimpleSchema({
   installed: {
     type: Date,
     label: "Installed",
+    optional: true,
     autoform: {
       type: "datetime-local",
     }

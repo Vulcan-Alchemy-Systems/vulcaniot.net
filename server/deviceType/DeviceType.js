@@ -23,3 +23,9 @@ Meteor.publish("allDeviceTypes", function(skipCount) {
 Meteor.publish("singleDeviceType", function(id) {
   return DeviceType.find({_id: id});
 });
+
+// Active Only
+Meteor.publish("allActiveDeviceTypes", function() {
+
+  return DeviceType.find();
+});

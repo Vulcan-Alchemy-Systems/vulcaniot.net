@@ -45,6 +45,8 @@ Template.DeviceTypeNew.events({
         Session.set('DeviceTypeNew', false);
       }
     });
+
+    // scroll to top
     $('body').scrollTop(0);
   }
 });

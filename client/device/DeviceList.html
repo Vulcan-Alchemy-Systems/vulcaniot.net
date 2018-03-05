@@ -75,10 +75,10 @@
                   {{#each devices}}
                     <tr>
                       <td><a href="/devices/{{_id}}/view" title="View device {{name}}">{{name}}</a></td>
-                      <td>{{type}}</td>
+                      <td>{{getType type}}</td>
                       <td>{{manufacture}}</td>
                       <td>{{model}}</td>
-                      <td>{{location}}</td>
+                      <td>{{getLocation location}}</td>
                       <td>{{status}}</td>
                     </tr>
                   {{else}}

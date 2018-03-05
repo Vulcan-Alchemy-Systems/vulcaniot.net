@@ -13,6 +13,8 @@ Template.DeviceList.onCreated(function() {
     this.subscribe('allDevices', skipCount);
     this.subscribe('allActiveVendors');
     this.subscribe('allActiveLocations');
+    this.subscribe('allActiveDeviceTypes');
+    this.subscribe('singleLocation');
   });
 });
 
@@ -50,6 +52,34 @@ Template.DeviceList.helpers({
       var results = Locations.find({status: "Active"}).fetch();
 
       return results;
+  },
+
+  types: function() {
+    var results = DeviceType.find().fetch();
+
+    return results;
+  },
+
+  // getLocation
+  getLocation: function(id) {
+    var result = Locations.findOne({'_id': id});
+
+    if(result) {
+      return result.name;
+    } else {
+      return "Unknown";
+    }
+  },
+
+  // getType
+  getType: function(id) {
+    var result = DeviceType.findOne({'_id': id});
+
+    if(result) {
+      return result.name;
+    } else {
+      return "Unknown";
+    }
   },
 
   // prevPage

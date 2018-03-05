@@ -1,3 +1,7 @@
 <template name="DeviceView">
+  {{#unless Template.subscriptionsReady}}{{> spinner}}{{/unless}}
+  {{#if Template.subscriptionsReady}}
+    {{> ContentHeader title="Device" subTitle="View"}}
 
+    {{/if}}
 </template>
