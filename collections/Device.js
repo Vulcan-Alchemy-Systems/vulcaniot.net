@@ -160,6 +160,13 @@ DeviceSchema = new SimpleSchema({
     }
   },
 
+  // ipAddress
+  ipAddress: {
+    type: String,
+    label: "IP Address",
+    optional: true,
+  },
+
   // createdAt
   createdAt: {
     type: Date,
@@ -178,7 +185,7 @@ Device.attachSchema(DeviceSchema);
 
 // methods
 Meteor.methods({
-  createDevice: function(name, manufacture, model, serialNumber, website, vendor, location, installed, lastMaintenance, maintenanceScheduale, status, type) {
+  createDevice: function(name, manufacture, model, serialNumber, website, vendor, location, installed, lastMaintenance, maintenanceScheduale, status, type, ipAddress) {
 
     var result = Device.insert({
       name: name,
@@ -192,14 +199,15 @@ Meteor.methods({
       lastMaintenance: lastMaintenance,
       maintenanceScheduale: maintenanceScheduale,
       status: status,
-      type: type
+      type: type,
+      ipAddress: ipAddress
     });
 
     return result;
   },
 
   // updateDevice
-  updateDevice: function(id, name, manufacture, model, serialNumber, website, vendor, location, installed, lastMaintenance, maintenanceScheduale, status, type) {
+  updateDevice: function(id, name, manufacture, model, serialNumber, website, vendor, location, installed, lastMaintenance, maintenanceScheduale, status, type, ipAddress) {
 
     var result = Device.update(id, {$set: {
       name: name,
@@ -213,7 +221,8 @@ Meteor.methods({
       lastMaintenance: lastMaintenance,
       maintenanceScheduale: maintenanceScheduale,
       status: status,
-      type: type
+      type: type,
+      ipAddress: ipAddress
     }});
 
     return result;

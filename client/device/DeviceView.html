@@ -2,6 +2,104 @@
   {{#unless Template.subscriptionsReady}}{{> spinner}}{{/unless}}
   {{#if Template.subscriptionsReady}}
     {{> ContentHeader title="Device" subTitle="View"}}
+    <section class="content">
+      <div id="alert"></div>
+      <br />
+      <div class="row">
+        <div class="col-xs-12">
 
+          <div class="nav-tabs-custom">
+
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#details" data-toggle="tab">Details</a></li>
+              <li><a href="#sensors" data-toggle="tab">Sensors</a></li>
+              <li><a href="#maintenance" title="Maintenance" data-toggle="tab">Maintenance</a></li>
+
+            </ul>
+            <div class="tab-content">
+
+              <!-- Details -->
+              <div class="active tab-pane" id="details">
+                {{#if $.Session.get 'DeviceEdit'}}
+                  {{> DeviceEdit}}
+                {{else}}
+                <div class="row">
+                  <div class="col-xs-12">
+                    <p><b>Name: </b>{{device.name}}</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <p><b>Location: </b> <a href="/locations/{{device.location}}" title="View device">{{getLocation device.location}}</a></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <p><b>IP Address: </b> {{device.ipAddress}}</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <p><b>Type: </b> {{getType device.type}}</p>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xs-12 col-sm-6">
+                    {{#if device.vendor}}
+                    <p><b>Manufacture: </b> {{device.vendor}}</p>
+                    {{else}}
+                    <p><b>MDeviceNewanufacture: </b> {{device.manufacture}}</p>
+                    {{/if}}
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                    <p><b>Model: </b> {{device.model}}</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <p><b>Website: </b> {{#if device.website}}<a href="{{device.website}}" target="_blank" title="{{device.website}}">{{device.website}}</a>{{else}}None{{/if}}</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <p><b>Installed: </b> {{#if device.installed}}{{device.installed}}{{else}}Unknown{{/if}}</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <p><b>Last Maintenance: </b> {{#if device.lastMaintenance}}{{device.lastMaintenance}}{{else}}Never{{/if}}</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <p><b>Maintenance Scheduale: </b> {{device.maintenanceScheduale}}</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <span class="pull-right">
+                      <a href="#" title="Delete Device" class="btn btn-danger device-delete"><i class="fa fa-trash"></i> <span class="hidden-xs">Delete</span></a>
+                      <a href="#" title="Edit Device" class="btn btn-warning device-edit"><i class="fa fa-pencil"></i> <span class="hidden-xs">Edit</span></a>
+                    </span>
+                  </div>
+                </div>
+                {{/if}}
+              </div>
+
+              <!-- sensors -->
+              <div class="tab-pane" id="sensors">
+
+              </div>
+
+              <!-- maintenance -->
+              <div class="tab-pane" id="maintenance">
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
     {{/if}}
 </template>

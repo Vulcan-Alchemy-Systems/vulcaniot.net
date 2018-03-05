@@ -3,6 +3,8 @@ Template.DeviceView.onCreated(function() {
   this.autorun(() => {
     var id = FlowRouter.getParam('id');
     this.subscribe('singleDevice', id);
+    this.subscribe('allActiveDeviceTypes');
+    this.subscribe('allActiveLocations');
   });
 });
 
@@ -26,6 +28,45 @@ Template.DeviceView.helpers({
 
     return result;
   },
+
+  // getType
+  getType: function(id) {
+    var result = DeviceType.findOne({'_id': id});
+
+    if(result) {
+      return result.name;
+    } else {
+      return "Unknown";
+    }
+  },
+
+  // getLocation
+  getLocation: function(id) {
+    var result = Locations.findOne({'_id': id});
+
+    if(result) {
+      return result.name;
+    } else {
+      return "Unknown";
+    }
+  },
+});
+
+// events
+Template.DeviceView.events({
+    // device-edit
+    'click .device-edit': function(event) {
+      event.preventDefault();
+
+      Session.set('DeviceEdit', ! Session.get('DeviceEdit'));
+    },
+
+    // device.delete
+    'click .device.delete': function(event) {
+      event.preventDefault();
+
+      Session.set('DeviceDelete', ! Session.get('DeviceDelete'));
+    }
 });
 
 // router
