@@ -1,3 +1,86 @@
 <template name="DeviceEdit">
+  {{#unless Template.subscriptionsReady}}{{> spinner}}{{/unless}}
+  {{#if Template.subscriptionsReady}}
+    <div id="alert"></div>
+    <br />
+    {{# autoForm collection="Device" id="updateDeviceForm" type="update"  class="device-edit-form" validation="browser" doc=device}}
+    <div class="row">
+      <div class="col-xs-12">
+        {{> afQuickField name='name'}}
+      </div>
+    </div>
 
+    <div class="row">
+      <div class="col-xs-12 col-sm-6">
+        {{> afQuickField name='manufacture'}}
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        {{> afQuickField name='model'}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        {{> afQuickField name='serialNumber'}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        {{> afQuickField name='website'}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        {{> afQuickField name='ipAddress'}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-6">
+        {{> afQuickField name='vendor' options=vendors}}
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        {{> afQuickField name='location' options=locations}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-6">
+        {{> afQuickField name='lastMaintenance'}}
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        {{> afQuickField name='maintenanceScheduale'}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-6">
+        {{> afQuickField name='installed'}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-4">
+        {{> afQuickField name='status'}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-4">
+        {{> afQuickField name='type' options=types}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="pull-right">
+          <button type="cancel" class="btn btn-danger device-edit" name="cancel" id="cancel"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancel</button>
+          <button type="button" class="btn btn-primary device-edit-submit" name="submit" id="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+        </div>
+      </div>
+    </div>
+    {{/autoForm}}
+  {{/if}}
 </template>

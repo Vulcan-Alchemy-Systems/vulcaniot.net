@@ -14,7 +14,6 @@
               <li class="active"><a href="#details" data-toggle="tab">Details</a></li>
               <li><a href="#sensors" data-toggle="tab">Sensors</a></li>
               <li><a href="#maintenance" title="Maintenance" data-toggle="tab">Maintenance</a></li>
-
             </ul>
             <div class="tab-content">
 
@@ -47,7 +46,7 @@
                 <div class="row">
                   <div class="col-xs-12 col-sm-6">
                     {{#if device.vendor}}
-                    <p><b>Manufacture: </b> {{device.vendor}}</p>
+                    <p><b>Manufacture: </b> <a href="/vendors/{{device.vendor}}" title="View Vendor">{{getVendor device.vendor}}</a></p>
                     {{else}}
                     <p><b>MDeviceNewanufacture: </b> {{device.manufacture}}</p>
                     {{/if}}
@@ -89,7 +88,7 @@
 
               <!-- sensors -->
               <div class="tab-pane" id="sensors">
-
+                {{> DeviceSensorList}}
               </div>
 
               <!-- maintenance -->

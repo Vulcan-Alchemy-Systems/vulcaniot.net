@@ -19,47 +19,14 @@ Sensors.allow({
   },
 });
 
-ParamSchema = new SimpleSchema({
-  type: {
+SensorSchema = new SimpleSchema({
+  // device
+  device: {
     type: String,
-    label: "Type",
+    label: "Device",
     autoform: {
       type: "select",
-      options: [
-        {
-          label: "Low",
-          value: "Low"
-        },
-        {
-          label: "High",
-          value: "High"
-        },
-        {
-          label: "Active",
-          value: "Active"
-        },
-        {
-          label: "Not Active",
-          value: "Not Active"
-        },
-      ]
     }
-  },
-  value: {
-    type: String,
-    label: "Value",
-  },
-  alert: {
-    type: Boolean,
-    label: "Send Alert",
-  }
-});
-
-SensorSchema = new SimpleSchema({
-  // locationId
-  locationId: {
-    type: String,
-    label: "Location Id",
   },
 
   // type
@@ -84,14 +51,6 @@ SensorSchema = new SimpleSchema({
       ]
     }
   },
-
-  // params
-  parameters: {
-    type: Array,
-    label: "Params",
-    optional: true,
-  },
-  'parameters.$': ParamSchema,
 
   // display
   display: {
@@ -167,15 +126,40 @@ Sensors.attachSchema(SensorSchema);
 
 // methods
 Meteor.methods({
-  createSensor: function(sensor) {
-    Sensors.insert(sensor);
-  },
-  updateSensor: function(id, sensor) {
-    Sensors.update(id, sensor);
-  },
-  getScale: function() {
-    
-    return json;
-  }
+  // createSensor
+  createSensor: function(device, type, display, name, description, status, sub) {
+    var result = Sensors.insert({
+      device: device,
+      type: type,
+      display: display,
+      name: name,
+      description: description,
+      status: status,
+      sub: sub
+    });
 
+    return result;
+  },
+
+  // updateSensor
+  updateSensor: function(id, device, type, display, name, description, status, sub) {
+    var result = Sensors.update(id, {$set: {
+      device: device,
+      type: type,
+      display: display,
+      name: name,
+      description: description,
+      status: status,
+      sub: sub
+    }});
+
+    return result;
+  },
+
+  // removeSensor
+  removeSensor: function(id) {
+    var result = Sensors.remove({_id: id});
+
+    return result;
+  }
 });

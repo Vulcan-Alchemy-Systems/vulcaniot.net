@@ -5,6 +5,7 @@ Template.DeviceView.onCreated(function() {
     this.subscribe('singleDevice', id);
     this.subscribe('allActiveDeviceTypes');
     this.subscribe('allActiveLocations');
+    this.subscribe('allActiveVendors');
   });
 });
 
@@ -50,6 +51,17 @@ Template.DeviceView.helpers({
       return "Unknown";
     }
   },
+
+  // getVendor
+  getVendor: function(id) {
+    var result = Vendors.findOne({'_id': id});
+
+    if(result) {
+      return result.name;
+    } else {
+      return "Unknown";
+    }
+  }
 });
 
 // events
