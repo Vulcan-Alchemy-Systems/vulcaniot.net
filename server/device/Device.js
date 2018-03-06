@@ -20,24 +20,9 @@ Meteor.publish("allDevices", function(skipCount) {
 });
 
 // allActiveDevices
-Meteor.publish("allActiveDevices", function(skipCount) {
-  var positiveIntegerCheck = Match.Where(function(x) {
-    check(x, Match.Integer);
-    return x >= 0;
-  });
-
-  // check
-  check(skipCount, positiveIntegerCheck);
-
-  // publish counts
-  Counts.publish(this, 'DeviceCount', Device.find({status: 'Active'}), {
-    noReady: true
-  });
-
+Meteor.publish("allActiveDevices", function() {
   // return
-  return Device.find({status: 'Active'}, {
-    limit: Meteor.settings.public.recordsPerPage, skip: skipCount
-  });
+  return Device.find({status: 'Active'});
 });
 
 // singleDevice
