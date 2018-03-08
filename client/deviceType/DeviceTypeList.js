@@ -110,7 +110,7 @@ FlowRouter.route('/admin/device/types/:page', {
 FlowRouter.route('/admin/device/types', {
   name: 'deviceTypeList',
   parent: 'admin',
-  title: 'Device Type',
+  title: 'Device Types',
   triggersEnter: [function(context, redirect) {
     if (!Roles.userIsInRole(Meteor.userId(), ['admin'])) {
 
