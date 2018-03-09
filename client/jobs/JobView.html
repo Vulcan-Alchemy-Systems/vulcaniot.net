@@ -97,6 +97,7 @@
                 <ul class="nav nav-tabs">
                   <li class="active"><a href="#notes" data-toggle="tab">Notes</a></li>
                   <li><a href="#materials" data-toggle="tab">Materials</a></li>
+                  <li><a href="#batch" data-toggle="tab">Batch</a></li>
                   <li><a href="#products" data-toggle="tab">Products</a></li>
                   <li><a href="#transfer" data-toggle="tab">Transfer</a></li>
                 </ul>
@@ -156,6 +157,11 @@
                   <!-- materials -->
                   <div class="tab-pane" id="materials">
                     {{> JobsMaterialsList}}
+                  </div>
+
+                  <!-- batch -->
+                  <div class="tab-pane" id="batch">
+                    {{> JobsBatchList}}
                   </div>
 
                   <!-- Products -->

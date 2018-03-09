@@ -70,13 +70,13 @@ Template.DeviceEdit.events({
 
     // set up form
     var formData = AutoForm.getFormValues('updateDeviceForm').updateDoc.$set;
-    
+
     // scroll to top
     $('body').scrollTop(0);
 
     Meteor.call('updateDevice', id, formData.name, formData.manufacture, formData.model, formData.serialNumber,
       formData.website, formData.vendor, formData.location, formData.installed, formData.lastMaintenance,
-      formData.maintenanceScheduale, formData.status, formData.type, formData.ipAddress, function(error, result) {
+      formData.maintenanceScheduale, formData.status, formData.type, formData.ipAddress, formData.selectable, function(error, result) {
       if(error) {
         $("#alert").html('<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><i class="fa fa-warning"></i> Error ' + error.message + '</div>');
       } else {

@@ -167,6 +167,12 @@ DeviceSchema = new SimpleSchema({
     optional: true,
   },
 
+  // selectable Boolean
+  selectable: {
+    type: Boolean,
+    label: "Selectable",
+  },
+
   // createdAt
   createdAt: {
     type: Date,
@@ -185,7 +191,7 @@ Device.attachSchema(DeviceSchema);
 
 // methods
 Meteor.methods({
-  createDevice: function(name, manufacture, model, serialNumber, website, vendor, location, installed, lastMaintenance, maintenanceScheduale, status, type, ipAddress) {
+  createDevice: function(name, manufacture, model, serialNumber, website, vendor, location, installed, lastMaintenance, maintenanceScheduale, status, type, ipAddress, selectable) {
 
     var result = Device.insert({
       name: name,
@@ -200,14 +206,15 @@ Meteor.methods({
       maintenanceScheduale: maintenanceScheduale,
       status: status,
       type: type,
-      ipAddress: ipAddress
+      ipAddress: ipAddress,
+      selectable: selectable
     });
 
     return result;
   },
 
   // updateDevice
-  updateDevice: function(id, name, manufacture, model, serialNumber, website, vendor, location, installed, lastMaintenance, maintenanceScheduale, status, type, ipAddress) {
+  updateDevice: function(id, name, manufacture, model, serialNumber, website, vendor, location, installed, lastMaintenance, maintenanceScheduale, status, type, ipAddress, selectable) {
 
     var result = Device.update(id, {$set: {
       name: name,
@@ -222,7 +229,8 @@ Meteor.methods({
       maintenanceScheduale: maintenanceScheduale,
       status: status,
       type: type,
-      ipAddress: ipAddress
+      ipAddress: ipAddress,
+      selectable: selectable
     }});
 
     return result;

@@ -64,6 +64,7 @@
                   <thead>
                     <tr>
                       <th>Name</th>
+                      <th>Selectable</th>
                       <th>Type</th>
                       <th>Manufacture</th>
                       <th>Model</th>
@@ -76,8 +77,9 @@
                     <tr>
                       <td><a href="/devices/{{_id}}/view" title="View device {{name}}">{{name}}</a></td>
                       <td>{{getType type}}</td>
-                      <td>{{manufacture}}</td>
-                      <td>{{model}}</td>
+                      <td>{{#if selectable}}{{selectable}}{{else}}false{{/if}}</td>
+                      <td>{{#if manufacture}}{{manufacture}}{{else}}Unknown{{/if}}</td>
+                      <td>{{#if model}}{{model}}{{else}}Unknown{{/if}}</td>
                       <td>{{getLocation location}}</td>
                       <td>{{status}}</td>
                     </tr>

@@ -147,18 +147,6 @@ JobProductsSchema = new SimpleSchema({
     }
   },
 
-  // createdByName
-  createdByName: {
-    type: String,
-    label: "Created By Name",
-    autoform: {
-      type: "hidden",
-    },
-    autoValue: function () {
-      return Meteor.user().profile.name;
-    },
-  },
-
   deleted: {
     type: Boolean,
     optional: true,
@@ -216,17 +204,7 @@ JobsNoteSchema = new SimpleSchema({
     }
   },
 
-  // createdByName
-  createdByName: {
-    type: String,
-    label: "Created By Name",
-    autoform: {
-      type: "hidden",
-    },
-    autoValue: function () {
-      return Meteor.user().profile.name;
-    },
-  },
+
 
   deleted: {
     type: Boolean,
@@ -340,19 +318,7 @@ JobsSchema = new SimpleSchema({
     }
   },
 
-  // createdByName
-  createdByName: {
-    type: String,
-    label: "Created By Name",
-    autoform: {
-      type: "hidden",
-    },
-    autoValue: function () {
-      return Meteor.user().profile.name;
-    },
-  },
-
-  //externalReporting
+  // externalReporting
   externalReporting: {
     type: Boolean,
     label: "External Reporting",

@@ -34,7 +34,7 @@
                 </div>
                 <div class="row">
                   <div class="col-xs-12">
-                    <p><b>IP Address: </b> {{device.ipAddress}}</p>
+                    <p><b>IP Address: </b> {{#if device.ipAddress}}{{device.ipAddress}}{{else}}None{{/if}}</p>
                   </div>
                 </div>
                 <div class="row">
@@ -73,6 +73,12 @@
                 <div class="row">
                   <div class="col-xs-12">
                     <p><b>Maintenance Scheduale: </b> {{device.maintenanceScheduale}}</p>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xs-12">
+                    <p><b>Selectable: </b> {{#if device.selectable}}{{device.selectable}}{{else}}false{{/if}}</p>
                   </div>
                 </div>
                 <div class="row">

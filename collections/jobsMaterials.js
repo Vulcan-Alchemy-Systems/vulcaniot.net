@@ -114,6 +114,30 @@ JobMaterialSchema = new SimpleSchema({
       ]
     }
   },
+
+  // createdAt
+  createdAt: {
+    type: Date,
+    label: "Created At",
+    autoValue: function () {
+      return new Date();
+    },
+    autoform: {
+      type: "hidden",
+    }
+  },
+
+  // createdBy
+  createdBy: {
+    type: String,
+    label: "Created By",
+    autoValue: function () {
+      return Meteor.userId();
+    },
+    autoform: {
+      type: "hidden",
+    }
+  },
 });
 
 // attach

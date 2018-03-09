@@ -140,7 +140,7 @@ CustomersSchema = new SimpleSchema({
   },
   'phones.$': PhonesSchema,
   // created
-  created: {
+  createdAt: {
     type: Date,
     label: "Created",
     autoValue: function () {
