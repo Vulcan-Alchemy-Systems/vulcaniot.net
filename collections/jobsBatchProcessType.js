@@ -5,10 +5,10 @@ SimpleSchema.extendOptions(['autoform']);
 // debug
 SimpleSchema.debug = true;
 
-JobsBatchType = new Meteor.Collection("jobsBatchType");
+JobsBatchProcessType = new Meteor.Collection("jobsBatchProcessType");
 
 // rules
-JobsBatchType.allow({
+JobsBatchProcessType.allow({
   insert: function(userId, doc) {
     return true;
   },
@@ -20,8 +20,8 @@ JobsBatchType.allow({
   },
 });
 
-// JobsBatchProductsSchema
-JobsBatchTypeSchema = new SimpleSchema({
+// JobsBatchProcessTypeSchema
+JobsBatchProcessTypeSchema = new SimpleSchema({
   // title
   title: {
     type: String,
@@ -62,13 +62,13 @@ JobsBatchTypeSchema = new SimpleSchema({
 });
 
 // attach
-JobsBatchType.attachSchema(JobsBatchTypeSchema);
+JobsBatchProcessType.attachSchema(JobsBatchProcessTypeSchema);
 
 // methods
 Meteor.methods({
   // jobsBatchTypeCreate
-  jobsBatchTypeCreate: function(title, value) {
-    var result = JobsBatchType.insert({
+  jobsBatchProcessTypeCreate: function(title, value) {
+    var result = JobsBatchProcessType.insert({
       title: title,
       value: value
     });
@@ -77,8 +77,8 @@ Meteor.methods({
   },
 
   // jobsBatchTypeUpdate
-  jobsBatchTypeUpdate: function(id, title, value) {
-    var result = JobsBatchType.update(id, {$set: {
+  jobsBatchProcessTypeUpdate: function(id, title, value) {
+    var result = JobsBatchProcessType.update(id, {$set: {
       title: title,
       value: value
     }});
@@ -87,8 +87,8 @@ Meteor.methods({
   },
 
   // jobsBatchTypeDelete
-  jobsBatchTypeDelete: function(id) {
-    var result = JobsBatchType.remove({_id: id});
+  jobsBatchProcessTypeDelete: function(id) {
+    var result = JobsBatchProcessType.remove({_id: id});
 
     return result;
   }

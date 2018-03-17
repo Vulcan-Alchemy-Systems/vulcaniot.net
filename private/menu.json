@@ -1,0 +1,107 @@
+{
+	"_id" : "Cxk5ubPZdCv4TSp4H",
+	"application" : [
+		{
+			"name" : "VulcanIOT.net"
+		}
+	],
+	"name" : "Admin",
+	"icon" : "fa-cogs",
+	"order" : "1",
+	"active" : true,
+	"subMenu" : [
+		{
+			"name" : "Home",
+			"icon" : "fa-home",
+			"url" : "/admin",
+			"order" : "1",
+			"active" : true
+		},
+		{
+			"name" : "Job Status",
+			"icon" : "fa-cogs",
+			"url" : "/admin/jobs/status",
+			"order" : "10",
+			"active" : true
+		},
+		{
+			"name" : "Device Types",
+			"icon" : "fa-cogs",
+			"url" : "/admin/device/types",
+			"order" : "11",
+			"active" : true
+		},
+		{
+			"name" : "Sensor Types",
+			"icon" : "fa-cogs",
+			"url" : "/admin/sensor/types",
+			"order" : "11",
+			"active" : true
+		},
+		{
+			"name" : "Job Batch Types",
+			"icon" : "fa-cogs",
+			"url" : "/admin/jobs/jobs/batch/types",
+			"order" : "12",
+			"active" : false
+		},
+		{
+			"name" : "Users",
+			"icon" : "fa-group",
+			"url" : "/admin/users",
+			"order" : "2",
+			"active" : true
+		},
+		{
+			"name" : "Roles",
+			"icon" : "fa-lock",
+			"url" : "/admin/roles",
+			"order" : "3",
+			"active" : true
+		},
+		{
+			"name" : "Menu",
+			"icon" : "fa-list-ul",
+			"url" : "/admin/menu",
+			"order" : "4",
+			"active" : true
+		},
+		{
+			"name" : "Product Categories",
+			"icon" : "fa-list",
+			"url" : "/admin/category",
+			"order" : "5",
+			"active" : true
+		},
+		{
+			"name" : "Products",
+			"icon" : "fa-shopping-cart",
+			"url" : "/admin/products",
+			"order" : "6",
+			"active" : true
+		},
+		{
+			"name" : "Inventory",
+			"icon" : "fa-object-group",
+			"url" : "/admin/inventory",
+			"order" : "7",
+			"active" : true
+		},
+		{
+			"name" : "Inventory Categories",
+			"icon" : "fa-list-alt",
+			"url" : "/admin/inventory-category",
+			"order" : "8",
+			"active" : true
+		},
+		{
+			"name" : "Attributes",
+			"icon" : "fa-check-square-o",
+			"url" : "/admin/attribute",
+			"order" : "9",
+			"active" : true
+		}
+	],
+	"created" : ISODate("2018-01-05T18:36:54Z"),
+	"lastModified" : ISODate("2018-03-09T22:56:41.926Z")
+}

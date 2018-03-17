@@ -31,8 +31,8 @@ JobsBatchProcessSchema = new SimpleSchema({
     },
   },
 
-  // deviceId
-  deviceId: {
+  // device
+  device: {
     type: String,
     label: "Device",
     optional: false,
@@ -41,8 +41,8 @@ JobsBatchProcessSchema = new SimpleSchema({
     }
   },
 
-  // userId
-  userId: {
+  // user
+  user: {
     type: String,
     label: "User",
     optional: false,
@@ -54,7 +54,7 @@ JobsBatchProcessSchema = new SimpleSchema({
   // type
   type: {
     type: String,
-    label: "Type",
+    label: "Process Type",
     optional: false,
     autoform: {
       type: "select",

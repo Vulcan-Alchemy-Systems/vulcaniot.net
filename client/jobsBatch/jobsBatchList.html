@@ -1,0 +1,53 @@
+<template name="JobsBatchList">
+  {{#unless Template.subscriptionsReady}}{{> spinner}}{{/unless}}
+  {{#if $.Session.get 'JobsBatchEdit'}}
+    {{> JobsBatchEdit}}
+  {{else}}
+    {{#if $.Session.get 'JobsBatchDelete'}}
+      {{> JobsBatchDelete}}
+    {{else}}
+      {{#if $.Session.get 'JobsBatchNew'}}
+        {{> JobsBatchNew}}
+      {{else}}
+        {{#if $.Session.get 'JobsBatchView'}}
+          {{> JobsBatchView}}
+        {{else}}
+          {{#if Template.subscriptionsReady}}
+          <a href="#" title="New Batch" class="btn btn-xs btn-success jobs-batch-new pull-right" style="margin-top:-48px;">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            <span class="hidden-xs">New</span>
+          </a>
+          <div class="table-responsive">
+            <table class="table table-hover table-striped">
+              <thead>
+                <tr>
+                  <th>Barcode</th>
+                  <th>Type</th>
+                  <th>Start</th>
+                  <th>End</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each JobsBatchs}}
+                <tr>
+                  <td class="text-center"><span class="barcode">*{{barcode}}*</span><br />
+                      <a href="#" title="View Batch" class="jobs-batch-view">{{barcode}}</a>
+                  </td>
+                  <td>{{type}}</td>
+                  <td>{{dateFormatLong start}}</td>
+                  <td>{{dateFormatLong end}}</td>
+                </tr>
+                {{else}}
+                <tr>
+                  <td colspan="4"><i class="fa fa-info-circle" aria-hidden="true"></i> No Batchs</td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+          {{/if}}
+        {{/if}}
+      {{/if}}
+    {{/if}}
+  {{/if}}
+</template>

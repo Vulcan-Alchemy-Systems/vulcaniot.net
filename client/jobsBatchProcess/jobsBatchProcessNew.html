@@ -1,0 +1,43 @@
+<template name="JobsBatchProcessNew">
+  {{#unless Template.subscriptionsReady}}{{> spinner}}{{/unless}}
+  {{#if Template.subscriptionsReady}}
+    {{# autoForm collection="JobsBatchProcess" id="insertJobsBatchProcessForm" type="insert"  class="new-job-Batch-process-form" validation="browser"}}
+    <div class="row">
+      <div class="col-xs-12">
+        {{> afQuickField name='type' options=jobsBatchProcess}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6">
+        {{> afQuickField name='start'}}
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        {{> afQuickField name='end'}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        {{> afQuickField name='user' options=users}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        {{> afQuickField name='device' options=devices}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        {{> afQuickField name='note'}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="pull-right">
+          <button type="cancel" class="btn btn-danger jobs-batch-process-new" name="cancel" id="cancel"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancel</button>
+          <button type="button" class="btn btn-primary jobs-batch-process-new-submit" name="submit" id="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+        </div>
+      </div>
+    </div>
+    {{/autoForm}}
+  {{/if}}
+</template>

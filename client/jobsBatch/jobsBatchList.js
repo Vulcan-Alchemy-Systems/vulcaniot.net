@@ -2,6 +2,7 @@
 Template.JobsBatchList.onCreated(function() {
   this.autorun(() => {
     var jobId = FlowRouter.getParam('jobId');
+    this.subscribe('allActiveJobsBatch', jobId);
   });
 });
 
@@ -17,8 +18,14 @@ Template.JobsBatchList.helpers({
 // events
 Template.JobsBatchList.events({
   // jobs-batch-new
-  'click .jobs-batch-new': function() {
+  'click .jobs-batch-new': function(event) {
     event.preventDefault();
     Session.set('JobsBatchNew', ! Session.get('JobsBatchNew'));
-  }
+  },
+  // jobs-batch-view
+  'click .jobs-batch-view': function(event) {
+    event.preventDefault();
+    Session.set('JobsBatchId', this._id);
+    Session.set('JobsBatchView', ! Session.get('JobsBatchView'))
+  },
 });

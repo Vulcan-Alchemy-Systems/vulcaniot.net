@@ -1,0 +1,25 @@
+{
+	"_id" : "J7QWt3pLazudnxTkS",
+	"name" : "Distiller",
+	"createdAt" : ISODate("2018-03-02T14:30:26.885Z")
+}
+{
+	"_id" : "KEeHotmkrYotN3ZNH",
+	"name" : "Extractor",
+	"createdAt" : ISODate("2018-03-02T14:30:39.591Z")
+}
+{
+	"_id" : "Pw3smzp2HLWgpG9mn",
+	"name" : "Scale",
+	"createdAt" : ISODate("2018-03-02T14:30:45.852Z")
+}
+{
+	"_id" : "9Wp5dAwJJT2p627fT",
+	"name" : "Cryogenic Freezer",
+	"createdAt" : ISODate("2018-03-08T18:26:35.414Z")
+}
+{
+	"_id" : "cmRRnSAiHNjyQ3ZEN",
+	"name" : "Vacuum Pump",
+	"createdAt" : ISODate("2018-03-08T18:57:01.059Z")
+}

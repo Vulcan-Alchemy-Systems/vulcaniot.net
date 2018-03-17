@@ -1,0 +1,65 @@
+<template name="JobsBatchView">
+  {{#if Template.subscriptionsReady}}
+  <span class="pull-right" style="margin-top:-48px;">
+    <a href="#" title="Delete Batch" class="btn btn-xs btn-danger">
+      <i class="fa fa-trash" aria-hidden="true"></i>
+      <span class="hidden-xs">Delete</span>
+    </a>
+    <a href="" title="Edit Job Batch" class="btn btn-xs btn-warning">
+      <i class="fa fa-pencil" aria-hidden="true"></i>
+      <span class="hidden-xs">Edit</span>
+    </a>
+    <a href="#" title="Back " class="btn btn-xs btn-primary jobs-batch-view">
+      <i class="fa fa-reply" aria-hidden="true"></i>
+      <span class="hidden-xs">Back</span>
+    </a>
+
+  </span>
+  <div class="row">
+    <div class="col-xs-12 col-sm-6">
+      <p><b>Type: </b> {{JobsBatch.type}}</p>
+    </div>
+    <div class="col-xs-12 cols-sm-6">
+      <p><b>Barcode:</b> <span class="barcode">*{{JobsBatch.barcode}}*</span></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-6">
+      <p><b>Start:</b> {{dateFormatLong JobsBatch.start}}</p>
+    </div>
+    <div class="col-xs-12 col-sm-6">
+      <p><b>End:</b> {{dateFormatLong JobsBatch.end}}</p>
+    </div>
+  </div>
+  <hr />
+
+  {{#if $.Session.get 'JobsBatchProcessNew'}}
+    {{> JobsBatchProcessNew}}
+  {{else}}
+    <div class="table-responsive">
+      <table class="table table-hover table-striped">
+        <thead>
+          <th>Process</th>
+          <th>Device</th>
+          <th>User</th>
+          <th>Start</th>
+          <th>End</th>
+          <th class="text-right">
+            <a href="#" title="New Process" class="btn btn-xs btn-success jobs-batch-process-new">
+              <i class="fa fa-plus"></i>
+              <span class="hidden-xs">New Process</span>
+            </a>
+          </th>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="6">
+              <i class="fa fa-info-circle" aria-hidden="true"></i> No Batch Processes
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  {{/if}}
+  {{/if}}
+</template>
